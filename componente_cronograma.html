@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cronograma PLR — inline styles</title>
+</head>
+<body style="font-family:Arial,sans-serif;background:#f0f4f8;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;padding:2rem;">
+
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  TRECHO PARA COLAR NO EDITOR HTML DO SE SUITE               ║
+  ║  Copie apenas de <div style="background:#fff... até </div>   ║
+  ║  (o bloco marcado abaixo)                                   ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+
+<!-- ▼▼▼ INÍCIO DO TRECHO — copie daqui ▼▼▼ -->
+
+<div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:24px 28px 28px;max-width:560px;font-family:Arial,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.07);">
+
+  <!-- Título -->
+  <p style="margin:0 0 20px;font-size:15px;font-weight:700;color:#0f172a;">
+    📅 Cronograma de Pagamentos 2026 / 2027
+  </p>
+
+  <!-- Timeline (tabela para suporte de vertical line em editores) -->
+  <table style="width:100%;border-collapse:collapse;border-spacing:0;">
+    <tbody>
+
+      <!-- ── Passo 1 — Concluído ───────────────────────────── -->
+      <tr>
+        <td style="width:36px;vertical-align:top;text-align:center;padding-bottom:0;">
+          <!-- Ícone verde -->
+          <div style="width:32px;height:32px;border-radius:50%;background:#ecfdf5;border:2px solid #10b981;color:#10b981;font-size:16px;font-weight:700;line-height:28px;text-align:center;margin:0 auto;">✓</div>
+          <!-- Linha vertical -->
+          <div style="width:2px;background:#e2e8f0;margin:0 auto;height:32px;"></div>
+        </td>
+        <td style="padding:4px 0 16px 14px;vertical-align:top;">
+          <p style="margin:0;font-size:13.5px;font-weight:700;color:#0f172a;">
+            <span style="color:#2563eb;">01/01/2026</span> — Início do Período de Apuração
+          </p>
+          <p style="margin:4px 0 0;font-size:12px;color:#64748b;line-height:1.45;">
+            Início da contagem de indicadores corporativos, setoriais e individuais.
+          </p>
+        </td>
+      </tr>
+
+      <!-- ── Passo 2 — Ativo / Próximo ────────────────────── -->
+      <tr>
+        <td style="width:36px;vertical-align:top;text-align:center;padding-bottom:0;">
+          <!-- Ícone azul -->
+          <div style="width:32px;height:32px;border-radius:50%;background:#eff6ff;border:2px solid #3b82f6;color:#2563eb;font-size:13px;font-weight:700;line-height:28px;text-align:center;margin:0 auto;">2</div>
+          <!-- Linha vertical -->
+          <div style="width:2px;background:#e2e8f0;margin:0 auto;height:32px;"></div>
+        </td>
+        <td style="padding:4px 0 16px 14px;vertical-align:top;">
+          <p style="margin:0;font-size:13.5px;font-weight:700;color:#0f172a;">
+            <span style="color:#2563eb;">30/09/2026</span> — Antecipação de 30%
+          </p>
+          <p style="margin:4px 0 0;font-size:12px;color:#64748b;line-height:1.45;">
+            Pagamento parcial com base no atingimento de ROL e EBITDA do 1º semestre.
+          </p>
+          <!-- Countdown pill -->
+          <span id="plr-countdown" style="display:inline-block;margin-top:6px;background:#fff7ed;border:1px solid #fed7aa;color:#c2410c;font-size:11px;font-weight:700;padding:2px 10px;border-radius:20px;">
+            ⏳ 19 dias restantes
+          </span>
+        </td>
+      </tr>
+
+      <!-- ── Passo 3 — Futuro ──────────────────────────────── -->
+      <tr>
+        <td style="width:36px;vertical-align:top;text-align:center;">
+          <!-- Ícone cinza -->
+          <div style="width:32px;height:32px;border-radius:50%;background:#f8fafc;border:2px solid #cbd5e1;color:#94a3b8;font-size:13px;font-weight:700;line-height:28px;text-align:center;margin:0 auto;">3</div>
+        </td>
+        <td style="padding:4px 0 0 14px;vertical-align:top;">
+          <p style="margin:0;font-size:13.5px;font-weight:700;color:#0f172a;">
+            <span style="color:#2563eb;">30/04/2027</span> — Pagamento do Saldo Final
+          </p>
+          <p style="margin:4px 0 0;font-size:12px;color:#64748b;line-height:1.45;">
+            Apuração final auditada com fechamento contábil, descontando a antecipação.
+          </p>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+
+<!-- ▲▲▲ FIM DO TRECHO ▲▲▲ -->
+
+<script>
+  /* Atualiza o countdown dinamicamente (só roda fora do editor) */
+  (function () {
+    var el = document.getElementById('plr-countdown');
+    if (!el) return;
+    var target = new Date('2026-09-30T23:59:59-03:00');
+    var diff = Math.ceil((target - new Date()) / 86400000);
+    if (diff <= 0)       el.textContent = '🔔 Prazo encerrado';
+    else if (diff === 1) el.textContent = '⏰ Amanhã é o prazo!';
+    else                 el.textContent = '⏳ ' + diff + ' dias restantes';
+  })();
+</script>
+
+</body>
+</html>
