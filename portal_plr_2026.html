@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Acompanhamento PLR 2026 | SoftExpert</title>
+    <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-dark: #0369a1;
+            --primary-light: #e0f2fe;
+            --primary-gradient: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+            --accent: #6366f1;
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --warning: #f59e0b;
+            --warning-light: #fef3c7;
+            --danger: #ef4444;
+            --danger-light: #fee2e2;
+            --neutral-bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04);
+            --radius-md: 12px;
+            --radius-lg: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--neutral-bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Navbar (SoftExpert Style) */
+        header.se-navbar {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.75rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .se-logo {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .se-logo span.badge-se {
+            background: var(--primary-gradient);
+            color: white;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .user-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: #f1f5f9;
+            padding: 0.4rem 0.8rem 0.4rem 0.5rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .btn-rule-doc {
+            background: white;
+            border: 1px solid var(--border-color);
+            color: var(--primary-dark);
+            padding: 0.45rem 0.9rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s;
+        }
+
+        .btn-rule-doc:hover {
+            background: var(--primary-light);
+            border-color: var(--primary);
+        }
+
+        /* Persona Switcher for Prototype Presentation */
+        .prototype-bar {
+            background: #0f172a;
+            color: #94a3b8;
+            padding: 0.5rem 2rem;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .prototype-bar select {
+            background: #1e293b;
+            color: white;
+            border: 1px solid #334155;
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        /* Main Layout */
+        main.container {
+            max-width: 1360px;
+            margin: 1.5rem auto;
+            padding: 0 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            flex: 1;
+        }
+
+        /* Profile & Eligibility Banner */
+        .profile-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem 1.75rem;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .profile-info h1 {
+            font-size: 1.35rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-main);
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .profile-meta-item strong {
+            color: var(--text-main);
+        }
+
+        .status-badges {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: var(--success-light);
+            color: #065f46;
+        }
+
+        .badge-warning {
+            background: var(--warning-light);
+            color: #92400e;
+        }
+
+        .badge-info {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+        }
+
+        /* Gatilho Corporativo (Gatekeeper) */
+        .gatekeeper-card {
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .gatekeeper-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .metric-box {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .metric-box-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .metric-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .metric-target {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: #f1f5f9;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .metric-value-row {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+
+        .metric-value {
+            font-size: 1.85rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .metric-sub {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Modern Progress Bars with Target Marker */
+        .progress-track {
+            position: relative;
+            height: 12px;
+            background: #e2e8f0;
+            border-radius: 6px;
+            overflow: visible;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 1s ease-in-out;
+        }
+
+        .progress-fill.success {
+            background: linear-gradient(90deg, #10b981, #059669);
+        }
+
+        .progress-fill.warning {
+            background: linear-gradient(90deg, #f59e0b, #d97706);
+        }
+
+        .progress-fill.primary {
+            background: var(--primary-gradient);
+        }
+
+        .target-marker {
+            position: absolute;
+            top: -4px;
+            bottom: -4px;
+            width: 3px;
+            background: #0f172a;
+            border-radius: 2px;
+            z-index: 2;
+        }
+
+        .target-marker::after {
+            content: 'Meta';
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        /* Scorecard Consolidado & Pilares */
+        .scorecard-section {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 1.5rem;
+        }
+
+        .main-score-card {
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: var(--radius-lg);
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-score-card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .score-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .score-big-num {
+            font-size: 3.5rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            line-height: 1;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        .score-formula {
+            font-size: 0.78rem;
+            opacity: 0.85;
+            background: rgba(0, 0, 0, 0.15);
+            padding: 0.75rem;
+            border-radius: 8px;
+            line-height: 1.4;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+        }
+
+        .pillar-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .pillar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .pillar-name {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .pillar-weight {
+            background: #f1f5f9;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: var(--text-muted);
+        }
+
+        .sub-metrics-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            margin: 0.75rem 0;
+        }
+
+        .sub-metric-item {
+            font-size: 0.8rem;
+        }
+
+        .sub-metric-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.3rem;
+        }
+
+        .sub-metric-name {
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .sub-metric-val {
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .pillar-footer-score {
+            border-top: 1px dashed var(--border-color);
+            padding-top: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .pillar-footer-score span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .pillar-footer-score strong {
+            font-size: 1.15rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--primary-dark);
+        }
+
+        /* Simulador Financeiro & Cronograma */
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .simulator-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .sim-input-row {
+            display: flex;
+            gap: 1rem;
+            margin: 1.25rem 0;
+            align-items: center;
+        }
+
+        .sim-input-group {
+            flex: 1;
+        }
+
+        .sim-input-group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.35rem;
+        }
+
+        .sim-input-group input {
+            width: 100%;
+            padding: 0.6rem 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .sim-results-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+        }
+
+        .sim-result-box {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .sim-result-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .sim-result-value {
+            font-size: 1.1rem;
+            font-weight: 800;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-main);
+        }
+
+        .sim-result-value.highlight {
+            color: var(--success);
+        }
+
+        /* Timeline Card */
+        .timeline-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .timeline-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            margin-top: 0.75rem;
+            position: relative;
+        }
+
+        .timeline-step {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .step-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-icon.done {
+            background: var(--success-light);
+            color: var(--success);
+        }
+
+        .step-details h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .step-details p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.15rem;
+        }
+
+        /* Modal Regulamento */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius-lg);
+            max-width: 650px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .modal-content h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .modal-content ul {
+            padding-left: 1.25rem;
+            margin: 1rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #334155;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .scorecard-section {
+                grid-template-columns: 1fr;
+            }
+            .pillars-grid {
+                grid-template-columns: 1fr;
+            }
+            .bottom-grid {
+                grid-template-columns: 1fr;
+            }
+            .gatekeeper-grid {
+                grid-template-columns: 1fr;
+            }
+            .profile-card {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Prototype Top Selector (Para simular diferentes perfis à diretoria) -->
+    <div class="prototype-bar">
+        <div>💡 <strong>Protótipo Interativo PLR 2026:</strong> Apresentação para Diretoria & SE Suite Portal</div>
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <span>Simular Colaborador:</span>
+            <select id="personaSelector" onchange="changePersona(this.value)">
+                <option value="alan">Alan Alexis (Digital Transformation - 12m)</option>
+                <option value="novato">Mariana Silva (Consultoria - Admitida em Mai/26 - 8m)</option>
+                <option value="estagiario">Pedro Santos (Estagiário - Carência Cumprida)</option>
+                <option value="bloqueado">Gatilho Não Atingido (Cenário ROL < 15%)</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- SoftExpert Header -->
+    <header class="se-navbar">
+        <div class="brand-container">
+            <div class="se-logo">
+                SoftExpert <span class="badge-se">PLR 2026</span>
+            </div>
+            <div style="font-size: 0.85rem; color: var(--text-muted); border-left: 1px solid var(--border-color); padding-left: 1rem;">
+                Portal de Acompanhamento Corporativo
+            </div>
+        </div>
+        <div class="nav-actions">
+            <button class="btn-rule-doc" onclick="openModal()">
+                📄 Regulamento DE064.PT
+            </button>
+            <div class="user-pill">
+                <div class="user-avatar" id="navAvatar">AM</div>
+                <span id="navUserName">Alan Alexis Marin Benitez</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="container">
+
+        <!-- 1. Perfil do Colaborador & Status de Elegibilidade -->
+        <section class="profile-card">
+            <div class="profile-avatar-lg" style="width: 56px; height: 56px; border-radius: 14px; background: var(--primary-gradient); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; font-weight: 800;">
+                <span id="cardAvatar">AM</span>
+            </div>
+            <div class="profile-info">
+                <h1 id="userName">Alan Alexis Marin Benitez</h1>
+                <div class="profile-meta">
+                    <div class="profile-meta-item">Departamento: <strong id="userDepto">Digital Transformation</strong></div>
+                    <div class="profile-meta-item">Líder: <strong id="userLeader">Thiago Hoenicke</strong></div>
+                    <div class="profile-meta-item">Admissão: <strong id="userAdmission">21/06/2012</strong></div>
+                    <div class="profile-meta-item">Vigência: <strong id="userMonths">12/12 meses (100%)</strong></div>
+                </div>
+            </div>
+            <div class="status-badges">
+                <span class="badge badge-success" id="badgeEligibility">✓ Elegível ao Programa</span>
+                <span class="badge badge-info" id="badgeCarencia">✓ Carência Cumprida</span>
+            </div>
+        </section>
+
+        <!-- 2. Gatilho Corporativo (Condição Geral de Distribuição) -->
+        <section class="gatekeeper-card" id="gatekeeperCard">
+            <div class="section-header">
+                <div class="section-title">
+                    <span>⚡ Condição Geral para Distribuição (Gatilho 2026)</span>
+                </div>
+                <span class="badge badge-success" id="triggerStatusBadge">● GATILHO ATIVO (Liberado)</span>
+            </div>
+            
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+                A distribuição do PLR é condicionada ao atingimento de no mínimo <strong>15% de crescimento da ROL</strong> em relação a 2025 e <strong>20% de EBITDA</strong> no exercício de 2026.
+            </p>
+
+            <div class="gatekeeper-grid">
+                <!-- ROL -->
+                <div class="metric-box">
+                    <div class="metric-box-top">
+                        <span class="metric-label">Crescimento da Receita Líquida (ROL)</span>
+                        <span class="metric-target">Meta: ≥ 15,0%</span>
+                    </div>
+                    <div class="metric-value-row">
+                        <span class="metric-value" id="rolPercent">16,20%</span>
+                        <span class="metric-sub" id="rolReais">R$ 180.115.000 (ROL 2025: R$ 155M)</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="target-marker" style="left: 75%;"></div>
+                        <div class="progress-fill success" id="rolBar" style="width: 81%;"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-muted);">
+                        <span>0%</span>
+                        <span style="font-weight: 600; color: #0f172a;">Gatilho: 15%</span>
+                        <span>20%</span>
+                    </div>
+                </div>
+
+                <!-- EBITDA -->
+                <div class="metric-box">
+                    <div class="metric-box-top">
+                        <span class="metric-label">Margem EBITDA Brasil 2026</span>
+                        <span class="metric-target">Meta: ≥ 20,0%</span>
+                    </div>
+                    <div class="metric-value-row">
+                        <span class="metric-value" id="ebitdaPercent">21,40%</span>
+                        <span class="metric-sub" id="ebitdaStatus">Superando o piso mínimo</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="target-marker" style="left: 80%;"></div>
+                        <div class="progress-fill success" id="ebitdaBar" style="width: 85%;"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-muted);">
+                        <span>0%</span>
+                        <span style="font-weight: 600; color: #0f172a;">Gatilho: 20%</span>
+                        <span>25%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Scorecard Consolidado & Composição dos 3 Pilares -->
+        <section class="scorecard-section">
+            
+            <!-- Card de Destaque com o Total do Colaborador -->
+            <div class="main-score-card">
+                <div>
+                    <div class="score-title">Atingimento do Colaborador</div>
+                    <div class="score-big-num" id="totalScoreNum">96,4%</div>
+                    <div style="font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;">
+                        Resultado Ponderado Conquistado
+                    </div>
+                </div>
+                <div class="score-formula" id="formulaBox">
+                    <strong>Fórmula do Cálculo:</strong><br>
+                    (Comuns: 28,5% + Setoriais: 30,0% + Individuais: 37,9%) × Proporcionalidade (12/12m)
+                </div>
+            </div>
+
+            <!-- Detalhamento dos 3 Pilares -->
+            <div class="pillars-grid">
+                
+                <!-- Pilar 1: Metas Comuns (30%) -->
+                <div class="pillar-card">
+                    <div>
+                        <div class="pillar-header">
+                            <span class="pillar-name">🎯 Metas Comuns</span>
+                            <span class="pillar-weight">Peso 30%</span>
+                        </div>
+                        <div class="sub-metrics-list">
+                            <div class="sub-metric-item">
+                                <div class="sub-metric-info">
+                                    <span class="sub-metric-name">Orçado & Realizado (10%)</span>
+                                    <span class="sub-metric-val">8,68 pts</span>
+                                </div>
+                                <div class="progress-track" style="height: 6px;">
+                                    <div class="progress-fill primary" style="width: 86.8%;"></div>
+                                </div>
+                            </div>
+                            <div class="sub-metric-item">
+                                <div class="sub-metric-info">
+                                    <span class="sub-metric-name">ISO 27001 (10%)</span>
+                                    <span class="sub-metric-val" style="color: var(--success);">10,00 pts ✓</span>
+                                </div>
+                                <div class="progress-track" style="height: 6px;">
+                                    <div class="progress-fill success" style="width: 100%;"></div>
+                                </div>
+                            </div>
+                            <div class="sub-metric-item">
+                                <div class="sub-metric-info">
+                                    <span class="sub-metric-name">Ações SGI no Prazo (10%)</span>
+                                    <span class="sub-metric-val">8,58 pts</span>
+                                </div>
+                                <div class="progress-track" style="height: 6px;">
+                                    <div class="progress-fill primary" style="width: 85.8%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pillar-footer-score">
+                        <span>Subtotal Comuns:</span>
+                        <strong id="subtotalComuns">28,50 / 30 pts</strong>
+                    </div>
+                </div>
+
+                <!-- Pilar 2: Metas Setoriais (30%) -->
+                <div class="pillar-card">
+                    <div>
+                        <div class="pillar-header">
+                            <span class="pillar-name">🏢 Metas Setoriais</span>
+                            <span class="pillar-weight">Peso 30%</span>
+                        </div>
+                        <p style="font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.5rem;" id="setoriaisDeptoLabel">
+                            Área: Digital Transformation (2 metas)
+                        </p>
+                        <div class="sub-metrics-list">
+                            <div class="sub-metric-item">
+                                <div class="sub-metric-info">
+                                    <span class="sub-metric-name">Eficiência de Processos SE</span>
+                                    <span class="sub-metric-val">100%</span>
+                                </div>
+                                <div class="progress-track" style="height: 6px;">
+                                    <div class="progress-fill success" style="width: 100%;"></div>
+                                </div>
+                            </div>
+                            <div class="sub-metric-item">
+                                <div class="sub-metric-info">
+                                    <span class="sub-metric-name">Entregas de Inovação Interna</span>
+                                    <span class="sub-metric-val">100%</span>
+                                </div>
+                                <div class="progress-track" style="height: 6px;">
+                                    <div class="progress-fill success" style="width: 100%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pillar-footer-score">
+                        <span>Subtotal Setorial:</span>
+                        <strong id="subtotalSetoriais">30,00 / 30 pts</strong>
+                    </div>
+                </div>
+
+                <!-- Pilar 3: Metas Individuais (40%) -->
+                <div class="pillar-card">
+                    <div>
+                        <div class="pillar-header">
+                            <span class="pillar-name">👤 Metas Individuais</span>
+                            <span class="pillar-weight">Peso 40%</span>
+                        </div>
+                        <div class="sub-metrics-list">
+                            <div class="sub-metric-item">
+                                <div class="sub-metric-info">
+                                    <span class="sub-metric-name">Assiduidade (20% | Regra 2:1)</span>
+                                    <span class="sub-metric-val" id="valAssiduidade">19,98 pts</span>
+                                </div>
+                                <div class="progress-track" style="height: 6px;">
+                                    <div class="progress-fill success" id="barAssiduidade" style="width: 99.9%;"></div>
+                                </div>
+                                <div style="font-size: 0.68rem; color: var(--text-muted); margin-top: 2px;">
+                                    Presença: 99,9% (Sem faltas injustificadas)
+                                </div>
+                            </div>
+                            <div class="sub-metric-item">
+                                <div class="sub-metric-info">
+                                    <span class="sub-metric-name">Avaliação Desempenho (20%)</span>
+                                    <span class="sub-metric-val" id="valAvd">17,50 pts</span>
+                                </div>
+                                <div class="progress-track" style="height: 6px;">
+                                    <div class="progress-fill primary" id="barAvd" style="width: 87.5%;"></div>
+                                </div>
+                                <div style="font-size: 0.68rem; color: var(--text-muted); margin-top: 2px;">
+                                    Nota AVD: 87,5 / 100 (Gestor Consenso)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pillar-footer-score">
+                        <span>Subtotal Individual:</span>
+                        <strong id="subtotalIndividuais">37,48 / 40 pts</strong>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. Simulador Financeiro & Cronograma de Pagamento -->
+        <section class="bottom-grid">
+            
+            <!-- Simulador em R$ -->
+            <div class="simulator-card">
+                <div class="section-title" style="margin-bottom: 0.5rem;">
+                    💰 Simulador de Valor do Prêmio
+                </div>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">
+                    Informe a remuneração base para simular o valor bruto a receber com base no seu atingimento atual.
+                </p>
+
+                <div class="sim-input-row">
+                    <div class="sim-input-group">
+                        <label>Salário Base (R$):</label>
+                        <input type="number" id="simSalary" value="8500" oninput="calculateSimulation()">
+                    </div>
+                    <div class="sim-input-group">
+                        <label>Teto de Salários (Pol. SoftExpert):</label>
+                        <input type="number" id="simMultiplier" value="2.0" step="0.5" oninput="calculateSimulation()">
+                    </div>
+                </div>
+
+                <div class="sim-results-grid">
+                    <div class="sim-result-box">
+                        <span class="sim-result-label">Teto Máximo (100%)</span>
+                        <span class="sim-result-value" id="resTeto">R$ 17.000,00</span>
+                    </div>
+                    <div class="sim-result-box">
+                        <span class="sim-result-label">Antecipação (30%)</span>
+                        <span class="sim-result-value" id="resAntecipacao" style="color: var(--primary);">R$ 5.100,00</span>
+                    </div>
+                    <div class="sim-result-box">
+                        <span class="sim-result-label">Saldo Final Estimado</span>
+                        <span class="sim-result-value highlight" id="resSaldo">R$ 11.288,00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cronograma de Pagamento -->
+            <div class="timeline-card">
+                <div>
+                    <div class="section-title">
+                        📅 Cronograma de Pagamentos 2026 / 2027
+                    </div>
+                    <div class="timeline-steps">
+                        <div class="timeline-step">
+                            <div class="step-icon done">✓</div>
+                            <div class="step-details">
+                                <h4>01/01/2026 - Início do Período de Apuração</h4>
+                                <p>Início da contagem de indicadores corporativos, setoriais e individuais.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="step-icon">2</div>
+                            <div class="step-details">
+                                <h4>30/09/2026 - Antecipação de 30%</h4>
+                                <p>Pagamento parcial com base no atingimento de ROL e EBITDA do 1º semestre.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-step">
+                            <div class="step-icon">3</div>
+                            <div class="step-details">
+                                <h4>30/04/2027 - Pagamento do Saldo Final</h4>
+                                <p>Apuração final auditada com fechamento contábil, descontando a antecipação.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Modal Regulamento -->
+    <div class="modal-overlay" id="ruleModal" onclick="closeModalOnBg(event)">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <h2>📋 Regulamento do PLR 2026 - SoftExpert</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Resumo das Condições e Regras Gerais (DE064.PT)</p>
+            
+            <ul>
+                <li><strong>Objetivo:</strong> Reconhecer colaboradores CLT, estagiários e sócios da empresa (CNPJ 00.449.824/0001-43).</li>
+                <li><strong>Gatilho de Distribuição:</strong> Crescimento mínimo de 15% da ROL vs 2025 E atingimento de no mínimo 20% de EBITDA Brasil.</li>
+                <li><strong>Composição do Prêmio:</strong> 30% Metas Comuns, 30% Metas Setoriais e 40% Metas Individuais (20% Assiduidade e 20% AVD).</li>
+                <li><strong>Regras de Carência:</strong> 4 meses para CLT e 6 meses para estagiários/aprendizes no exercício.</li>
+                <li><strong>Ausências Justificadas:</strong> Aplicado o fator de tolerância na proporção 2 para 1.</li>
+                <li><strong>Exclusões:</strong> Desligados com menos de 5 meses no ano, profissionais de unidades fora do Brasil e cargos comissionados com política própria.</li>
+                <li><strong>Antecipação:</strong> 30% pago em 30/09/2026 e quitação residual no último dia útil de abril de 2027.</li>
+            </ul>
+
+            <button class="btn-rule-doc" style="width: 100%; justify-content: center; margin-top: 1rem;" onclick="closeModal()">
+                Entendido / Fechar
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        const personas = {
+            alan: {
+                name: "Alan Alexis Marin Benitez",
+                avatar: "AM",
+                depto: "Digital Transformation",
+                leader: "Thiago Hoenicke",
+                admission: "21/06/2012",
+                months: "12/12 meses (100%)",
+                monthsRatio: 1.0,
+                eligible: true,
+                carencia: true,
+                triggerOk: true,
+                rolPerc: "16,20%",
+                rolBar: "81%",
+                ebitdaPerc: "21,40%",
+                ebitdaBar: "85%",
+                comunsPts: 28.50,
+                setoriaisPts: 30.00,
+                assiduidadePts: 19.98,
+                avdPts: 17.50,
+                salary: 8500
+            },
+            novato: {
+                name: "Mariana Silva",
+                avatar: "MS",
+                depto: "Consultoria & Delivery",
+                leader: "Carlos Alberto",
+                admission: "02/05/2026",
+                months: "8/12 meses (66.7%)",
+                monthsRatio: 8 / 12,
+                eligible: true,
+                carencia: true,
+                triggerOk: true,
+                rolPerc: "16,20%",
+                rolBar: "81%",
+                ebitdaPerc: "21,40%",
+                ebitdaBar: "85%",
+                comunsPts: 28.50,
+                setoriaisPts: 28.13,
+                assiduidadePts: 20.00,
+                avdPts: 18.00,
+                salary: 6200
+            },
+            estagiario: {
+                name: "Pedro Santos",
+                avatar: "PS",
+                depto: "Desenvolvimento de Software",
+                leader: "Fernanda Costa",
+                admission: "10/02/2026",
+                months: "11/12 meses (91.6%)",
+                monthsRatio: 11 / 12,
+                eligible: true,
+                carencia: true,
+                triggerOk: true,
+                rolPerc: "16,20%",
+                rolBar: "81%",
+                ebitdaPerc: "21,40%",
+                ebitdaBar: "85%",
+                comunsPts: 28.50,
+                setoriaisPts: 30.00,
+                assiduidadePts: 19.50,
+                avdPts: 16.00,
+                salary: 2200
+            },
+            bloqueado: {
+                name: "Alan Alexis Marin Benitez",
+                avatar: "AM",
+                depto: "Digital Transformation",
+                leader: "Thiago Hoenicke",
+                admission: "21/06/2012",
+                months: "12/12 meses (100%)",
+                monthsRatio: 1.0,
+                eligible: true,
+                carencia: true,
+                triggerOk: false,
+                rolPerc: "13,40% (Abaixo de 15%)",
+                rolBar: "67%",
+                ebitdaPerc: "18,20% (Abaixo de 20%)",
+                ebitdaBar: "72%",
+                comunsPts: 28.50,
+                setoriaisPts: 30.00,
+                assiduidadePts: 19.98,
+                avdPts: 17.50,
+                salary: 8500
+            }
+        };
+
+        let currentPersona = personas.alan;
+
+        function changePersona(key) {
+            currentPersona = personas[key];
+            renderPersona();
+        }
+
+        function renderPersona() {
+            document.getElementById('navUserName').innerText = currentPersona.name;
+            document.getElementById('navAvatar').innerText = currentPersona.avatar;
+            document.getElementById('userName').innerText = currentPersona.name;
+            document.getElementById('cardAvatar').innerText = currentPersona.avatar;
+            document.getElementById('userDepto').innerText = currentPersona.depto;
+            document.getElementById('userLeader').innerText = currentPersona.leader;
+            document.getElementById('userAdmission').innerText = currentPersona.admission;
+            document.getElementById('userMonths').innerText = currentPersona.months;
+            document.getElementById('simSalary').value = currentPersona.salary;
+
+            // Trigger & Gatekeeper
+            const triggerBadge = document.getElementById('triggerStatusBadge');
+            const rolBar = document.getElementById('rolBar');
+            const ebitdaBar = document.getElementById('ebitdaBar');
+
+            document.getElementById('rolPercent').innerText = currentPersona.rolPerc;
+            document.getElementById('ebitdaPercent').innerText = currentPersona.ebitdaPerc;
+            rolBar.style.width = currentPersona.rolBar;
+            ebitdaBar.style.width = currentPersona.ebitdaBar;
+
+            if (currentPersona.triggerOk) {
+                triggerBadge.className = "badge badge-success";
+                triggerBadge.innerText = "● GATILHO ATIVO (Liberado)";
+                rolBar.className = "progress-fill success";
+                ebitdaBar.className = "progress-fill success";
+            } else {
+                triggerBadge.className = "badge badge-warning";
+                triggerBadge.innerText = "⚠️ GATILHO NÃO ATINGIDO (Distribuição Bloqueada)";
+                rolBar.className = "progress-fill warning";
+                ebitdaBar.className = "progress-fill warning";
+            }
+
+            // Calculation
+            const sumPillars = currentPersona.comunsPts + currentPersona.setoriaisPts + currentPersona.assiduidadePts + currentPersona.avdPts;
+            let finalScore = currentPersona.triggerOk ? (sumPillars * currentPersona.monthsRatio) : 0;
+
+            document.getElementById('totalScoreNum').innerText = finalScore.toFixed(1) + "%";
+            document.getElementById('subtotalComuns').innerText = currentPersona.comunsPts.toFixed(2) + " / 30 pts";
+            document.getElementById('subtotalSetoriais').innerText = currentPersona.setoriaisPts.toFixed(2) + " / 30 pts";
+            document.getElementById('subtotalIndividuais').innerText = (currentPersona.assiduidadePts + currentPersona.avdPts).toFixed(2) + " / 40 pts";
+            
+            document.getElementById('formulaBox').innerHTML = `
+                <strong>Fórmula do Cálculo:</strong><br>
+                (${currentPersona.comunsPts.toFixed(1)}% Comuns + ${currentPersona.setoriaisPts.toFixed(1)}% Setor + ${(currentPersona.assiduidadePts + currentPersona.avdPts).toFixed(1)}% Indiv) × (${(currentPersona.monthsRatio * 12).toFixed(0)}/12m)
+                ${!currentPersona.triggerOk ? '<br><span style="color: #fef08a;">⚠️ Gatilho Geral Não Atingido = 0%</span>' : ''}
+            `;
+
+            calculateSimulation();
+        }
+
+        function calculateSimulation() {
+            const salary = parseFloat(document.getElementById('simSalary').value) || 0;
+            const multiplier = parseFloat(document.getElementById('simMultiplier').value) || 2.0;
+            const teto = salary * multiplier;
+
+            const sumPillars = currentPersona.comunsPts + currentPersona.setoriaisPts + currentPersona.assiduidadePts + currentPersona.avdPts;
+            const finalScorePerc = currentPersona.triggerOk ? (sumPillars * currentPersona.monthsRatio) / 100 : 0;
+
+            const valorTotalReal = teto * finalScorePerc;
+            const antecipacao = currentPersona.triggerOk ? (teto * 0.30) : 0;
+            const saldoFinal = Math.max(0, valorTotalReal - antecipacao);
+
+            document.getElementById('resTeto').innerText = formatBRL(teto);
+            document.getElementById('resAntecipacao').innerText = formatBRL(antecipacao);
+            document.getElementById('resSaldo').innerText = formatBRL(saldoFinal);
+        }
+
+        function formatBRL(val) {
+            return val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        function openModal() {
+            document.getElementById('ruleModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('ruleModal').style.display = 'none';
+        }
+
+        function closeModalOnBg(e) {
+            if (e.target.id === 'ruleModal') closeModal();
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            renderPersona();
+        };
+    </script>
+</body>
+</html>
