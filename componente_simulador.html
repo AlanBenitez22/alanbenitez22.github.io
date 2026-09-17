@@ -166,6 +166,44 @@
       padding-left: .8rem;
     }
 
+    .field select {
+      width: 100%;
+      padding: .6rem .8rem;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 9px;
+      font-size: .92rem;
+      font-weight: 600;
+      color: #0f172a;
+      font-family: 'Inter', Arial, sans-serif;
+      background: #f8fafc;
+      transition: border-color .15s, box-shadow .15s;
+      cursor: pointer;
+    }
+
+    .field select:focus {
+      outline: none;
+      border-color: #006AE6;
+      box-shadow: 0 0 0 3px rgba(0, 106, 230, .15);
+      background: #fff;
+    }
+
+    /* Formula Breakdown Card */
+    .sim-breakdown-card {
+      background: #f0f6ff;
+      border: 1.5px solid #b3d0f5;
+      border-radius: 10px;
+      padding: .75rem 1rem;
+      margin-bottom: .875rem;
+      font-size: .75rem;
+      color: #002080;
+      line-height: 1.5;
+    }
+
+    .sim-breakdown-card strong {
+      color: #006AE6;
+      font-weight: 700;
+    }
+
     /* ── Slider section ────────────────────────────────── */
     .slider-section {
       background: #f8fafc;
@@ -408,7 +446,8 @@
         <span class="sim-header-badge">PLR 2026</span>
       </div>
       <h1>🏆 Simulador do PLR 2026</h1>
-      <p>Informe o salário base, o teto e o valor já recebido (ou previsto) de antecipação. Ajuste o % de atingimento
+      <p>Informe o salário base, o teto, a proporcionalidade de meses e o valor já recebido de antecipação. Ajuste o %
+        de atingimento
         para ver o saldo final em abril/2027.</p>
     </div>
 
@@ -430,8 +469,33 @@
           <label>Teto — Nº de Salários (Pol. SE)</label>
           <div class="input-wrap">
             <span class="prefix">×</span>
-            <input type="number" id="inMult" value="2.0" min="0.5" max="12" step="0.5" oninput="onTetoChange()">
+            <input type="number" id="inMult" value="1.0" min="0.5" max="12" step="0.5" oninput="onTetoChange()">
           </div>
+        </div>
+
+        <!-- Meses de direito / Proporcionalidade -->
+        <div class="field" style="grid-column: 1 / -1;">
+          <label style="display:flex;justify-content:space-between;align-items:center;">
+            <span>Meses de Direito em 2026 (Proporcionalidade)</span>
+            <span id="propBadge"
+              style="font-family:'Inter',Arial,sans-serif;font-size:.68rem;font-weight:700;color:#006AE6;background:#EFF4FB;border:1px solid #b3d0f5;border-radius:5px;padding:.15rem .55rem;">
+              12 / 12 meses (100%)
+            </span>
+          </label>
+          <select id="inMeses" onchange="onMesesChange()">
+            <option value="12" selected>12 / 12 meses (100% — Ano integral)</option>
+            <option value="11">11 / 12 meses (91,7%)</option>
+            <option value="10">10 / 12 meses (83,3%)</option>
+            <option value="9">9 / 12 meses (75,0%)</option>
+            <option value="8">8 / 12 meses (66,7%)</option>
+            <option value="7">7 / 12 meses (58,3%)</option>
+            <option value="6">6 / 12 meses (50,0%)</option>
+            <option value="5">5 / 12 meses (41,7%)</option>
+            <option value="4">4 / 12 meses (33,3%)</option>
+            <option value="3">3 / 12 meses (25,0%)</option>
+            <option value="2">2 / 12 meses (16,7%)</option>
+            <option value="1">1 / 12 meses (8,3%)</option>
+          </select>
         </div>
 
         <!-- Antecipação em R$ — valor real recebido/previsto em set/26 -->
@@ -468,27 +532,34 @@
         </div>
       </div>
 
+      <!-- Detalhamento da Fórmula -->
+      <div class="sim-breakdown-card" id="simFormula">
+        📐 <strong>Cálculo:</strong> R$ 1.638,00 × 2,0 salários × 12/12m (100%) × 96% atingimento = <strong>R$
+          3.144,96</strong>
+      </div>
+
       <!-- Resultados -->
       <div class="results-grid">
         <div class="res-card res-teto">
-          <div class="res-label">Teto Máximo (100%)</div>
-          <div class="res-value" id="resTeto">R$ 17.000,00</div>
+          <div class="res-label" id="lblTeto">Teto Máximo (100%)</div>
+          <div class="res-value" id="resTeto">R$ 3.276,00</div>
+          <div id="resTetoSub" style="font-size:.68rem;color:#64748b;margin-top:.2rem;display:none;"></div>
         </div>
 
         <div class="res-card res-antec">
           <div class="res-label">Antecipação Recebida · set/26</div>
-          <div class="res-value" id="resAntec">R$ 5.100,00</div>
+          <div class="res-value" id="resAntec">R$ 982,80</div>
         </div>
 
         <div class="res-card res-premio">
-          <div class="res-label">Prêmio Estimado (seu % ating.)</div>
-          <div class="res-value" id="resPremio">R$ 16.320,00</div>
+          <div class="res-label" id="lblPremio">Prêmio Estimado (96% ating.)</div>
+          <div class="res-value" id="resPremio">R$ 3.144,96</div>
         </div>
 
         <div class="res-card res-saldo">
           <div>
             <div class="res-label">💰 Saldo Final Estimado</div>
-            <div class="res-value" id="resSaldo">R$ 11.220,00</div>
+            <div class="res-value" id="resSaldo">R$ 2.162,16</div>
             <div class="saldo-sub" id="saldoSub">Prêmio − antecipação · abr/2027</div>
           </div>
           <div class="saldo-icon" id="saldoIcon">🎉</div>
@@ -523,12 +594,23 @@
       calc();
     }
 
-    /* ── Sugerir 30% do teto como antecipação ─────────────── */
+    /* ── Quando meses mudam: recalc e sugerir antec ─ */
+    function onMesesChange() {
+      const meses = parseInt(document.getElementById('inMeses').value, 10) || 12;
+      const propPct = (meses / 12) * 100;
+      document.getElementById('propBadge').textContent = `${meses} / 12 meses (${propPct.toFixed(1).replace('.', ',')}%)`;
+      if (!antecManual) suggestAntec(false);
+      calc();
+    }
+
+    /* ── Sugerir 30% do teto proporcional como antecipação ─── */
     function suggestAntec(marcarManual) {
       const salary = parseFloat(document.getElementById('inSalary').value) || 0;
       const mult = parseFloat(document.getElementById('inMult').value) || 2;
-      const teto = salary * mult;
-      document.getElementById('inAntec').value = (teto * 0.30).toFixed(2);
+      const meses = parseInt(document.getElementById('inMeses').value, 10) || 12;
+      const tetoIntegral = salary * mult;
+      const tetoProp = tetoIntegral * (meses / 12);
+      document.getElementById('inAntec').value = (tetoProp * 0.30).toFixed(2);
       if (marcarManual !== false) antecManual = false; // reset — volta a seguir o teto
       calc();
     }
@@ -556,26 +638,52 @@
     function calc() {
       const salary = parseFloat(document.getElementById('inSalary').value) || 0;
       const mult = parseFloat(document.getElementById('inMult').value) || 2;
+      const meses = parseInt(document.getElementById('inMeses').value, 10) || 12;
       const antecVal = parseFloat(document.getElementById('inAntec').value) || 0; // R$ direto
       const scorePct = parseFloat(document.getElementById('inScore').value) || 0;
 
-      const teto = salary * mult;
-      const premio = teto * (scorePct / 100);
+      const propRatio = meses / 12;
+      const tetoIntegral = salary * mult;
+      const tetoProp = tetoIntegral * propRatio;
+      const premio = tetoProp * (scorePct / 100);
       const saldo = Math.max(0, premio - antecVal);
       const isZero = premio < antecVal;
 
-      document.getElementById('resTeto').textContent = brl(teto);
+      const lblTeto = document.getElementById('lblTeto');
+      const tetoSub = document.getElementById('resTetoSub');
+      if (meses === 12) {
+        lblTeto.textContent = 'Teto Máximo (100%)';
+        tetoSub.style.display = 'none';
+      } else {
+        lblTeto.textContent = `Teto Proporcional (${meses}/12)`;
+        tetoSub.style.display = 'block';
+        tetoSub.textContent = `Integral: ${brl(tetoIntegral)}`;
+      }
+
+      document.getElementById('resTeto').textContent = brl(tetoProp);
       document.getElementById('resAntec').textContent = brl(antecVal);
+      document.getElementById('lblPremio').textContent = `Prêmio Estimado (${scorePct}% ating.)`;
       document.getElementById('resPremio').textContent = brl(premio);
       document.getElementById('resSaldo').textContent = brl(saldo);
 
       document.getElementById('saldoSub').textContent = isZero
         ? 'Prêmio abaixo da antecipação — sem pagamento adicional'
-        : 'Prêmio − antecipação recebida · abr/2027';
+        : (meses < 12 ? `Prêmio proporcional (${meses}/12m) − antecipação · abr/2027` : 'Prêmio − antecipação recebida · abr/2027');
       document.getElementById('saldoIcon').textContent = isZero ? '⚠️' : '🎉';
 
       const warn = document.getElementById('saldoWarn');
       warn.className = 'saldo-warning' + (isZero ? ' show' : '');
+
+      // Atualiza badge de meses
+      const propPct = (meses / 12) * 100;
+      document.getElementById('propBadge').textContent = `${meses} / 12 meses (${propPct.toFixed(1).replace('.', ',')}%)`;
+
+      // Atualiza detalhamento da fórmula
+      const formulaEl = document.getElementById('simFormula');
+      if (formulaEl) {
+        const mesesText = meses === 12 ? '12/12m (100%)' : `${meses}/12m (${propPct.toFixed(1).replace('.', ',')}%)`;
+        formulaEl.innerHTML = `📐 <strong>Cálculo:</strong> ${brl(salary)} × ${mult.toFixed(1).replace('.', ',')} salários × <strong>${mesesText}</strong> × ${scorePct}% atingimento = <strong>${brl(premio)}</strong> (Saldo a pagar: <strong>${brl(saldo)}</strong>)`;
+      }
     }
 
     /* ── Salário também dispara sugestão de antec ────────── */
