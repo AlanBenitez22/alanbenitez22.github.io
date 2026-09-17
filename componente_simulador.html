@@ -466,7 +466,7 @@
         </div>
 
         <div class="field">
-          <label>Teto — Nº de Salários (Pol. SE)</label>
+          <label>Nº de Salários (Pol. SE)</label>
           <div class="input-wrap">
             <span class="prefix">×</span>
             <input type="number" id="inMult" value="1.0" min="0.5" max="12" step="0.5" oninput="onTetoChange()">
@@ -475,13 +475,7 @@
 
         <!-- Meses de direito / Proporcionalidade -->
         <div class="field" style="grid-column: 1 / -1;">
-          <label style="display:flex;justify-content:space-between;align-items:center;">
-            <span>Meses de Direito em 2026 (Proporcionalidade)</span>
-            <span id="propBadge"
-              style="font-family:'Inter',Arial,sans-serif;font-size:.68rem;font-weight:700;color:#006AE6;background:#EFF4FB;border:1px solid #b3d0f5;border-radius:5px;padding:.15rem .55rem;">
-              12 / 12 meses (100%)
-            </span>
-          </label>
+          <label>Meses de Direito em 2026 (Proporcionalidade)</label>
           <select id="inMeses" onchange="onMesesChange()">
             <option value="12" selected>12 / 12 meses (100% — Ano integral)</option>
             <option value="11">11 / 12 meses (91,7%)</option>
@@ -523,10 +517,13 @@
       <!-- Slider de atingimento -->
       <div class="slider-section">
         <div class="slider-label-row">
-          <span class="lbl">📊 % Atingimento do Colaborador</span>
-          <span class="slider-badge" id="sliderBadge">96%</span>
+          <div style="display: flex; flex-direction: column;">
+            <span class="lbl">📊 % Atingimento do Colaborador</span>
+            <span style="font-size: .62rem; color: #64748b; font-weight: 500; margin-top: .25rem; text-transform: none; letter-spacing: 0;">Soma das metas comuns (30%), Metas Setoriais (30%) e Metas individuais (40%)</span>
+          </div>
+          <span class="slider-badge" id="sliderBadge">100%</span>
         </div>
-        <input type="range" id="inScore" min="0" max="100" value="96" step="1" oninput="updateSlider(this.value)">
+        <input type="range" id="inScore" min="0" max="100" value="100" step="1" oninput="updateSlider(this.value)">
         <div class="slider-ticks">
           <span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>
         </div>
@@ -573,7 +570,7 @@
 
       <p class="sim-note">
         Valores estimados · Bruto · Sujeito à apuração final auditada e fechamento contábil.<br>
-        Regulamento DE064.PT — SoftExpert Software S.A. · Exercício 2026.
+        <a href="https://sesuite.softexpert.com/se/generic/gn_linkshare/linkshare.php?key=1HrYuoXSl3D&cdisosystem=73" target="_blank" style="color: #006AE6; text-decoration: none; font-weight: 500;">Regulamento DE064.PT</a> — SoftExpert Software S.A. · Exercício 2026.
       </p>
 
     </div>
@@ -597,8 +594,6 @@
     /* ── Quando meses mudam: recalc e sugerir antec ─ */
     function onMesesChange() {
       const meses = parseInt(document.getElementById('inMeses').value, 10) || 12;
-      const propPct = (meses / 12) * 100;
-      document.getElementById('propBadge').textContent = `${meses} / 12 meses (${propPct.toFixed(1).replace('.', ',')}%)`;
       if (!antecManual) suggestAntec(false);
       calc();
     }
@@ -674,9 +669,8 @@
       const warn = document.getElementById('saldoWarn');
       warn.className = 'saldo-warning' + (isZero ? ' show' : '');
 
-      // Atualiza badge de meses
+      // Pega o % proporcional para usar na fórmula abaixo
       const propPct = (meses / 12) * 100;
-      document.getElementById('propBadge').textContent = `${meses} / 12 meses (${propPct.toFixed(1).replace('.', ',')}%)`;
 
       // Atualiza detalhamento da fórmula
       const formulaEl = document.getElementById('simFormula');
@@ -693,7 +687,7 @@
     });
 
     /* ── Init ───────────────────────────────────────────── */
-    updateSlider(96);
+    updateSlider(100);
   </script>
 
 </body>
