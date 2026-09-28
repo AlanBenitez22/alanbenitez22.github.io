@@ -1,76 +1,83 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-bs-theme="light">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simulador PLR 2026 — SoftExpert</title>
+  <meta name="description" content="Simulador Interativo do Programa de Participação nos Lucros e Resultados 2026 — SoftExpert Software S.A.">
+
+  <!-- Bootstrap 5.3 & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
+
   <style>
+    /* ── SoftExpert Brand & Design Tokens ────────────────── */
+    :root {
+      --se-blue: #006AE6;
+      --se-navy: #002080;
+      --se-dark-navy: #001A66;
+      --se-light-blue: #EFF4FB;
+      --se-mid-blue: #193FAF;
+      --se-border: #E2E8F0;
+      --se-border-focus: #006AE6;
+      --font-display: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
     *,
     *::before,
     *::after {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
-    /* ── SoftExpert Brand Colors & Design Tokens ───────────
-       Primary  : #006AE6  (SE Blue)
-       Navy     : #002080  (SE Dark Navy)
-       Mid Blue : #193FAF  (SE Chat / Action Blue)
-       Light bg : #EFF4FB  (Tint of SE blue)
-       Border   : #E2E8F0
-    ─────────────────────────────────────────────────────── */
-
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #EFF4FB;
+      font-family: var(--font-body);
+      background-color: #ffffff;
+      color: #0f172a;
       min-height: 100vh;
+      margin: 0;
+      padding: 1.5rem 1rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 2rem 1.5rem;
-      color: #0f172a;
     }
 
-    /* ── Card Container (Desktop Optimized) ──────────────── */
+    @media (max-width: 576px) {
+      body {
+        padding: 0.75rem 0.5rem;
+      }
+    }
+
+    /* ── Main Simulator Card Container ───────────────────── */
     .sim-card {
       background: #ffffff;
+      border: 1px solid var(--se-border);
       border-radius: 20px;
-      box-shadow: 0 12px 40px -10px rgba(0, 32, 128, 0.12), 0 2px 10px -2px rgba(0, 0, 0, 0.04);
-      border: 1px solid rgba(0, 106, 230, 0.1);
+      box-shadow: 0 10px 32px -6px rgba(0, 32, 128, 0.08), 0 2px 8px -2px rgba(0, 0, 0, 0.04);
       width: 100%;
-      max-width: 1120px;
+      max-width: 1140px;
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
+      margin: 0 auto;
     }
 
     /* ── Header Gradient (Navy → SE Blue) ────────────────── */
     .sim-header {
-      background: linear-gradient(135deg, #001A66 0%, #002080 45%, #006AE6 100%);
-      padding: 1.5rem 2.25rem;
+      background: linear-gradient(135deg, var(--se-dark-navy) 0%, var(--se-navy) 45%, var(--se-blue) 100%);
+      padding: 1.5rem 2rem;
       color: #ffffff;
       position: relative;
     }
 
-    .sim-header-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1rem;
-      padding-bottom: 0.875rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.16);
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-
-    .sim-brand {
-      display: flex;
-      align-items: center;
-      gap: 0.875rem;
+    @media (max-width: 768px) {
+      .sim-header {
+        padding: 1.25rem 1.25rem;
+      }
     }
 
     .sim-logo {
@@ -82,19 +89,22 @@
 
     .sim-header-badge {
       font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
       text-transform: uppercase;
       background: rgba(255, 255, 255, 0.18);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.32);
       color: #ffffff;
       padding: 0.25rem 0.75rem;
       border-radius: 20px;
-      backdrop-filter: blur(4px);
+      backdrop-filter: blur(6px);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
 
     .sim-header-btn {
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       font-weight: 600;
       color: #ffffff;
       background: rgba(255, 255, 255, 0.12);
@@ -106,54 +116,48 @@
       align-items: center;
       gap: 0.4rem;
       transition: all 0.2s ease;
+      white-space: nowrap;
     }
 
     .sim-header-btn:hover {
       background: rgba(255, 255, 255, 0.25);
       border-color: rgba(255, 255, 255, 0.45);
+      color: #ffffff;
       transform: translateY(-1px);
     }
 
-    .sim-header-titles h1 {
+    .sim-title {
+      font-family: var(--font-display);
       font-size: 1.35rem;
       font-weight: 800;
       letter-spacing: -0.3px;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      line-height: 1.25;
+      margin-bottom: 0.4rem;
     }
 
-    .sim-header-titles p {
+    @media (max-width: 576px) {
+      .sim-title {
+        font-size: 1.15rem;
+      }
+    }
+
+    .sim-subtitle {
       font-size: 0.84rem;
-      color: rgba(255, 255, 255, 0.88);
-      margin-top: 0.4rem;
-      line-height: 1.45;
-      max-width: 900px;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.5;
+      margin-bottom: 0;
+      max-width: 950px;
     }
 
-    /* ── Body & 2-Column Desktop Grid ────────────────────── */
+    /* ── Body Container ──────────────────────────────────── */
     .sim-body {
-      padding: 1.75rem 2.25rem 2rem;
+      padding: 1.75rem 2rem 2rem;
       background: #ffffff;
     }
 
-    .sim-layout-grid {
-      display: grid;
-      grid-template-columns: 1.08fr 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-
-    @media (max-width: 940px) {
-      .sim-layout-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-      .sim-header {
-        padding: 1.25rem 1.5rem;
-      }
+    @media (max-width: 768px) {
       .sim-body {
-        padding: 1.25rem 1.5rem;
+        padding: 1.25rem 1rem 1.5rem;
       }
     }
 
@@ -162,64 +166,54 @@
       display: flex;
       align-items: center;
       gap: 0.65rem;
-      margin-bottom: 1.15rem;
+      margin-bottom: 1.25rem;
       padding-bottom: 0.65rem;
       border-bottom: 1.5px solid #F1F5F9;
     }
 
     .section-icon {
-      font-size: 1.15rem;
-      width: 32px;
-      height: 32px;
+      font-size: 1.1rem;
+      width: 34px;
+      height: 34px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #EFF4FB;
+      background: var(--se-light-blue);
       border: 1px solid #D6E4F8;
       border-radius: 8px;
+      color: var(--se-blue);
+      flex-shrink: 0;
     }
 
     .section-title {
-      font-size: 0.92rem;
+      font-family: var(--font-display);
+      font-size: 0.95rem;
       font-weight: 800;
-      color: #002080;
+      color: var(--se-navy);
       letter-spacing: -0.2px;
+      line-height: 1.2;
     }
 
     .section-desc {
       font-size: 0.72rem;
       color: #64748B;
-      margin-top: 1px;
+      margin-top: 2px;
     }
 
-    /* ── Left Column: Form & Inputs ──────────────────────── */
-    .sim-col-inputs {
+    /* ── Form Controls & Inputs ──────────────────────────── */
+    .sim-label {
       display: flex;
-      flex-direction: column;
-      gap: 1.15rem;
-    }
-
-    .input-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.9rem;
-    }
-
-    .field-full {
-      grid-column: 1 / -1;
-    }
-
-    .field label {
-      display: block;
+      justify-content: space-between;
+      align-items: center;
       font-size: 0.72rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       color: #475569;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.4rem;
     }
 
-    .label-hint {
+    .sim-label .hint {
       font-weight: 500;
       color: #94A3B8;
       font-size: 0.68rem;
@@ -227,23 +221,12 @@
       letter-spacing: normal;
     }
 
-    .field-label-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.35rem;
-    }
-
-    .field-label-row label {
-      margin-bottom: 0;
-    }
-
     .btn-suggest {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: var(--font-body);
       font-size: 0.68rem;
       font-weight: 700;
-      color: #006AE6;
-      background: #EFF4FB;
+      color: var(--se-blue);
+      background: var(--se-light-blue);
       border: 1px solid #B3D0F5;
       border-radius: 6px;
       padding: 0.2rem 0.6rem;
@@ -255,75 +238,79 @@
     }
 
     .btn-suggest:hover {
-      background: #006AE6;
+      background: var(--se-blue);
       color: #ffffff;
-      border-color: #006AE6;
+      border-color: var(--se-blue);
     }
 
-    .field .input-wrap {
+    .sim-input-group {
       position: relative;
+      display: flex;
+      align-items: stretch;
+      width: 100%;
     }
 
-    .field .prefix {
+    .sim-input-group .input-prefix {
       position: absolute;
-      left: 0.8rem;
+      left: 0.85rem;
       top: 50%;
       transform: translateY(-50%);
       font-size: 0.88rem;
       font-weight: 600;
       color: #94A3B8;
       pointer-events: none;
+      z-index: 4;
     }
 
-    .field input[type="number"] {
+    .sim-input-group input[type="number"] {
       width: 100%;
-      padding: 0.65rem 0.85rem 0.65rem 2.1rem;
-      border: 1.5px solid #E2E8F0;
+      padding: 0.65rem 0.85rem 0.65rem 2.2rem;
+      border: 1.5px solid var(--se-border);
       border-radius: 10px;
       font-size: 0.95rem;
       font-weight: 600;
       color: #0F172A;
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-body);
       background: #F8FAFC;
       transition: border-color 0.15s, box-shadow 0.15s, background-color 0.15s;
       -moz-appearance: textfield;
     }
 
-    .field input[type="number"]::-webkit-inner-spin-button,
-    .field input[type="number"]::-webkit-outer-spin-button {
+    .sim-input-group input[type="number"]::-webkit-inner-spin-button,
+    .sim-input-group input[type="number"]::-webkit-outer-spin-button {
       opacity: 0;
     }
 
-    .field input[type="number"]:focus {
+    .sim-input-group input[type="number"]:focus {
       outline: none;
-      border-color: #006AE6;
+      border-color: var(--se-blue);
       box-shadow: 0 0 0 3px rgba(0, 106, 230, 0.15);
       background: #ffffff;
     }
 
-    .field select {
+    .sim-select {
       width: 100%;
       padding: 0.65rem 0.85rem;
-      border: 1.5px solid #E2E8F0;
+      border: 1.5px solid var(--se-border);
       border-radius: 10px;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 600;
       color: #0F172A;
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-body);
       background: #F8FAFC;
       transition: border-color 0.15s, box-shadow 0.15s, background-color 0.15s;
       cursor: pointer;
     }
 
-    .field select:focus {
+    .sim-select:focus {
       outline: none;
-      border-color: #006AE6;
+      border-color: var(--se-blue);
       box-shadow: 0 0 0 3px rgba(0, 106, 230, 0.15);
       background: #ffffff;
     }
 
     .field-helper {
-      margin: 0.35rem 0 0;
+      margin-top: 0.35rem;
       font-size: 0.68rem;
       color: #64748B;
       line-height: 1.35;
@@ -332,7 +319,7 @@
     /* ── Slider Section (% Atingimento) ──────────────────── */
     .slider-section {
       background: #F8FAFC;
-      border: 1.5px solid #E2E8F0;
+      border: 1.5px solid var(--se-border);
       border-radius: 14px;
       padding: 1.15rem 1.25rem;
     }
@@ -355,7 +342,7 @@
     }
 
     .slider-subtext {
-      font-size: 0.65rem;
+      font-size: 0.68rem;
       color: #64748B;
       font-weight: 500;
       margin-top: 0.2rem;
@@ -364,15 +351,15 @@
     }
 
     .slider-badge {
+      font-family: var(--font-display);
       font-size: 1.2rem;
       font-weight: 800;
-      font-family: 'Inter', sans-serif;
       padding: 0.25rem 0.85rem;
       border-radius: 8px;
       transition: background 0.25s, color 0.25s;
       min-width: 72px;
       text-align: center;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
 
     input[type="range"] {
@@ -393,7 +380,7 @@
       height: 24px;
       border-radius: 50%;
       background: #ffffff;
-      border: 3.5px solid #006AE6;
+      border: 3.5px solid var(--se-blue);
       box-shadow: 0 2px 8px rgba(0, 106, 230, 0.4);
       cursor: pointer;
       transition: transform 0.15s, box-shadow 0.15s;
@@ -409,7 +396,7 @@
       height: 24px;
       border-radius: 50%;
       background: #ffffff;
-      border: 3.5px solid #006AE6;
+      border: 3.5px solid var(--se-blue);
       box-shadow: 0 2px 8px rgba(0, 106, 230, 0.4);
       cursor: pointer;
     }
@@ -418,7 +405,7 @@
       display: flex;
       justify-content: space-between;
       margin-top: 0.45rem;
-      font-size: 0.66rem;
+      font-size: 0.68rem;
       color: #94A3B8;
       font-weight: 600;
     }
@@ -429,7 +416,7 @@
       gap: 0.45rem;
       margin-top: 0.85rem;
       padding-top: 0.75rem;
-      border-top: 1px dashed #E2E8F0;
+      border-top: 1px dashed var(--se-border);
       flex-wrap: wrap;
     }
 
@@ -441,10 +428,10 @@
     }
 
     .btn-preset {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.68rem;
+      font-family: var(--font-body);
+      font-size: 0.7rem;
       font-weight: 600;
-      padding: 0.25rem 0.6rem;
+      padding: 0.25rem 0.65rem;
       border-radius: 6px;
       border: 1px solid #CBD5E1;
       background: #ffffff;
@@ -454,55 +441,37 @@
     }
 
     .btn-preset:hover {
-      background: #EFF4FB;
-      border-color: #006AE6;
-      color: #006AE6;
+      background: var(--se-light-blue);
+      border-color: var(--se-blue);
+      color: var(--se-blue);
     }
 
-    /* ── Right Column: Results & Breakdown ───────────────── */
-    .sim-col-results {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    /* Formula Breakdown Card */
+    /* ── Right Column: Results & Projections ─────────────── */
     .sim-breakdown-card {
       background: #F0F6FF;
       border: 1.5px solid #B3D0F5;
       border-radius: 12px;
       padding: 0.85rem 1.15rem;
-      font-size: 0.75rem;
-      color: #002080;
+      font-size: 0.78rem;
+      color: var(--se-navy);
       line-height: 1.55;
     }
 
     .sim-breakdown-card strong {
-      color: #006AE6;
+      color: var(--se-blue);
       font-weight: 700;
     }
 
-    /* Metrics Grid */
-    .results-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.75rem;
-    }
-
-    @media (max-width: 600px) {
-      .results-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
+    /* Metric Cards */
     .res-card {
       border-radius: 12px;
       padding: 0.85rem 0.95rem;
-      border: 1.5px solid #E2E8F0;
+      border: 1.5px solid var(--se-border);
       background: #ffffff;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      height: 100%;
       transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
@@ -519,11 +488,11 @@
     }
 
     .res-icon {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
     }
 
     .res-card .res-label {
-      font-size: 0.65rem;
+      font-size: 0.68rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -531,14 +500,15 @@
     }
 
     .res-card .res-value {
-      font-size: 1.12rem;
+      font-family: var(--font-display);
+      font-size: 1.15rem;
       font-weight: 800;
-      font-family: 'Inter', sans-serif;
       margin-top: 0.2rem;
+      line-height: 1.2;
     }
 
     .res-card .res-sub {
-      font-size: 0.66rem;
+      font-size: 0.68rem;
       color: #64748B;
       margin-top: 0.25rem;
     }
@@ -557,10 +527,10 @@
       border-color: #B3D0F5;
     }
     .res-antec .res-label {
-      color: #006AE6;
+      color: var(--se-blue);
     }
     .res-antec .res-value {
-      color: #193FAF;
+      color: var(--se-mid-blue);
     }
 
     /* Prêmio Card */
@@ -569,35 +539,25 @@
       border-color: #C7D6F7;
     }
     .res-premio .res-label {
-      color: #193FAF;
+      color: var(--se-mid-blue);
     }
     .res-premio .res-value {
-      color: #002080;
+      color: var(--se-navy);
     }
 
-    /* Saldo Hero Card */
+    /* Hero Saldo Final Card */
     .res-saldo {
-      padding: 1.25rem 1.5rem;
+      padding: 1.35rem 1.5rem;
       border-radius: 14px;
-      background: linear-gradient(135deg, #001A66 0%, #002080 40%, #006AE6 100%);
+      background: linear-gradient(135deg, var(--se-dark-navy) 0%, var(--se-navy) 40%, var(--se-blue) 100%);
       border: none;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.25rem;
       box-shadow: 0 8px 24px -4px rgba(0, 106, 230, 0.35);
       color: #ffffff;
     }
 
-    .saldo-content {
-      display: flex;
-      flex-direction: column;
-    }
-
     .saldo-badge {
       display: inline-block;
-      font-size: 0.62rem;
+      font-size: 0.65rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -607,7 +567,7 @@
 
     .res-saldo .res-label {
       color: #ffffff;
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -615,22 +575,29 @@
     }
 
     .res-saldo .res-value {
+      font-family: var(--font-display);
       color: #ffffff;
-      font-size: 1.85rem;
+      font-size: 2rem;
       font-weight: 800;
       line-height: 1.15;
     }
 
+    @media (max-width: 576px) {
+      .res-saldo .res-value {
+        font-size: 1.65rem;
+      }
+    }
+
     .res-saldo .saldo-sub {
-      font-size: 0.74rem;
-      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.76rem;
+      color: rgba(255, 255, 255, 0.85);
       margin-top: 0.35rem;
     }
 
     .saldo-icon-box {
       width: 58px;
       height: 58px;
-      background: rgba(255, 255, 255, 0.14);
+      background: rgba(255, 255, 255, 0.15);
       border: 1px solid rgba(255, 255, 255, 0.25);
       border-radius: 50%;
       display: flex;
@@ -669,10 +636,10 @@
       flex-shrink: 0;
     }
 
-    /* Footer note */
+    /* Footer Note */
     .sim-footer-box {
-      margin-top: 0.25rem;
-      padding-top: 0.75rem;
+      margin-top: 0.5rem;
+      padding-top: 0.85rem;
       border-top: 1px solid #F1F5F9;
     }
 
@@ -680,22 +647,23 @@
       font-size: 0.72rem;
       color: #64748B;
       text-align: center;
-      line-height: 1.45;
+      line-height: 1.5;
+      margin-bottom: 0;
     }
 
     .sim-note-link {
-      color: #006AE6;
+      color: var(--se-blue);
       text-decoration: none;
       font-weight: 600;
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      margin-top: 0.25rem;
+      margin-top: 0.3rem;
       transition: color 0.15s;
     }
 
     .sim-note-link:hover {
-      color: #002080;
+      color: var(--se-navy);
       text-decoration: underline;
     }
   </style>
@@ -707,215 +675,244 @@
 
     <!-- Header Gradient -->
     <div class="sim-header">
-      <div class="sim-header-top">
-        <div class="sim-brand">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 pb-3 mb-3 border-bottom border-white border-opacity-25">
+        <div class="d-flex align-items-center gap-2">
           <img src="https://assets.softexpert.com/Neutrals_100_698131079d.png" alt="SoftExpert" class="sim-logo"
             onerror="this.style.display='none';document.getElementById('seLogo').style.display='block'">
-          <span id="seLogo" style="display:none;font-size:1rem;font-weight:800;letter-spacing:-.3px;color:#fff;">
+          <span id="seLogo" style="display:none;font-size:1.1rem;font-weight:800;letter-spacing:-.3px;color:#fff;">
             SoftExpert
           </span>
-          <span class="sim-header-badge">PLR 2026</span>
+          <span class="sim-header-badge">
+            <i class="bi bi-award-fill"></i> PLR 2026
+          </span>
         </div>
         <div>
-          <a href="https://alanbenitez22.github.io/componente_simulador.html" target="_blank" class="sim-header-btn"
-            title="Abrir simulador em nova guia">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-              <polyline points="15 3 21 3 21 9"></polyline>
-              <line x1="10" y1="14" x2="21" y2="3"></line>
-            </svg>
-            Abrir em tela cheia
+          <a href="https://alanbenitez22.github.io/componente_simulador.html" target="_blank" rel="noopener" class="sim-header-btn"
+            title="Abrir simulador em tela cheia">
+            <i class="bi bi-box-arrow-up-right"></i> Abrir em tela cheia
           </a>
         </div>
       </div>
-      <div class="sim-header-titles">
-        <h1>🏆 Simulador de PLR 2026</h1>
-        <p>
-          Simule os valores de participação nos lucros e resultados. Ajuste o salário base, multiplicador, proporcionalidade de meses e o atingimento de metas para calcular a antecipação de setembro/2026 e o saldo final a pagar em abril/2027.
+      <div>
+        <h1 class="sim-title">🏆 Simulador de PLR 2026</h1>
+        <p class="sim-subtitle">
+          Simule os valores de participação nos lucros e resultados. Ajuste o salário base, multiplicador, proporcionalidade de meses e o atingimento de metas para projetar a antecipação de setembro/2026 e o saldo final a pagar em abril/2027.
         </p>
       </div>
     </div>
 
-    <!-- Body / Desktop 2-Column Layout -->
+    <!-- Body Responsive Grid (Bootstrap 5.3) -->
     <div class="sim-body">
-      <div class="sim-layout-grid">
+      <div class="row g-4">
 
         <!-- COLUNA ESQUERDA: PARÂMETROS & ENTRADAS -->
-        <div class="sim-col sim-col-inputs">
-          <div class="sim-section-header">
-            <div class="section-icon">⚙️</div>
-            <div>
-              <div class="section-title">Parâmetros de Cálculo</div>
-              <div class="section-desc">Dados contratuais e valores de referência</div>
-            </div>
-          </div>
+        <div class="col-12 col-lg-6">
+          <div class="d-flex flex-column gap-3">
 
-          <div class="input-grid">
-            <!-- Salário Base -->
-            <div class="field">
-              <label for="inSalary">Salário Base <span class="label-hint">(vigente 2026)</span></label>
-              <div class="input-wrap">
-                <span class="prefix">R$</span>
-                <input type="number" id="inSalary" value="1638" min="0" step="50"
-                  oninput="if(!antecManual)suggestAntec(false);calc()">
+            <!-- Section Header -->
+            <div class="sim-section-header">
+              <div class="section-icon">
+                <i class="bi bi-sliders"></i>
               </div>
-            </div>
-
-            <!-- Multiplicador -->
-            <div class="field">
-              <label for="inMult">Nº de Salários <span class="label-hint">(Pol. SE)</span></label>
-              <div class="input-wrap">
-                <span class="prefix">×</span>
-                <input type="number" id="inMult" value="1.0" min="0.5" max="12" step="0.5" oninput="onTetoChange()">
-              </div>
-            </div>
-
-            <!-- Proporcionalidade / Meses -->
-            <div class="field field-full">
-              <label for="inMeses">Meses de Direito em 2026 <span class="label-hint">(Proporcionalidade)</span></label>
-              <select id="inMeses" onchange="onMesesChange()">
-                <option value="12" selected>12 / 12 meses (100% — Ano integral)</option>
-                <option value="11">11 / 12 meses (91,7%)</option>
-                <option value="10">10 / 12 meses (83,3%)</option>
-                <option value="9">9 / 12 meses (75,0%)</option>
-                <option value="8">8 / 12 meses (66,7%)</option>
-                <option value="7">7 / 12 meses (58,3%)</option>
-                <option value="6">6 / 12 meses (50,0%)</option>
-                <option value="5">5 / 12 meses (41,7%)</option>
-                <option value="4">4 / 12 meses (33,3%)</option>
-                <option value="3">3 / 12 meses (25,0%)</option>
-                <option value="2">2 / 12 meses (16,7%)</option>
-                <option value="1">1 / 12 meses (8,3%)</option>
-              </select>
-            </div>
-
-            <!-- Antecipação em R$ -->
-            <div class="field field-full">
-              <div class="field-label-row">
-                <label for="inAntec">Antecipação Recebida em set/2026</label>
-                <button type="button" id="btnSuggest" onclick="suggestAntec()" class="btn-suggest"
-                  title="Sugerir 30% do teto proporcional como estimativa padrão">
-                  ↺ Sugerir 30% do teto
-                </button>
-              </div>
-              <div class="input-wrap">
-                <span class="prefix">R$</span>
-                <input type="number" id="inAntec" value="491.40" min="0" step="50" oninput="antecManual=true;calc()">
-              </div>
-              <p class="field-helper">
-                Informe o valor bruto pago em setembro/2026. Este montante é abatido do prêmio total no fechamento em abril/2027.
-              </p>
-            </div>
-          </div>
-
-          <!-- Slider de Atingimento -->
-          <div class="slider-section">
-            <div class="slider-label-row">
               <div>
-                <span class="lbl">📊 % Atingimento de Metas</span>
-                <div class="slider-subtext">Comuns (30%) + Setoriais (30%) + Individuais (40%)</div>
+                <div class="section-title">Parâmetros de Cálculo</div>
+                <div class="section-desc">Dados contratuais e valores de referência do colaborador</div>
               </div>
-              <span class="slider-badge" id="sliderBadge">100%</span>
             </div>
-            <input type="range" id="inScore" min="0" max="100" value="100" step="1" oninput="updateSlider(this.value)">
-            <div class="slider-ticks">
-              <span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>
-            </div>
-            <div class="slider-presets">
-              <span class="preset-label">Atalhos rápidos:</span>
-              <button type="button" class="btn-preset" onclick="setSliderValue(50)">50%</button>
-              <button type="button" class="btn-preset" onclick="setSliderValue(75)">75%</button>
-              <button type="button" class="btn-preset" onclick="setSliderValue(90)">90%</button>
-              <button type="button" class="btn-preset" onclick="setSliderValue(100)">100% (Meta)</button>
-            </div>
-          </div>
 
+            <!-- Form Grid -->
+            <div class="row g-3">
+              <!-- Salário Base -->
+              <div class="col-12 col-sm-6">
+                <label for="inSalary" class="sim-label">
+                  <span>Salário Base</span>
+                  <span class="hint">(vigente 2026)</span>
+                </label>
+                <div class="sim-input-group">
+                  <span class="input-prefix">R$</span>
+                  <input type="number" id="inSalary" class="form-control" value="1638" min="0" step="50"
+                    oninput="if(!antecManual)suggestAntec(false);calc()">
+                </div>
+              </div>
+
+              <!-- Multiplicador -->
+              <div class="col-12 col-sm-6">
+                <label for="inMult" class="sim-label">
+                  <span>Nº de Salários</span>
+                  <span class="hint">(Pol. SE)</span>
+                </label>
+                <div class="sim-input-group">
+                  <span class="input-prefix">×</span>
+                  <input type="number" id="inMult" class="form-control" value="1.0" min="0.5" max="12" step="0.5" oninput="onTetoChange()">
+                </div>
+              </div>
+
+              <!-- Proporcionalidade / Meses -->
+              <div class="col-12">
+                <label for="inMeses" class="sim-label">
+                  <span>Meses de Direito em 2026</span>
+                  <span class="hint">(Proporcionalidade)</span>
+                </label>
+                <select id="inMeses" class="sim-select" onchange="onMesesChange()">
+                  <option value="12" selected>12 / 12 meses (100% — Ano integral)</option>
+                  <option value="11">11 / 12 meses (91,7%)</option>
+                  <option value="10">10 / 12 meses (83,3%)</option>
+                  <option value="9">9 / 12 meses (75,0%)</option>
+                  <option value="8">8 / 12 meses (66,7%)</option>
+                  <option value="7">7 / 12 meses (58,3%)</option>
+                  <option value="6">6 / 12 meses (50,0%)</option>
+                  <option value="5">5 / 12 meses (41,7%)</option>
+                  <option value="4">4 / 12 meses (33,3%)</option>
+                  <option value="3">3 / 12 meses (25,0%)</option>
+                  <option value="2">2 / 12 meses (16,7%)</option>
+                  <option value="1">1 / 12 meses (8,3%)</option>
+                </select>
+              </div>
+
+              <!-- Antecipação em R$ -->
+              <div class="col-12">
+                <div class="sim-label">
+                  <label for="inAntec" class="mb-0">Antecipação Recebida em set/2026</label>
+                  <button type="button" id="btnSuggest" onclick="suggestAntec()" class="btn-suggest"
+                    title="Sugerir 30% do teto proporcional como estimativa padrão">
+                    <i class="bi bi-arrow-clockwise"></i> Sugerir 30% do teto
+                  </button>
+                </div>
+                <div class="sim-input-group">
+                  <span class="input-prefix">R$</span>
+                  <input type="number" id="inAntec" class="form-control" value="491.40" min="0" step="50" oninput="antecManual=true;calc()">
+                </div>
+                <p class="field-helper">
+                  Informe o valor bruto pago em setembro/2026. Este montante é abatido do prêmio total no fechamento em abril/2027.
+                </p>
+              </div>
+            </div>
+
+            <!-- Slider de Atingimento -->
+            <div class="slider-section mt-1">
+              <div class="slider-label-row">
+                <div>
+                  <span class="lbl"><i class="bi bi-bar-chart-fill me-1 text-primary"></i> % Atingimento de Metas</span>
+                  <div class="slider-subtext">Comuns (30%) + Setoriais (30%) + Individuais (40%)</div>
+                </div>
+                <span class="slider-badge" id="sliderBadge">100%</span>
+              </div>
+              <input type="range" id="inScore" min="0" max="100" value="100" step="1" oninput="updateSlider(this.value)" aria-label="Percentual de atingimento de metas">
+              <div class="slider-ticks">
+                <span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>
+              </div>
+              <div class="slider-presets">
+                <span class="preset-label">Atalhos rápidos:</span>
+                <button type="button" class="btn-preset" onclick="setSliderValue(50)">50%</button>
+                <button type="button" class="btn-preset" onclick="setSliderValue(75)">75%</button>
+                <button type="button" class="btn-preset" onclick="setSliderValue(90)">90%</button>
+                <button type="button" class="btn-preset" onclick="setSliderValue(100)">100% (Meta)</button>
+              </div>
+            </div>
+
+          </div>
         </div>
 
         <!-- COLUNA DIREITA: RESULTADOS & PROJEÇÃO -->
-        <div class="sim-col sim-col-results">
-          <div class="sim-section-header">
-            <div class="section-icon">📊</div>
-            <div>
-              <div class="section-title">Demonstrativo da Simulação</div>
-              <div class="section-desc">Projeção calculada dos valores e saldo final</div>
-            </div>
-          </div>
+        <div class="col-12 col-lg-6">
+          <div class="d-flex flex-column gap-3">
 
-          <!-- Detalhamento da Fórmula -->
-          <div class="sim-breakdown-card" id="simFormula">
-            📐 <strong>Cálculo:</strong> R$ 1.638,00 × 1,0 salário × 12/12m (100%) × 100% atingimento = <strong>R$ 1.638,00</strong> (Saldo a pagar: <strong>R$ 1.146,60</strong>)
-          </div>
-
-          <!-- Cards de Métricas -->
-          <div class="results-grid">
-            <!-- Teto -->
-            <div class="res-card res-teto">
-              <div class="res-card-top">
-                <span class="res-icon">🎯</span>
-                <div class="res-label" id="lblTeto">Teto Máximo (100%)</div>
+            <!-- Section Header -->
+            <div class="sim-section-header">
+              <div class="section-icon">
+                <i class="bi bi-pie-chart-fill"></i>
               </div>
-              <div class="res-value" id="resTeto">R$ 1.638,00</div>
-              <div id="resTetoSub" class="res-sub" style="display:none;"></div>
-            </div>
-
-            <!-- Antecipação -->
-            <div class="res-card res-antec">
-              <div class="res-card-top">
-                <span class="res-icon">💳</span>
-                <div class="res-label">Antecipação (set/26)</div>
+              <div>
+                <div class="section-title">Demonstrativo da Simulação</div>
+                <div class="section-desc">Projeção detalhada dos valores calculados e saldo final</div>
               </div>
-              <div class="res-value" id="resAntec">R$ 491,40</div>
-              <div class="res-sub">Adiantamento de 30%</div>
             </div>
 
-            <!-- Prêmio Estimado -->
-            <div class="res-card res-premio">
-              <div class="res-card-top">
-                <span class="res-icon">📈</span>
-                <div class="res-label" id="lblPremio">Prêmio Estimado (100% ating.)</div>
+            <!-- Detalhamento da Fórmula -->
+            <div class="sim-breakdown-card" id="simFormula">
+              📐 <strong>Cálculo:</strong> R$ 1.638,00 × 1,0 sal. × <strong>12/12m (100%)</strong> × 100% atingimento = <strong>R$ 1.638,00</strong> (Saldo a pagar: <strong>R$ 1.146,60</strong>)
+            </div>
+
+            <!-- Cards de Métricas (Grid 3 Colunas) -->
+            <div class="row g-2 g-sm-3">
+              <!-- Teto -->
+              <div class="col-12 col-sm-4">
+                <div class="res-card res-teto">
+                  <div class="res-card-top">
+                    <span class="res-icon">🎯</span>
+                    <div class="res-label" id="lblTeto">Teto Máximo</div>
+                  </div>
+                  <div class="res-value" id="resTeto">R$ 1.638,00</div>
+                  <div id="resTetoSub" class="res-sub" style="display:none;"></div>
+                </div>
               </div>
-              <div class="res-value" id="resPremio">R$ 1.638,00</div>
-              <div class="res-sub">Valor bruto apurado</div>
+
+              <!-- Antecipação -->
+              <div class="col-12 col-sm-4">
+                <div class="res-card res-antec">
+                  <div class="res-card-top">
+                    <span class="res-icon">💳</span>
+                    <div class="res-label">Antecipação (set/26)</div>
+                  </div>
+                  <div class="res-value" id="resAntec">R$ 491,40</div>
+                  <div class="res-sub">Adiantamento 30%</div>
+                </div>
+              </div>
+
+              <!-- Prêmio Estimado -->
+              <div class="col-12 col-sm-4">
+                <div class="res-card res-premio">
+                  <div class="res-card-top">
+                    <span class="res-icon">📈</span>
+                    <div class="res-label" id="lblPremio">Prêmio Estimado</div>
+                  </div>
+                  <div class="res-value" id="resPremio">R$ 1.638,00</div>
+                  <div class="res-sub">Valor bruto apurado</div>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <!-- Saldo Final Hero Card -->
-          <div class="res-card res-saldo">
-            <div class="saldo-content">
-              <span class="saldo-badge">Pagamento em Abril / 2027</span>
-              <div class="res-label">💰 Saldo Final Estimado</div>
-              <div class="res-value" id="resSaldo">R$ 1.146,60</div>
-              <div class="saldo-sub" id="saldoSub">Prêmio apurado − antecipação recebida · abr/2027</div>
+            <!-- Saldo Final Hero Card -->
+            <div class="res-card res-saldo">
+              <div class="d-flex align-items-center justify-content-between gap-3">
+                <div>
+                  <span class="saldo-badge">Pagamento em Abril / 2027</span>
+                  <div class="res-label">💰 Saldo Final Estimado</div>
+                  <div class="res-value" id="resSaldo">R$ 1.146,60</div>
+                  <div class="saldo-sub" id="saldoSub">Prêmio apurado − antecipação recebida · abr/2027</div>
+                </div>
+                <div class="saldo-icon-box">
+                  <div class="saldo-icon" id="saldoIcon">🎉</div>
+                </div>
+              </div>
             </div>
-            <div class="saldo-icon-box">
-              <div class="saldo-icon" id="saldoIcon">🎉</div>
+
+            <!-- Aviso de saldo menor que antecipação -->
+            <div class="saldo-warning" id="saldoWarn">
+              <span class="warn-icon">⚠️</span>
+              <span>O prêmio estimado é menor que a antecipação já recebida. Nenhum saldo adicional será pago em abril/2027.</span>
             </div>
-          </div>
 
-          <!-- Aviso de saldo menor que antecipação -->
-          <div class="saldo-warning" id="saldoWarn">
-            <span class="warn-icon">⚠️</span>
-            <span>O prêmio estimado é menor que a antecipação já recebida. Nenhum saldo adicional será pago em abril/2027.</span>
-          </div>
+            <!-- Rodapé e Regulamento -->
+            <div class="sim-footer-box">
+              <p class="sim-note">
+                Valores estimados em termos brutos · Sujeito à apuração final auditada e fechamento contábil.<br>
+                <a href="https://sesuite.softexpert.com/se/generic/gn_linkshare/linkshare.php?key=1HrYuoXSl3D&cdisosystem=73"
+                  target="_blank" rel="noopener" class="sim-note-link">
+                  <i class="bi bi-file-earmark-text"></i> Consultar Regulamento DE064.PT — SoftExpert Software S.A. · Exercício 2026
+                </a>
+              </p>
+            </div>
 
-          <!-- Rodapé e Regulamento -->
-          <div class="sim-footer-box">
-            <p class="sim-note">
-              Valores estimados em termos brutos · Sujeito à apuração final auditada e fechamento contábil.<br>
-              <a href="https://sesuite.softexpert.com/se/generic/gn_linkshare/linkshare.php?key=1HrYuoXSl3D&cdisosystem=73"
-                target="_blank" class="sim-note-link">
-                📄 Consultar Regulamento DE064.PT — SoftExpert Software S.A. · Exercício 2026
-              </a>
-            </p>
           </div>
-
         </div>
 
       </div>
     </div>
   </div>
+
+  <!-- Bootstrap 5.3 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
     /* ── Format BRL ─────────────────────────────────────── */
