@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador PLR 2026 — SoftExpert</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ── SoftExpert Brand Colors & Design Tokens ───────────
+       Primary  : #006AE6  (SE Blue)
+       Navy     : #002080  (SE Dark Navy)
+       Mid Blue : #193FAF  (SE Chat / Action Blue)
+       Light bg : #EFF4FB  (Tint of SE blue)
+       Border   : #E2E8F0
+    ─────────────────────────────────────────────────────── */
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #EFF4FB;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      color: #0f172a;
+    }
+
+    /* ── Card Container (Desktop Optimized) ──────────────── */
+    .sim-card {
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 12px 40px -10px rgba(0, 32, 128, 0.12), 0 2px 10px -2px rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(0, 106, 230, 0.1);
+      width: 100%;
+      max-width: 1120px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header Gradient (Navy → SE Blue) ────────────────── */
+    .sim-header {
+      background: linear-gradient(135deg, #001A66 0%, #002080 45%, #006AE6 100%);
+      padding: 1.5rem 2.25rem;
+      color: #ffffff;
+      position: relative;
+    }
+
+    .sim-header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      padding-bottom: 0.875rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .sim-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+    }
+
+    .sim-logo {
+      height: 28px;
+      width: auto;
+      display: block;
+      filter: brightness(0) invert(1);
+    }
+
+    .sim-header-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #ffffff;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+    }
+
+    .sim-header-btn {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 20px;
+      padding: 0.35rem 0.85rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+    }
+
+    .sim-header-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.45);
+      transform: translateY(-1px);
+    }
+
+    .sim-header-titles h1 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .sim-header-titles p {
+      font-size: 0.84rem;
+      color: rgba(255, 255, 255, 0.88);
+      margin-top: 0.4rem;
+      line-height: 1.45;
+      max-width: 900px;
+    }
+
+    /* ── Body & 2-Column Desktop Grid ────────────────────── */
+    .sim-body {
+      padding: 1.75rem 2.25rem 2rem;
+      background: #ffffff;
+    }
+
+    .sim-layout-grid {
+      display: grid;
+      grid-template-columns: 1.08fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    @media (max-width: 940px) {
+      .sim-layout-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .sim-header {
+        padding: 1.25rem 1.5rem;
+      }
+      .sim-body {
+        padding: 1.25rem 1.5rem;
+      }
+    }
+
+    /* ── Section Headers ─────────────────────────────────── */
+    .sim-section-header {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 1.15rem;
+      padding-bottom: 0.65rem;
+      border-bottom: 1.5px solid #F1F5F9;
+    }
+
+    .section-icon {
+      font-size: 1.15rem;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #EFF4FB;
+      border: 1px solid #D6E4F8;
+      border-radius: 8px;
+    }
+
+    .section-title {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #002080;
+      letter-spacing: -0.2px;
+    }
+
+    .section-desc {
+      font-size: 0.72rem;
+      color: #64748B;
+      margin-top: 1px;
+    }
+
+    /* ── Left Column: Form & Inputs ──────────────────────── */
+    .sim-col-inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 1.15rem;
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9rem;
+    }
+
+    .field-full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #475569;
+      margin-bottom: 0.35rem;
+    }
+
+    .label-hint {
+      font-weight: 500;
+      color: #94A3B8;
+      font-size: 0.68rem;
+      text-transform: none;
+      letter-spacing: normal;
+    }
+
+    .field-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.35rem;
+    }
+
+    .field-label-row label {
+      margin-bottom: 0;
+    }
+
+    .btn-suggest {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #006AE6;
+      background: #EFF4FB;
+      border: 1px solid #B3D0F5;
+      border-radius: 6px;
+      padding: 0.2rem 0.6rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .btn-suggest:hover {
+      background: #006AE6;
+      color: #ffffff;
+      border-color: #006AE6;
+    }
+
+    .field .input-wrap {
+      position: relative;
+    }
+
+    .field .prefix {
+      position: absolute;
+      left: 0.8rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #94A3B8;
+      pointer-events: none;
+    }
+
+    .field input[type="number"] {
+      width: 100%;
+      padding: 0.65rem 0.85rem 0.65rem 2.1rem;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #0F172A;
+      font-family: 'Inter', sans-serif;
+      background: #F8FAFC;
+      transition: border-color 0.15s, box-shadow 0.15s, background-color 0.15s;
+      -moz-appearance: textfield;
+    }
+
+    .field input[type="number"]::-webkit-inner-spin-button,
+    .field input[type="number"]::-webkit-outer-spin-button {
+      opacity: 0;
+    }
+
+    .field input[type="number"]:focus {
+      outline: none;
+      border-color: #006AE6;
+      box-shadow: 0 0 0 3px rgba(0, 106, 230, 0.15);
+      background: #ffffff;
+    }
+
+    .field select {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #0F172A;
+      font-family: 'Inter', sans-serif;
+      background: #F8FAFC;
+      transition: border-color 0.15s, box-shadow 0.15s, background-color 0.15s;
+      cursor: pointer;
+    }
+
+    .field select:focus {
+      outline: none;
+      border-color: #006AE6;
+      box-shadow: 0 0 0 3px rgba(0, 106, 230, 0.15);
+      background: #ffffff;
+    }
+
+    .field-helper {
+      margin: 0.35rem 0 0;
+      font-size: 0.68rem;
+      color: #64748B;
+      line-height: 1.35;
+    }
+
+    /* ── Slider Section (% Atingimento) ──────────────────── */
+    .slider-section {
+      background: #F8FAFC;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 1.15rem 1.25rem;
+    }
+
+    .slider-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.85rem;
+      gap: 0.5rem;
+    }
+
+    .slider-label-row .lbl {
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #334155;
+      display: block;
+    }
+
+    .slider-subtext {
+      font-size: 0.65rem;
+      color: #64748B;
+      font-weight: 500;
+      margin-top: 0.2rem;
+      letter-spacing: normal;
+      text-transform: none;
+    }
+
+    .slider-badge {
+      font-size: 1.2rem;
+      font-weight: 800;
+      font-family: 'Inter', sans-serif;
+      padding: 0.25rem 0.85rem;
+      border-radius: 8px;
+      transition: background 0.25s, color 0.25s;
+      min-width: 72px;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+      outline: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 3.5px solid #006AE6;
+      box-shadow: 0 2px 8px rgba(0, 106, 230, 0.4);
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+      box-shadow: 0 4px 12px rgba(0, 106, 230, 0.5);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 3.5px solid #006AE6;
+      box-shadow: 0 2px 8px rgba(0, 106, 230, 0.4);
+      cursor: pointer;
+    }
+
+    .slider-ticks {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.45rem;
+      font-size: 0.66rem;
+      color: #94A3B8;
+      font-weight: 600;
+    }
+
+    .slider-presets {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      margin-top: 0.85rem;
+      padding-top: 0.75rem;
+      border-top: 1px dashed #E2E8F0;
+      flex-wrap: wrap;
+    }
+
+    .preset-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: #64748B;
+      margin-right: 0.2rem;
+    }
+
+    .btn-preset {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid #CBD5E1;
+      background: #ffffff;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-preset:hover {
+      background: #EFF4FB;
+      border-color: #006AE6;
+      color: #006AE6;
+    }
+
+    /* ── Right Column: Results & Breakdown ───────────────── */
+    .sim-col-results {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    /* Formula Breakdown Card */
+    .sim-breakdown-card {
+      background: #F0F6FF;
+      border: 1.5px solid #B3D0F5;
+      border-radius: 12px;
+      padding: 0.85rem 1.15rem;
+      font-size: 0.75rem;
+      color: #002080;
+      line-height: 1.55;
+    }
+
+    .sim-breakdown-card strong {
+      color: #006AE6;
+      font-weight: 700;
+    }
+
+    /* Metrics Grid */
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+    }
+
+    @media (max-width: 600px) {
+      .results-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .res-card {
+      border-radius: 12px;
+      padding: 0.85rem 0.95rem;
+      border: 1.5px solid #E2E8F0;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .res-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .res-card-top {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .res-icon {
+      font-size: 0.9rem;
+    }
+
+    .res-card .res-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #64748B;
+    }
+
+    .res-card .res-value {
+      font-size: 1.12rem;
+      font-weight: 800;
+      font-family: 'Inter', sans-serif;
+      margin-top: 0.2rem;
+    }
+
+    .res-card .res-sub {
+      font-size: 0.66rem;
+      color: #64748B;
+      margin-top: 0.25rem;
+    }
+
+    /* Teto Card */
+    .res-teto {
+      background: #F8FAFC;
+    }
+    .res-teto .res-value {
+      color: #334155;
+    }
+
+    /* Antecipação Card */
+    .res-antec {
+      background: #EFF4FB;
+      border-color: #B3D0F5;
+    }
+    .res-antec .res-label {
+      color: #006AE6;
+    }
+    .res-antec .res-value {
+      color: #193FAF;
+    }
+
+    /* Prêmio Card */
+    .res-premio {
+      background: #F0F4FF;
+      border-color: #C7D6F7;
+    }
+    .res-premio .res-label {
+      color: #193FAF;
+    }
+    .res-premio .res-value {
+      color: #002080;
+    }
+
+    /* Saldo Hero Card */
+    .res-saldo {
+      padding: 1.25rem 1.5rem;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #001A66 0%, #002080 40%, #006AE6 100%);
+      border: none;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.25rem;
+      box-shadow: 0 8px 24px -4px rgba(0, 106, 230, 0.35);
+      color: #ffffff;
+    }
+
+    .saldo-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .saldo-badge {
+      display: inline-block;
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #93C5FD;
+      margin-bottom: 0.25rem;
+    }
+
+    .res-saldo .res-label {
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.2rem;
+    }
+
+    .res-saldo .res-value {
+      color: #ffffff;
+      font-size: 1.85rem;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    .res-saldo .saldo-sub {
+      font-size: 0.74rem;
+      color: rgba(255, 255, 255, 0.78);
+      margin-top: 0.35rem;
+    }
+
+    .saldo-icon-box {
+      width: 58px;
+      height: 58px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      backdrop-filter: blur(4px);
+    }
+
+    .saldo-icon {
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    /* Warning box */
+    .saldo-warning {
+      display: none;
+      background: #FFF7ED;
+      border: 1.5px solid #FED7AA;
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      font-size: 0.75rem;
+      color: #C2410C;
+      font-weight: 600;
+      align-items: center;
+      gap: 0.6rem;
+      line-height: 1.4;
+    }
+
+    .saldo-warning.show {
+      display: flex;
+    }
+
+    .warn-icon {
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+
+    /* Footer note */
+    .sim-footer-box {
+      margin-top: 0.25rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid #F1F5F9;
+    }
+
+    .sim-note {
+      font-size: 0.72rem;
+      color: #64748B;
+      text-align: center;
+      line-height: 1.45;
+    }
+
+    .sim-note-link {
+      color: #006AE6;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 0.25rem;
+      transition: color 0.15s;
+    }
+
+    .sim-note-link:hover {
+      color: #002080;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="sim-card">
+
+    <!-- Header Gradient -->
+    <div class="sim-header">
+      <div class="sim-header-top">
+        <div class="sim-brand">
+          <img src="https://assets.softexpert.com/Neutrals_100_698131079d.png" alt="SoftExpert" class="sim-logo"
+            onerror="this.style.display='none';document.getElementById('seLogo').style.display='block'">
+          <span id="seLogo" style="display:none;font-size:1rem;font-weight:800;letter-spacing:-.3px;color:#fff;">
+            SoftExpert
+          </span>
+          <span class="sim-header-badge">PLR 2026</span>
+        </div>
+        <div>
+          <a href="https://alanbenitez22.github.io/componente_simulador.html" target="_blank" class="sim-header-btn"
+            title="Abrir simulador em nova guia">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+            Abrir em tela cheia
+          </a>
+        </div>
+      </div>
+      <div class="sim-header-titles">
+        <h1>🏆 Simulador de PLR 2026</h1>
+        <p>
+          Simule os valores de participação nos lucros e resultados. Ajuste o salário base, multiplicador, proporcionalidade de meses e o atingimento de metas para calcular a antecipação de setembro/2026 e o saldo final a pagar em abril/2027.
+        </p>
+      </div>
+    </div>
+
+    <!-- Body / Desktop 2-Column Layout -->
+    <div class="sim-body">
+      <div class="sim-layout-grid">
+
+        <!-- COLUNA ESQUERDA: PARÂMETROS & ENTRADAS -->
+        <div class="sim-col sim-col-inputs">
+          <div class="sim-section-header">
+            <div class="section-icon">⚙️</div>
+            <div>
+              <div class="section-title">Parâmetros de Cálculo</div>
+              <div class="section-desc">Dados contratuais e valores de referência</div>
+            </div>
+          </div>
+
+          <div class="input-grid">
+            <!-- Salário Base -->
+            <div class="field">
+              <label for="inSalary">Salário Base <span class="label-hint">(vigente 2026)</span></label>
+              <div class="input-wrap">
+                <span class="prefix">R$</span>
+                <input type="number" id="inSalary" value="1638" min="0" step="50"
+                  oninput="if(!antecManual)suggestAntec(false);calc()">
+              </div>
+            </div>
+
+            <!-- Multiplicador -->
+            <div class="field">
+              <label for="inMult">Nº de Salários <span class="label-hint">(Pol. SE)</span></label>
+              <div class="input-wrap">
+                <span class="prefix">×</span>
+                <input type="number" id="inMult" value="1.0" min="0.5" max="12" step="0.5" oninput="onTetoChange()">
+              </div>
+            </div>
+
+            <!-- Proporcionalidade / Meses -->
+            <div class="field field-full">
+              <label for="inMeses">Meses de Direito em 2026 <span class="label-hint">(Proporcionalidade)</span></label>
+              <select id="inMeses" onchange="onMesesChange()">
+                <option value="12" selected>12 / 12 meses (100% — Ano integral)</option>
+                <option value="11">11 / 12 meses (91,7%)</option>
+                <option value="10">10 / 12 meses (83,3%)</option>
+                <option value="9">9 / 12 meses (75,0%)</option>
+                <option value="8">8 / 12 meses (66,7%)</option>
+                <option value="7">7 / 12 meses (58,3%)</option>
+                <option value="6">6 / 12 meses (50,0%)</option>
+                <option value="5">5 / 12 meses (41,7%)</option>
+                <option value="4">4 / 12 meses (33,3%)</option>
+                <option value="3">3 / 12 meses (25,0%)</option>
+                <option value="2">2 / 12 meses (16,7%)</option>
+                <option value="1">1 / 12 meses (8,3%)</option>
+              </select>
+            </div>
+
+            <!-- Antecipação em R$ -->
+            <div class="field field-full">
+              <div class="field-label-row">
+                <label for="inAntec">Antecipação Recebida em set/2026</label>
+                <button type="button" id="btnSuggest" onclick="suggestAntec()" class="btn-suggest"
+                  title="Sugerir 30% do teto proporcional como estimativa padrão">
+                  ↺ Sugerir 30% do teto
+                </button>
+              </div>
+              <div class="input-wrap">
+                <span class="prefix">R$</span>
+                <input type="number" id="inAntec" value="491.40" min="0" step="50" oninput="antecManual=true;calc()">
+              </div>
+              <p class="field-helper">
+                Informe o valor bruto pago em setembro/2026. Este montante é abatido do prêmio total no fechamento em abril/2027.
+              </p>
+            </div>
+          </div>
+
+          <!-- Slider de Atingimento -->
+          <div class="slider-section">
+            <div class="slider-label-row">
+              <div>
+                <span class="lbl">📊 % Atingimento de Metas</span>
+                <div class="slider-subtext">Comuns (30%) + Setoriais (30%) + Individuais (40%)</div>
+              </div>
+              <span class="slider-badge" id="sliderBadge">100%</span>
+            </div>
+            <input type="range" id="inScore" min="0" max="100" value="100" step="1" oninput="updateSlider(this.value)">
+            <div class="slider-ticks">
+              <span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>
+            </div>
+            <div class="slider-presets">
+              <span class="preset-label">Atalhos rápidos:</span>
+              <button type="button" class="btn-preset" onclick="setSliderValue(50)">50%</button>
+              <button type="button" class="btn-preset" onclick="setSliderValue(75)">75%</button>
+              <button type="button" class="btn-preset" onclick="setSliderValue(90)">90%</button>
+              <button type="button" class="btn-preset" onclick="setSliderValue(100)">100% (Meta)</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- COLUNA DIREITA: RESULTADOS & PROJEÇÃO -->
+        <div class="sim-col sim-col-results">
+          <div class="sim-section-header">
+            <div class="section-icon">📊</div>
+            <div>
+              <div class="section-title">Demonstrativo da Simulação</div>
+              <div class="section-desc">Projeção calculada dos valores e saldo final</div>
+            </div>
+          </div>
+
+          <!-- Detalhamento da Fórmula -->
+          <div class="sim-breakdown-card" id="simFormula">
+            📐 <strong>Cálculo:</strong> R$ 1.638,00 × 1,0 salário × 12/12m (100%) × 100% atingimento = <strong>R$ 1.638,00</strong> (Saldo a pagar: <strong>R$ 1.146,60</strong>)
+          </div>
+
+          <!-- Cards de Métricas -->
+          <div class="results-grid">
+            <!-- Teto -->
+            <div class="res-card res-teto">
+              <div class="res-card-top">
+                <span class="res-icon">🎯</span>
+                <div class="res-label" id="lblTeto">Teto Máximo (100%)</div>
+              </div>
+              <div class="res-value" id="resTeto">R$ 1.638,00</div>
+              <div id="resTetoSub" class="res-sub" style="display:none;"></div>
+            </div>
+
+            <!-- Antecipação -->
+            <div class="res-card res-antec">
+              <div class="res-card-top">
+                <span class="res-icon">💳</span>
+                <div class="res-label">Antecipação (set/26)</div>
+              </div>
+              <div class="res-value" id="resAntec">R$ 491,40</div>
+              <div class="res-sub">Adiantamento de 30%</div>
+            </div>
+
+            <!-- Prêmio Estimado -->
+            <div class="res-card res-premio">
+              <div class="res-card-top">
+                <span class="res-icon">📈</span>
+                <div class="res-label" id="lblPremio">Prêmio Estimado (100% ating.)</div>
+              </div>
+              <div class="res-value" id="resPremio">R$ 1.638,00</div>
+              <div class="res-sub">Valor bruto apurado</div>
+            </div>
+          </div>
+
+          <!-- Saldo Final Hero Card -->
+          <div class="res-card res-saldo">
+            <div class="saldo-content">
+              <span class="saldo-badge">Pagamento em Abril / 2027</span>
+              <div class="res-label">💰 Saldo Final Estimado</div>
+              <div class="res-value" id="resSaldo">R$ 1.146,60</div>
+              <div class="saldo-sub" id="saldoSub">Prêmio apurado − antecipação recebida · abr/2027</div>
+            </div>
+            <div class="saldo-icon-box">
+              <div class="saldo-icon" id="saldoIcon">🎉</div>
+            </div>
+          </div>
+
+          <!-- Aviso de saldo menor que antecipação -->
+          <div class="saldo-warning" id="saldoWarn">
+            <span class="warn-icon">⚠️</span>
+            <span>O prêmio estimado é menor que a antecipação já recebida. Nenhum saldo adicional será pago em abril/2027.</span>
+          </div>
+
+          <!-- Rodapé e Regulamento -->
+          <div class="sim-footer-box">
+            <p class="sim-note">
+              Valores estimados em termos brutos · Sujeito à apuração final auditada e fechamento contábil.<br>
+              <a href="https://sesuite.softexpert.com/se/generic/gn_linkshare/linkshare.php?key=1HrYuoXSl3D&cdisosystem=73"
+                target="_blank" class="sim-note-link">
+                📄 Consultar Regulamento DE064.PT — SoftExpert Software S.A. · Exercício 2026
+              </a>
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ── Format BRL ─────────────────────────────────────── */
+    const brl = v => v.toLocaleString('pt-BR', {
+      style: 'currency', currency: 'BRL', minimumFractionDigits: 2
+    });
+
+    /* ── Track se o usuário editou manualmente a antecipação ── */
+    let antecManual = false;
+
+    /* ── Quando salário ou multiplicador mudam ──────────── */
+    function onTetoChange() {
+      if (!antecManual) suggestAntec(false);
+      calc();
+    }
+
+    /* ── Quando meses mudam ─────────────────────────────── */
+    function onMesesChange() {
+      if (!antecManual) suggestAntec(false);
+      calc();
+    }
+
+    /* ── Sugerir 30% do teto proporcional como antecipação ─── */
+    function suggestAntec(marcarManual) {
+      const salary = parseFloat(document.getElementById('inSalary').value) || 0;
+      const mult = parseFloat(document.getElementById('inMult').value) || 1;
+      const meses = parseInt(document.getElementById('inMeses').value, 10) || 12;
+      const tetoIntegral = salary * mult;
+      const tetoProp = tetoIntegral * (meses / 12);
+      document.getElementById('inAntec').value = (tetoProp * 0.30).toFixed(2);
+      if (marcarManual !== false) antecManual = false;
+      calc();
+    }
+
+    /* ── Slider rápido preset ───────────────────────────── */
+    function setSliderValue(val) {
+      const slider = document.getElementById('inScore');
+      slider.value = val;
+      updateSlider(val);
+    }
+
+    /* ── Slider visual update ───────────────────────────── */
+    function updateSlider(val) {
+      val = parseInt(val, 10);
+      const badge = document.getElementById('sliderBadge');
+      const slider = document.getElementById('inScore');
+      badge.textContent = val + '%';
+
+      let bg, color, trackColor;
+      if (val >= 80) { bg = '#f0fdf4'; color = '#16a34a'; trackColor = '#22c55e'; }
+      else if (val >= 50) { bg = '#fefce8'; color = '#d97706'; trackColor = '#f59e0b'; }
+      else { bg = '#fef2f2'; color = '#dc2626'; trackColor = '#ef4444'; }
+
+      badge.style.background = bg;
+      badge.style.color = color;
+      slider.style.background = `linear-gradient(to right, ${trackColor} 0%, ${trackColor} ${val}%, #e2e8f0 ${val}%, #e2e8f0 100%)`;
+
+      calc();
+    }
+
+    /* ── Main calculator ────────────────────────────────── */
+    function calc() {
+      const salary = parseFloat(document.getElementById('inSalary').value) || 0;
+      const mult = parseFloat(document.getElementById('inMult').value) || 1;
+      const meses = parseInt(document.getElementById('inMeses').value, 10) || 12;
+      const antecVal = parseFloat(document.getElementById('inAntec').value) || 0;
+      const scorePct = parseFloat(document.getElementById('inScore').value) || 0;
+
+      const propRatio = meses / 12;
+      const tetoIntegral = salary * mult;
+      const tetoProp = tetoIntegral * propRatio;
+      const premio = tetoProp * (scorePct / 100);
+      const saldo = Math.max(0, premio - antecVal);
+      const isZero = premio < antecVal;
+
+      const lblTeto = document.getElementById('lblTeto');
+      const tetoSub = document.getElementById('resTetoSub');
+      if (meses === 12) {
+        lblTeto.textContent = 'Teto Máximo (100%)';
+        tetoSub.style.display = 'none';
+      } else {
+        lblTeto.textContent = `Teto Proporcional (${meses}/12)`;
+        tetoSub.style.display = 'block';
+        tetoSub.textContent = `Integral: ${brl(tetoIntegral)}`;
+      }
+
+      document.getElementById('resTeto').textContent = brl(tetoProp);
+      document.getElementById('resAntec').textContent = brl(antecVal);
+      document.getElementById('lblPremio').textContent = `Prêmio Estimado (${scorePct}% ating.)`;
+      document.getElementById('resPremio').textContent = brl(premio);
+      document.getElementById('resSaldo').textContent = brl(saldo);
+
+      document.getElementById('saldoSub').textContent = isZero
+        ? 'Prêmio abaixo da antecipação — sem pagamento adicional'
+        : (meses < 12 ? `Prêmio proporcional (${meses}/12m) − antecipação · abr/2027` : 'Prêmio apurado − antecipação recebida · abr/2027');
+      document.getElementById('saldoIcon').textContent = isZero ? '⚠️' : '🎉';
+
+      const warn = document.getElementById('saldoWarn');
+      warn.className = 'saldo-warning' + (isZero ? ' show' : '');
+
+      const propPct = (meses / 12) * 100;
+      const formulaEl = document.getElementById('simFormula');
+      if (formulaEl) {
+        const mesesText = meses === 12 ? '12/12m (100%)' : `${meses}/12m (${propPct.toFixed(1).replace('.', ',')}%)`;
+        formulaEl.innerHTML = `📐 <strong>Cálculo:</strong> ${brl(salary)} × ${mult.toFixed(1).replace('.', ',')} sal. × <strong>${mesesText}</strong> × ${scorePct}% atingimento = <strong>${brl(premio)}</strong> (Saldo a pagar: <strong>${brl(saldo)}</strong>)`;
+      }
+    }
+
+    /* ── Salário dispara sugestão de antec se não manual ── */
+    document.getElementById('inSalary').addEventListener('input', function () {
+      if (!antecManual) suggestAntec(false);
+      calc();
+    });
+
+    /* ── Init ───────────────────────────────────────────── */
+    suggestAntec(false);
+    updateSlider(100);
+  </script>
+
+</body>
+
+</html>
