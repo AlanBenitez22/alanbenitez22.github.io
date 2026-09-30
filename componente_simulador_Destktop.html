@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simulador PLR 2026 — SoftExpert</title>
-  <meta name="description" content="Simulador Interativo do Programa de Participação nos Lucros e Resultados 2026 — SoftExpert Software S.A.">
+  <title>Calculadora PLR 2026 — SoftExpert</title>
+  <meta name="description" content="Calculadora Interativa do Programa de Participação nos Lucros e Resultados 2026 — SoftExpert Software S.A.">
 
   <!-- Bootstrap 5.3 & Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -124,6 +124,139 @@
       border-color: rgba(255, 255, 255, 0.45);
       color: #ffffff;
       transform: translateY(-1px);
+    }
+
+    /* ── Language Switcher ───────────────────────────────── */
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 20px;
+      padding: 3px;
+    }
+
+    .lang-switch .lang-icon {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.75);
+      padding: 0 0.35rem 0 0.5rem;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .lang-btn {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      color: rgba(255, 255, 255, 0.8);
+      background: transparent;
+      border: none;
+      border-radius: 16px;
+      padding: 0.28rem 0.6rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      line-height: 1;
+    }
+
+    .lang-btn:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .lang-btn.active {
+      color: var(--se-navy);
+      background: #ffffff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    }
+
+    /* CSS flags (funcionam em qualquer SO, sem depender de emoji) */
+    .lang-btn .flag {
+      display: inline-block;
+      width: 18px;
+      height: 12px;
+      border-radius: 2px;
+      vertical-align: -1px;
+      margin-right: 2px;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12) inset;
+    }
+
+    /* Brasil */
+    .flag-br {
+      background:
+        radial-gradient(circle at 50% 50%, #002776 0 3.2px, transparent 3.4px),
+        linear-gradient(135deg, transparent 41%, #ffdf00 41% 59%, transparent 59%),
+        linear-gradient(45deg, transparent 41%, #ffdf00 41% 59%, transparent 59%),
+        #009c3b;
+    }
+
+    /* Estados Unidos */
+    .flag-us {
+      background:
+        linear-gradient(#b22234 0 15.4%, #fff 15.4% 30.8%, #b22234 30.8% 46.2%, #fff 46.2% 61.5%, #b22234 61.5% 76.9%, #fff 76.9% 92.3%, #b22234 92.3% 100%);
+      position: relative;
+    }
+    .flag-us::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 42%;
+      height: 54%;
+      background: #3c3b6e;
+    }
+
+    /* Espanha */
+    .flag-es {
+      background: linear-gradient(#c60b1e 0 25%, #ffc400 25% 75%, #c60b1e 75% 100%);
+    }
+
+    /* ── Currency Switcher ───────────────────────────────── */
+    .cur-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 20px;
+      padding: 3px 3px 3px 0;
+    }
+
+    .cur-switch .cur-icon {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.75);
+      padding: 0 0.25rem 0 0.6rem;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .cur-select {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      color: var(--se-navy);
+      background: #ffffff;
+      border: none;
+      border-radius: 16px;
+      padding: 0.28rem 1.5rem 0.28rem 0.6rem;
+      cursor: pointer;
+      line-height: 1;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 16 16' fill='%23002080'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.5rem center;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    }
+
+    .cur-select:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35);
     }
 
     .sim-title {
@@ -262,7 +395,8 @@
       z-index: 4;
     }
 
-    .sim-input-group input[type="number"] {
+    .sim-input-group input[type="number"],
+    .sim-input-group input[type="text"] {
       width: 100%;
       padding: 0.65rem 0.85rem 0.65rem 2.2rem;
       border: 1.5px solid var(--se-border);
@@ -281,7 +415,8 @@
       opacity: 0;
     }
 
-    .sim-input-group input[type="number"]:focus {
+    .sim-input-group input[type="number"]:focus,
+    .sim-input-group input[type="text"]:focus {
       outline: none;
       border-color: var(--se-blue);
       box-shadow: 0 0 0 3px rgba(0, 106, 230, 0.15);
@@ -686,17 +821,29 @@
             <i class="bi bi-award-fill"></i> PLR 2026
           </span>
         </div>
-        <div>
+        <div class="d-flex align-items-center gap-2 flex-wrap">
+          <!-- Currency Switcher -->
+          <div class="cur-switch" title="Moeda / Currency / Moneda">
+            <span class="cur-icon"><i class="bi bi-cash-coin"></i></span>
+            <select id="inCurrency" class="cur-select" onchange="setCurrency(this.value)" aria-label="Currency selector"></select>
+          </div>
+          <!-- Language Switcher -->
+          <div class="lang-switch" role="group" aria-label="Language selector">
+            <span class="lang-icon" title="Idioma / Language / Idioma"><i class="bi bi-translate"></i></span>
+            <button type="button" class="lang-btn active" data-lang="pt" onclick="setLang('pt')"><span class="flag flag-br"></span> PT</button>
+            <button type="button" class="lang-btn" data-lang="en" onclick="setLang('en')"><span class="flag flag-us"></span> EN</button>
+            <button type="button" class="lang-btn" data-lang="es" onclick="setLang('es')"><span class="flag flag-es"></span> ES</button>
+          </div>
           <a href="https://alanbenitez22.github.io/componente_simulador.html" target="_blank" rel="noopener" class="sim-header-btn"
-            title="Abrir simulador em tela cheia">
-            <i class="bi bi-box-arrow-up-right"></i> Abrir em tela cheia
+            id="btnFullscreen" title="Abrir calculadora em tela cheia">
+            <i class="bi bi-box-arrow-up-right"></i> <span data-i18n="fullscreen">Abrir em tela cheia</span>
           </a>
         </div>
       </div>
       <div>
-        <h1 class="sim-title">🏆 Simulador de PLR 2026</h1>
-        <p class="sim-subtitle">
-          Simule os valores de participação nos lucros e resultados. Ajuste o salário base, multiplicador, proporcionalidade de meses e o atingimento de metas para projetar a antecipação de setembro/2026 e o saldo final a pagar em abril/2027.
+        <h1 class="sim-title" data-i18n="title">🏆 Calculadora de PLR 2026</h1>
+        <p class="sim-subtitle" data-i18n="subtitle">
+          Calcule os valores de participação nos lucros e resultados. Ajuste o salário base, multiplicador, proporcionalidade de meses e o atingimento de metas para projetar a antecipação de setembro/2026 e o saldo final a pagar em abril/2027.
         </p>
       </div>
     </div>
@@ -715,8 +862,8 @@
                 <i class="bi bi-sliders"></i>
               </div>
               <div>
-                <div class="section-title">Parâmetros de Cálculo</div>
-                <div class="section-desc">Dados contratuais e valores de referência do colaborador</div>
+                <div class="section-title" data-i18n="paramsTitle">Parâmetros de Cálculo</div>
+                <div class="section-desc" data-i18n="paramsDesc">Dados contratuais e valores de referência do colaborador</div>
               </div>
             </div>
 
@@ -725,21 +872,22 @@
               <!-- Salário Base -->
               <div class="col-12 col-sm-6">
                 <label for="inSalary" class="sim-label">
-                  <span>Salário Base</span>
-                  <span class="hint">(vigente 2026)</span>
+                  <span data-i18n="salaryLabel">Salário Base</span>
+                  <span class="hint" data-i18n="salaryHint">(vigente 2026)</span>
                 </label>
                 <div class="sim-input-group">
-                  <span class="input-prefix">R$</span>
-                  <input type="number" id="inSalary" class="form-control" value="1638" min="0" step="50"
-                    oninput="if(!antecManual)suggestAntec(false);calc()">
+                  <span class="input-prefix" id="prefixSalary">R$</span>
+                  <input type="text" inputmode="decimal" id="inSalary" class="form-control" value="1.638,00"
+                    data-raw="1638" autocomplete="off"
+                    oninput="onMoneyInput('inSalary')" onblur="onMoneyBlur('inSalary')">
                 </div>
               </div>
 
               <!-- Multiplicador -->
               <div class="col-12 col-sm-6">
                 <label for="inMult" class="sim-label">
-                  <span>Nº de Salários</span>
-                  <span class="hint">(Pol. SE)</span>
+                  <span data-i18n="multLabel">Nº de Salários</span>
+                  <span class="hint" data-i18n="multHint">(Pol. SE)</span>
                 </label>
                 <div class="sim-input-group">
                   <span class="input-prefix">×</span>
@@ -750,39 +898,41 @@
               <!-- Proporcionalidade / Meses -->
               <div class="col-12">
                 <label for="inMeses" class="sim-label">
-                  <span>Meses de Direito em 2026</span>
-                  <span class="hint">(Proporcionalidade)</span>
+                  <span data-i18n="mesesLabel">Meses de Direito em 2026</span>
+                  <span class="hint" data-i18n="mesesHint">(Proporcionalidade)</span>
                 </label>
                 <select id="inMeses" class="sim-select" onchange="onMesesChange()">
-                  <option value="12" selected>12 / 12 meses (100% — Ano integral)</option>
-                  <option value="11">11 / 12 meses (91,7%)</option>
-                  <option value="10">10 / 12 meses (83,3%)</option>
-                  <option value="9">9 / 12 meses (75,0%)</option>
-                  <option value="8">8 / 12 meses (66,7%)</option>
-                  <option value="7">7 / 12 meses (58,3%)</option>
-                  <option value="6">6 / 12 meses (50,0%)</option>
-                  <option value="5">5 / 12 meses (41,7%)</option>
-                  <option value="4">4 / 12 meses (33,3%)</option>
-                  <option value="3">3 / 12 meses (25,0%)</option>
-                  <option value="2">2 / 12 meses (16,7%)</option>
-                  <option value="1">1 / 12 meses (8,3%)</option>
+                  <option value="12" selected>12 / 12</option>
+                  <option value="11">11 / 12</option>
+                  <option value="10">10 / 12</option>
+                  <option value="9">9 / 12</option>
+                  <option value="8">8 / 12</option>
+                  <option value="7">7 / 12</option>
+                  <option value="6">6 / 12</option>
+                  <option value="5">5 / 12</option>
+                  <option value="4">4 / 12</option>
+                  <option value="3">3 / 12</option>
+                  <option value="2">2 / 12</option>
+                  <option value="1">1 / 12</option>
                 </select>
               </div>
 
               <!-- Antecipação em R$ -->
               <div class="col-12">
                 <div class="sim-label">
-                  <label for="inAntec" class="mb-0">Antecipação Recebida em set/2026</label>
+                  <label for="inAntec" class="mb-0" data-i18n="antecLabel">Antecipação Recebida em set/2026</label>
                   <button type="button" id="btnSuggest" onclick="suggestAntec()" class="btn-suggest"
-                    title="Sugerir 30% do teto proporcional como estimativa padrão">
-                    <i class="bi bi-arrow-clockwise"></i> Sugerir 30% do teto
+                    data-i18n-title="suggestTitle" title="Sugerir 0,4 salários proporcional como estimativa padrão">
+                    <i class="bi bi-arrow-clockwise"></i> <span data-i18n="suggestBtn">Sugerir 0,4 salários</span>
                   </button>
                 </div>
                 <div class="sim-input-group">
-                  <span class="input-prefix">R$</span>
-                  <input type="number" id="inAntec" class="form-control" value="491.40" min="0" step="50" oninput="antecManual=true;calc()">
+                  <span class="input-prefix" id="prefixAntec">R$</span>
+                  <input type="text" inputmode="decimal" id="inAntec" class="form-control" value="655,20"
+                    data-raw="655.20" autocomplete="off"
+                    oninput="onMoneyInput('inAntec');antecManual=true;calc()" onblur="onMoneyBlur('inAntec')">
                 </div>
-                <p class="field-helper">
+                <p class="field-helper" data-i18n="antecHelper">
                   Informe o valor bruto pago em setembro/2026. Este montante é abatido do prêmio total no fechamento em abril/2027.
                 </p>
               </div>
@@ -792,8 +942,8 @@
             <div class="slider-section mt-1">
               <div class="slider-label-row">
                 <div>
-                  <span class="lbl"><i class="bi bi-bar-chart-fill me-1 text-primary"></i> % Atingimento de Metas</span>
-                  <div class="slider-subtext">Comuns (30%) + Setoriais (30%) + Individuais (40%)</div>
+                  <span class="lbl"><i class="bi bi-bar-chart-fill me-1 text-primary"></i> <span data-i18n="scoreLabel">% Atingimento de Metas</span></span>
+                  <div class="slider-subtext" data-i18n="scoreSubtext">Comuns (30%) + Setoriais (30%) + Individuais (40%)</div>
                 </div>
                 <span class="slider-badge" id="sliderBadge">100%</span>
               </div>
@@ -802,11 +952,11 @@
                 <span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>
               </div>
               <div class="slider-presets">
-                <span class="preset-label">Atalhos rápidos:</span>
+                <span class="preset-label" data-i18n="shortcuts">Atalhos rápidos:</span>
                 <button type="button" class="btn-preset" onclick="setSliderValue(50)">50%</button>
                 <button type="button" class="btn-preset" onclick="setSliderValue(75)">75%</button>
                 <button type="button" class="btn-preset" onclick="setSliderValue(90)">90%</button>
-                <button type="button" class="btn-preset" onclick="setSliderValue(100)">100% (Meta)</button>
+                <button type="button" class="btn-preset" onclick="setSliderValue(100)"><span data-i18n="metaPreset">100% (Meta)</span></button>
               </div>
             </div>
 
@@ -823,15 +973,13 @@
                 <i class="bi bi-pie-chart-fill"></i>
               </div>
               <div>
-                <div class="section-title">Demonstrativo da Simulação</div>
-                <div class="section-desc">Projeção detalhada dos valores calculados e saldo final</div>
+                <div class="section-title" data-i18n="resultsTitle">Demonstrativo da Simulação</div>
+                <div class="section-desc" data-i18n="resultsDesc">Projeção detalhada dos valores calculados e saldo final</div>
               </div>
             </div>
 
             <!-- Detalhamento da Fórmula -->
-            <div class="sim-breakdown-card" id="simFormula">
-              📐 <strong>Cálculo:</strong> R$ 1.638,00 × 1,0 sal. × <strong>12/12m (100%)</strong> × 100% atingimento = <strong>R$ 1.638,00</strong> (Saldo a pagar: <strong>R$ 1.146,60</strong>)
-            </div>
+            <div class="sim-breakdown-card" id="simFormula"></div>
 
             <!-- Cards de Métricas (Grid 3 Colunas) -->
             <div class="row g-2 g-sm-3">
@@ -852,10 +1000,9 @@
                 <div class="res-card res-antec">
                   <div class="res-card-top">
                     <span class="res-icon">💳</span>
-                    <div class="res-label">Antecipação (set/26)</div>
+                    <div class="res-label" id="lblAntec">Antecipação (set/26)</div>
                   </div>
-                  <div class="res-value" id="resAntec">R$ 491,40</div>
-                  <div class="res-sub">Adiantamento 30%</div>
+                  <div class="res-value" id="resAntec">R$ 655,20</div>
                 </div>
               </div>
 
@@ -867,7 +1014,6 @@
                     <div class="res-label" id="lblPremio">Prêmio Estimado</div>
                   </div>
                   <div class="res-value" id="resPremio">R$ 1.638,00</div>
-                  <div class="res-sub">Valor bruto apurado</div>
                 </div>
               </div>
             </div>
@@ -876,10 +1022,10 @@
             <div class="res-card res-saldo">
               <div class="d-flex align-items-center justify-content-between gap-3">
                 <div>
-                  <span class="saldo-badge">Pagamento em Abril / 2027</span>
-                  <div class="res-label">💰 Saldo Final Estimado</div>
-                  <div class="res-value" id="resSaldo">R$ 1.146,60</div>
-                  <div class="saldo-sub" id="saldoSub">Prêmio apurado − antecipação recebida · abr/2027</div>
+                  <span class="saldo-badge" id="saldoBadge">Pagamento em Abril / 2027</span>
+                  <div class="res-label" id="lblSaldo">💰 Saldo Final Estimado</div>
+                  <div class="res-value" id="resSaldo">R$ 982,80</div>
+                  <div class="saldo-sub" id="saldoSub"></div>
                 </div>
                 <div class="saldo-icon-box">
                   <div class="saldo-icon" id="saldoIcon">🎉</div>
@@ -890,16 +1036,17 @@
             <!-- Aviso de saldo menor que antecipação -->
             <div class="saldo-warning" id="saldoWarn">
               <span class="warn-icon">⚠️</span>
-              <span>O prêmio estimado é menor que a antecipação já recebida. Nenhum saldo adicional será pago em abril/2027.</span>
+              <span id="saldoWarnText">O prêmio estimado é menor que a antecipação já recebida. Nenhum saldo adicional será pago em abril/2027.</span>
             </div>
 
             <!-- Rodapé e Regulamento -->
             <div class="sim-footer-box">
               <p class="sim-note">
-                Valores estimados em termos brutos · Sujeito à apuração final auditada e fechamento contábil.<br>
+                <span data-i18n="footerNote">Valores estimados em termos brutos · Sujeito à apuração final auditada e fechamento contábil.</span><br>
+                <span id="curNote" style="display:none;color:#94A3B8;"></span>
                 <a href="https://sesuite.softexpert.com/se/generic/gn_linkshare/linkshare.php?key=1HrYuoXSl3D&cdisosystem=73"
                   target="_blank" rel="noopener" class="sim-note-link">
-                  <i class="bi bi-file-earmark-text"></i> Consultar Regulamento DE064.PT — SoftExpert Software S.A. · Exercício 2026
+                  <i class="bi bi-file-earmark-text"></i> <span data-i18n="footerLink">Consultar Regulamento DE064.PT — SoftExpert Software S.A. · Exercício 2026</span>
                 </a>
               </p>
             </div>
@@ -915,13 +1062,327 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    /* ── Format BRL ─────────────────────────────────────── */
-    const brl = v => v.toLocaleString('pt-BR', {
-      style: 'currency', currency: 'BRL', minimumFractionDigits: 2
-    });
+    /* ── i18n Dictionary (PT default, EN, ES) ───────────── */
+    const I18N = {
+      pt: {
+        htmlLang: 'pt-BR',
+        docTitle: 'Calculadora PLR 2026 — SoftExpert',
+        fullscreen: 'Abrir em tela cheia',
+        fullscreenTitle: 'Abrir calculadora em tela cheia',
+        title: '🏆 Calculadora de PLR 2026',
+        subtitle: 'Calcule os valores de participação nos lucros e resultados. Ajuste o salário base, multiplicador, proporcionalidade de meses e o atingimento de metas para projetar a antecipação de setembro/2026 e o saldo final a pagar em abril/2027.',
+        paramsTitle: 'Parâmetros de Cálculo',
+        paramsDesc: 'Dados contratuais e valores de referência do colaborador',
+        salaryLabel: 'Salário Base',
+        salaryHint: '(vigente 2026)',
+        multLabel: 'Nº de Salários',
+        multHint: '(Pol. SE)',
+        mesesLabel: 'Meses de Direito em 2026',
+        mesesHint: '(Proporcionalidade)',
+        mesesUnit: 'meses',
+        mesesFull: 'Ano integral',
+        antecLabel: 'Antecipação Recebida em set/2026',
+        suggestBtn: 'Sugerir 0,4 salários',
+        suggestTitle: 'Sugerir 0,4 salários proporcional como estimativa padrão',
+        antecHelper: 'Informe o valor bruto pago em setembro/2026. Este montante é abatido do prêmio total no fechamento em abril/2027.',
+        scoreLabel: '% Atingimento de Metas',
+        scoreSubtext: 'Comuns (30%) + Setoriais (30%) + Individuais (40%)',
+        shortcuts: 'Atalhos rápidos:',
+        metaPreset: '100% (Meta)',
+        resultsTitle: 'Demonstrativo do Cálculo',
+        resultsDesc: 'Projeção detalhada dos valores calculados e saldo final',
+        tetoMax: 'Teto Máximo (100%)',
+        tetoProp: 'Teto Proporcional',
+        tetoIntegral: 'Integral',
+        antecCard: 'Antecipação (set/26)',
+        antecSub: 'Adiantamento 0,4 salários',
+        premioLabel: 'Prêmio Estimado',
+        premioLabelPct: 'Prêmio Estimado ({pct}% ating.)',
+        premioSub: 'Valor bruto apurado',
+        saldoBadge: 'Pagamento em Abril / 2027',
+        saldoLabel: '💰 Saldo Final Estimado',
+        saldoSubFull: 'Prêmio apurado − antecipação recebida · abr/2027',
+        saldoSubProp: 'Prêmio proporcional ({m}/12m) − antecipação · abr/2027',
+        saldoSubZero: 'Prêmio abaixo da antecipação — sem pagamento adicional',
+        saldoWarn: 'O prêmio estimado é menor que a antecipação já recebida. Nenhum saldo adicional será pago em abril/2027.',
+        footerNote: 'Valores estimados em termos brutos · Sujeito à apuração final auditada e fechamento contábil.',
+        curNote: 'Entradas em Reais (R$). Conversão de moeda apenas ilustrativa, com taxas aproximadas.',
+        footerLink: 'Consultar Regulamento DE064.PT — SoftExpert Software S.A. · Exercício 2026',
+        formula: '📐 <strong>Cálculo:</strong> {sal} × {mult} sal. × <strong>{meses}</strong> × {score}% atingimento = <strong>{premio}</strong> (Saldo a pagar: <strong>{saldo}</strong>)',
+        salText: 'sal.'
+      },
+      en: {
+        htmlLang: 'en',
+        docTitle: 'PLR 2026 Calculator — SoftExpert',
+        fullscreen: 'Open fullscreen',
+        fullscreenTitle: 'Open calculator in fullscreen',
+        title: '🏆 PLR 2026 Calculator',
+        subtitle: 'Calculate profit-sharing (PLR) amounts. Adjust the base salary, multiplier, month proportionality and goal achievement to project the September/2026 advance and the final balance payable in April/2027.',
+        paramsTitle: 'Calculation Parameters',
+        paramsDesc: 'Contractual data and reference values for the employee',
+        salaryLabel: 'Base Salary',
+        salaryHint: '(2026 in effect)',
+        multLabel: 'No. of Salaries',
+        multHint: '(SE Policy)',
+        mesesLabel: 'Eligible Months in 2026',
+        mesesHint: '(Proportionality)',
+        mesesUnit: 'months',
+        mesesFull: 'Full year',
+        antecLabel: 'Advance Received in Sep/2026',
+        suggestBtn: 'Suggest 0.4 salaries',
+        suggestTitle: 'Suggest 0.4 proportional salaries as the default estimate',
+        antecHelper: 'Enter the gross amount paid in September/2026. This amount is deducted from the total award at the April/2027 closing.',
+        scoreLabel: '% Goal Achievement',
+        scoreSubtext: 'Common (30%) + Sector (30%) + Individual (40%)',
+        shortcuts: 'Quick shortcuts:',
+        metaPreset: '100% (Goal)',
+        resultsTitle: 'Calculation Summary',
+        resultsDesc: 'Detailed projection of calculated values and final balance',
+        tetoMax: 'Maximum Cap (100%)',
+        tetoProp: 'Proportional Cap',
+        tetoIntegral: 'Full',
+        antecCard: 'Advance (Sep/26)',
+        antecSub: 'Advance of 0.4 salaries',
+        premioLabel: 'Estimated Award',
+        premioLabelPct: 'Estimated Award ({pct}% achiev.)',
+        premioSub: 'Gross calculated amount',
+        saldoBadge: 'Payment in April / 2027',
+        saldoLabel: '💰 Estimated Final Balance',
+        saldoSubFull: 'Calculated award − advance received · Apr/2027',
+        saldoSubProp: 'Proportional award ({m}/12m) − advance · Apr/2027',
+        saldoSubZero: 'Award below the advance — no additional payment',
+        saldoWarn: 'The estimated award is lower than the advance already received. No additional balance will be paid in April/2027.',
+        footerNote: 'Values estimated in gross terms · Subject to final audited calculation and accounting closing.',
+        curNote: 'Inputs are in Brazilian Reais (R$). Currency conversion is illustrative only, using approximate rates.',
+        footerLink: 'View Regulation DE064.PT — SoftExpert Software S.A. · Fiscal Year 2026',
+        formula: '📐 <strong>Calculation:</strong> {sal} × {mult} sal. × <strong>{meses}</strong> × {score}% achievement = <strong>{premio}</strong> (Balance due: <strong>{saldo}</strong>)',
+        salText: 'sal.'
+      },
+      es: {
+        htmlLang: 'es',
+        docTitle: 'Calculadora PLR 2026 — SoftExpert',
+        fullscreen: 'Abrir en pantalla completa',
+        fullscreenTitle: 'Abrir la calculadora en pantalla completa',
+        title: '🏆 Calculadora de PLR 2026',
+        subtitle: 'Calcule los valores de participación en las ganancias y resultados. Ajuste el salario base, el multiplicador, la proporcionalidad de meses y el logro de metas para proyectar el anticipo de septiembre/2026 y el saldo final a pagar en abril/2027.',
+        paramsTitle: 'Parámetros de Cálculo',
+        paramsDesc: 'Datos contractuales y valores de referencia del colaborador',
+        salaryLabel: 'Salario Base',
+        salaryHint: '(vigente 2026)',
+        multLabel: 'N.º de Salarios',
+        multHint: '(Pol. SE)',
+        mesesLabel: 'Meses con Derecho en 2026',
+        mesesHint: '(Proporcionalidad)',
+        mesesUnit: 'meses',
+        mesesFull: 'Año completo',
+        antecLabel: 'Anticipo Recibido en sep/2026',
+        suggestBtn: 'Sugerir 0,4 salarios',
+        suggestTitle: 'Sugerir 0,4 salarios proporcional como estimación predeterminada',
+        antecHelper: 'Ingrese el valor bruto pagado en septiembre/2026. Este monto se descuenta del premio total en el cierre de abril/2027.',
+        scoreLabel: '% Logro de Metas',
+        scoreSubtext: 'Comunes (30%) + Sectoriales (30%) + Individuales (40%)',
+        shortcuts: 'Atajos rápidos:',
+        metaPreset: '100% (Meta)',
+        resultsTitle: 'Detalle del Cálculo',
+        resultsDesc: 'Proyección detallada de los valores calculados y el saldo final',
+        tetoMax: 'Tope Máximo (100%)',
+        tetoProp: 'Tope Proporcional',
+        tetoIntegral: 'Íntegro',
+        antecCard: 'Anticipo (sep/26)',
+        antecSub: 'Anticipo de 0,4 salarios',
+        premioLabel: 'Premio Estimado',
+        premioLabelPct: 'Premio Estimado ({pct}% logro)',
+        premioSub: 'Valor bruto calculado',
+        saldoBadge: 'Pago en Abril / 2027',
+        saldoLabel: '💰 Saldo Final Estimado',
+        saldoSubFull: 'Premio calculado − anticipo recibido · abr/2027',
+        saldoSubProp: 'Premio proporcional ({m}/12m) − anticipo · abr/2027',
+        saldoSubZero: 'Premio por debajo del anticipo — sin pago adicional',
+        saldoWarn: 'El premio estimado es menor que el anticipo ya recibido. No se pagará ningún saldo adicional en abril/2027.',
+        footerNote: 'Valores estimados en términos brutos · Sujeto a la liquidación final auditada y cierre contable.',
+        curNote: 'Las entradas están en Reales (R$). La conversión de moneda es solo ilustrativa, con tasas aproximadas.',
+        footerLink: 'Consultar Reglamento DE064.PT — SoftExpert Software S.A. · Ejercicio 2026',
+        formula: '📐 <strong>Cálculo:</strong> {sal} × {mult} sal. × <strong>{meses}</strong> × {score}% logro = <strong>{premio}</strong> (Saldo a pagar: <strong>{saldo}</strong>)',
+        salText: 'sal.'
+      }
+    };
+
+    /* ── Locale helpers per language ────────────────────── */
+    const LOCALE = { pt: 'pt-BR', en: 'en-US', es: 'es-ES' };
+    let currentLang = 'pt';
+
+    /* ── Currencies (most common) + approx. rates vs BRL ──
+       rate = quanto vale 1 BRL na moeda alvo.
+       Valores de referência aproximados — ajuste conforme a cotação. */
+    const CURRENCIES = {
+      BRL: { symbol: 'R$',  label: 'Real (R$)',            rate: 1 },
+      USD: { symbol: 'US$', label: 'US Dollar (US$)',      rate: 0.185 },
+      EUR: { symbol: '€',   label: 'Euro (€)',             rate: 0.170 },
+      GBP: { symbol: '£',   label: 'British Pound (£)',    rate: 0.145 },
+      ARS: { symbol: '$',   label: 'Peso Argentino ($)',   rate: 185.0 },
+      MXN: { symbol: '$',   label: 'Peso Mexicano ($)',    rate: 3.45 },
+      CLP: { symbol: '$',   label: 'Peso Chileno ($)',     rate: 175.0 },
+      COP: { symbol: '$',   label: 'Peso Colombiano ($)',  rate: 730.0 },
+      CAD: { symbol: 'C$',  label: 'Canadian Dollar (C$)', rate: 0.255 },
+      JPY: { symbol: '¥',   label: 'Japanese Yen (¥)',     rate: 27.5 }
+    };
+    let currentCurrency = 'BRL';
+
+    function t(key) {
+      return (I18N[currentLang] && I18N[currentLang][key]) || I18N.pt[key] || key;
+    }
+
+    /* ── Format currency (converts from BRL to selected currency) ── */
+    function brl(v) {
+      const cur = CURRENCIES[currentCurrency] || CURRENCIES.BRL;
+      const converted = v * cur.rate;
+      const noDecimals = (currentCurrency === 'JPY' || currentCurrency === 'CLP' || currentCurrency === 'COP');
+      const dec = noDecimals ? 0 : 2;
+      try {
+        return converted.toLocaleString(LOCALE[currentLang], {
+          style: 'currency', currency: currentCurrency,
+          minimumFractionDigits: dec, maximumFractionDigits: dec
+        });
+      } catch (e) {
+        // Fallback caso o Intl não suporte a moeda
+        return cur.symbol + ' ' + converted.toLocaleString(LOCALE[currentLang], {
+          minimumFractionDigits: dec, maximumFractionDigits: dec
+        });
+      }
+    }
+
+    /* ── Build the currency dropdown ────────────────────── */
+    function buildCurrencyOptions() {
+      const sel = document.getElementById('inCurrency');
+      sel.innerHTML = '';
+      Object.keys(CURRENCIES).forEach(code => {
+        const opt = document.createElement('option');
+        opt.value = code;
+        opt.textContent = code + ' · ' + CURRENCIES[code].symbol;
+        sel.appendChild(opt);
+      });
+      sel.value = currentCurrency;
+    }
+
+    /* ── Casas decimais por moeda (sem centavos em JPY/CLP/COP) ── */
+    function curDecimals(code) {
+      return (code === 'JPY' || code === 'CLP' || code === 'COP') ? 0 : 2;
+    }
+
+    /* ── Formatar número no padrão brasileiro: . milhar , decimal ── */
+    function fmtBR(v, dec) {
+      return v.toLocaleString('pt-BR', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+    }
+
+    /* ── Ler valor cru (em BRL) de um campo de dinheiro ── */
+    function getRaw(id) {
+      return parseFloat(document.getElementById(id).getAttribute('data-raw')) || 0;
+    }
+
+    /* ── Escrever no campo o valor (BRL) formatado na moeda atual ── */
+    function renderMoney(id) {
+      const el = document.getElementById(id);
+      const rawBRL = parseFloat(el.getAttribute('data-raw')) || 0;
+      const cur = CURRENCIES[currentCurrency] || CURRENCIES.BRL;
+      const dec = curDecimals(currentCurrency);
+      const shown = rawBRL * cur.rate;
+      el.value = fmtBR(shown, dec);
+    }
+
+    /* ── Parsear o texto digitado (na moeda atual) e guardar em BRL ── */
+    function parseMoney(id) {
+      const el = document.getElementById(id);
+      // Mantém apenas dígitos, ponto e vírgula; . = milhar, , = decimal (pt-BR)
+      let raw = el.value.replace(/[^\d.,]/g, '').replace(/\./g, '').replace(',', '.');
+      const shown = parseFloat(raw) || 0;
+      const cur = CURRENCIES[currentCurrency] || CURRENCIES.BRL;
+      const rawBRL = cur.rate ? (shown / cur.rate) : shown;
+      el.setAttribute('data-raw', rawBRL.toFixed(6));
+      return rawBRL;
+    }
+
+    /* ── Enquanto digita: atualiza o valor cru e recalcula ── */
+    function onMoneyInput(id) {
+      parseMoney(id);
+      if (id === 'inSalary' && !antecManual) suggestAntec(false);
+      calc();
+    }
+
+    /* ── Ao sair do campo: reformata o texto exibido ────── */
+    function onMoneyBlur(id) {
+      renderMoney(id);
+    }
+
+    /* ── Change currency ────────────────────────────────── */
+    function setCurrency(code) {
+      if (!CURRENCIES[code]) code = 'BRL';
+      currentCurrency = code;
+      const sym = CURRENCIES[code].symbol;
+      const pS = document.getElementById('prefixSalary');
+      const pA = document.getElementById('prefixAntec');
+      if (pS) pS.textContent = sym;
+      if (pA) pA.textContent = sym;
+      // Reexibe os campos convertidos para a nova moeda
+      renderMoney('inSalary');
+      renderMoney('inAntec');
+      calc();
+    }
+
+    /* ── Format number with the correct decimal separator ── */
+    function numFmt(v, dec) {
+      return v.toLocaleString(LOCALE[currentLang], { minimumFractionDigits: dec, maximumFractionDigits: dec });
+    }
 
     /* ── Track se o usuário editou manualmente a antecipação ── */
     let antecManual = false;
+
+    /* ── Apply the selected language to the DOM ─────────── */
+    function setLang(lang) {
+      if (!I18N[lang]) lang = 'pt';
+      currentLang = lang;
+      document.documentElement.lang = t('htmlLang');
+      document.title = t('docTitle');
+
+      // Text nodes
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        el.innerHTML = t(el.getAttribute('data-i18n'));
+      });
+      // Title attributes
+      document.querySelectorAll('[data-i18n-title]').forEach(el => {
+        el.setAttribute('title', t(el.getAttribute('data-i18n-title')));
+      });
+      // Fullscreen link title
+      const fs = document.getElementById('btnFullscreen');
+      if (fs) fs.setAttribute('title', t('fullscreenTitle'));
+
+      // Active button state
+      document.querySelectorAll('.lang-btn').forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+      });
+
+      // Rebuild the months dropdown labels
+      buildMesesOptions();
+      // Recalculate everything so dynamic strings follow the language
+      calc();
+    }
+
+    /* ── Build the "months of eligibility" option labels ── */
+    function buildMesesOptions() {
+      const sel = document.getElementById('inMeses');
+      const prev = sel.value;
+      const unit = t('mesesUnit');
+      const full = t('mesesFull');
+      [...sel.options].forEach(opt => {
+        const m = parseInt(opt.value, 10);
+        const pct = ((m / 12) * 100);
+        if (m === 12) {
+          opt.textContent = `12 / 12 ${unit} (100% — ${full})`;
+        } else {
+          opt.textContent = `${m} / 12 ${unit} (${numFmt(pct, 1)}%)`;
+        }
+      });
+      sel.value = prev;
+    }
 
     /* ── Quando salário ou multiplicador mudam ──────────── */
     function onTetoChange() {
@@ -935,14 +1396,14 @@
       calc();
     }
 
-    /* ── Sugerir 30% do teto proporcional como antecipação ─── */
+    /* ── Sugerir 0,4 salários proporcional como antecipação ─── */
     function suggestAntec(marcarManual) {
-      const salary = parseFloat(document.getElementById('inSalary').value) || 0;
-      const mult = parseFloat(document.getElementById('inMult').value) || 1;
+      const salary = getRaw('inSalary');
       const meses = parseInt(document.getElementById('inMeses').value, 10) || 12;
-      const tetoIntegral = salary * mult;
-      const tetoProp = tetoIntegral * (meses / 12);
-      document.getElementById('inAntec').value = (tetoProp * 0.30).toFixed(2);
+      const propRatio = meses / 12;
+      const antec = salary * 0.4 * propRatio;
+      document.getElementById('inAntec').setAttribute('data-raw', antec.toFixed(6));
+      renderMoney('inAntec');
       if (marcarManual !== false) antecManual = false;
       calc();
     }
@@ -975,10 +1436,10 @@
 
     /* ── Main calculator ────────────────────────────────── */
     function calc() {
-      const salary = parseFloat(document.getElementById('inSalary').value) || 0;
+      const salary = getRaw('inSalary');
       const mult = parseFloat(document.getElementById('inMult').value) || 1;
       const meses = parseInt(document.getElementById('inMeses').value, 10) || 12;
-      const antecVal = parseFloat(document.getElementById('inAntec').value) || 0;
+      const antecVal = getRaw('inAntec');
       const scorePct = parseFloat(document.getElementById('inScore').value) || 0;
 
       const propRatio = meses / 12;
@@ -991,44 +1452,66 @@
       const lblTeto = document.getElementById('lblTeto');
       const tetoSub = document.getElementById('resTetoSub');
       if (meses === 12) {
-        lblTeto.textContent = 'Teto Máximo (100%)';
+        lblTeto.textContent = t('tetoMax');
         tetoSub.style.display = 'none';
       } else {
-        lblTeto.textContent = `Teto Proporcional (${meses}/12)`;
+        lblTeto.textContent = `${t('tetoProp')} (${meses}/12)`;
         tetoSub.style.display = 'block';
-        tetoSub.textContent = `Integral: ${brl(tetoIntegral)}`;
+        tetoSub.textContent = `${t('tetoIntegral')}: ${brl(tetoIntegral)}`;
       }
+
+      // Static labels (kept in sync with the language)
+      document.getElementById('lblAntec').textContent = t('antecCard');
+      document.getElementById('saldoBadge').textContent = t('saldoBadge');
+      document.getElementById('lblSaldo').innerHTML = t('saldoLabel');
+      document.getElementById('saldoWarnText').textContent = t('saldoWarn');
 
       document.getElementById('resTeto').textContent = brl(tetoProp);
       document.getElementById('resAntec').textContent = brl(antecVal);
-      document.getElementById('lblPremio').textContent = `Prêmio Estimado (${scorePct}% ating.)`;
+      document.getElementById('lblPremio').textContent = t('premioLabelPct').replace('{pct}', scorePct);
       document.getElementById('resPremio').textContent = brl(premio);
       document.getElementById('resSaldo').textContent = brl(saldo);
 
-      document.getElementById('saldoSub').textContent = isZero
-        ? 'Prêmio abaixo da antecipação — sem pagamento adicional'
-        : (meses < 12 ? `Prêmio proporcional (${meses}/12m) − antecipação · abr/2027` : 'Prêmio apurado − antecipação recebida · abr/2027');
+      let saldoSubText;
+      if (isZero) saldoSubText = t('saldoSubZero');
+      else if (meses < 12) saldoSubText = t('saldoSubProp').replace('{m}', meses);
+      else saldoSubText = t('saldoSubFull');
+      document.getElementById('saldoSub').textContent = saldoSubText;
       document.getElementById('saldoIcon').textContent = isZero ? '⚠️' : '🎉';
 
       const warn = document.getElementById('saldoWarn');
       warn.className = 'saldo-warning' + (isZero ? ' show' : '');
 
+      // Nota de conversão de moeda (só aparece quando não for BRL)
+      const curNoteEl = document.getElementById('curNote');
+      if (curNoteEl) {
+        if (currentCurrency !== 'BRL') {
+          curNoteEl.style.display = 'inline';
+          curNoteEl.innerHTML = '💱 ' + t('curNote') + '<br>';
+        } else {
+          curNoteEl.style.display = 'none';
+        }
+      }
+
       const propPct = (meses / 12) * 100;
       const formulaEl = document.getElementById('simFormula');
       if (formulaEl) {
-        const mesesText = meses === 12 ? '12/12m (100%)' : `${meses}/12m (${propPct.toFixed(1).replace('.', ',')}%)`;
-        formulaEl.innerHTML = `📐 <strong>Cálculo:</strong> ${brl(salary)} × ${mult.toFixed(1).replace('.', ',')} sal. × <strong>${mesesText}</strong> × ${scorePct}% atingimento = <strong>${brl(premio)}</strong> (Saldo a pagar: <strong>${brl(saldo)}</strong>)`;
+        const mesesText = meses === 12 ? '12/12m (100%)' : `${meses}/12m (${numFmt(propPct, 1)}%)`;
+        formulaEl.innerHTML = t('formula')
+          .replace('{sal}', brl(salary))
+          .replace('{mult}', numFmt(mult, 1))
+          .replace('{meses}', mesesText)
+          .replace('{score}', scorePct)
+          .replace('{premio}', brl(premio))
+          .replace('{saldo}', brl(saldo));
       }
     }
 
-    /* ── Salário dispara sugestão de antec se não manual ── */
-    document.getElementById('inSalary').addEventListener('input', function () {
-      if (!antecManual) suggestAntec(false);
-      calc();
-    });
-
-    /* ── Init ───────────────────────────────────────────── */
-    suggestAntec(false);
+    /* ── Init (Portuguese + BRL default) ────────────────── */
+    buildCurrencyOptions();
+    setLang('pt');
+    setCurrency('BRL');   // define prefixos e formata os campos
+    suggestAntec(false);  // calcula antecipação 0,4 salários e renderiza
     updateSlider(100);
   </script>
 
