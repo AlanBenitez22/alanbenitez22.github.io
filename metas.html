@@ -122,29 +122,45 @@
       background: rgba(255, 255, 255, 0.12);
       border: 1px solid rgba(255, 255, 255, 0.25);
       border-radius: 20px;
-      padding: 2px;
+      padding: 3px;
       gap: 2px;
     }
 
     .lang-pill {
       font-size: 0.7rem;
       font-weight: 700;
-      color: rgba(255, 255, 255, 0.75);
+      color: rgba(255, 255, 255, 0.8);
       background: transparent;
       border: none;
       border-radius: 16px;
-      padding: 0.2rem 0.55rem;
+      padding: 0.25rem 0.6rem;
       cursor: pointer;
       transition: all 0.2s ease;
       display: inline-flex;
       align-items: center;
-      gap: 3px;
+      gap: 4px;
+      line-height: 1;
+    }
+
+    .lang-pill:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.15);
     }
 
     .lang-pill.active {
       background: #ffffff;
       color: var(--se-navy);
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+    }
+
+    .lang-pill .flag {
+      display: inline-block;
+      width: 18px;
+      height: 12px;
+      border-radius: 2px;
+      vertical-align: -1px;
+      object-fit: cover;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12) inset;
     }
 
     .metas-title {
@@ -165,39 +181,21 @@
       margin-top: 0.35rem;
       margin-bottom: 0;
       line-height: 1.45;
-      max-width: 900px;
+      max-width: 800px;
     }
 
-    .header-pills-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 1rem;
-      padding-top: 0.85rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    .header-pill {
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.22);
+    .header-status-badge {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(16, 185, 129, 0.4);
       border-radius: 12px;
-      padding: 0.35rem 0.75rem;
-      font-size: 0.72rem;
-      color: rgba(255, 255, 255, 0.95);
+      padding: 0.4rem 0.85rem;
+      font-size: 0.74rem;
+      color: #A7F3D0;
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-    }
-
-    .header-pill strong {
-      color: #ffffff;
-      font-weight: 700;
-    }
-
-    .header-pill.status-pill {
-      background: rgba(16, 185, 129, 0.2);
-      border-color: rgba(16, 185, 129, 0.4);
-      color: #A7F3D0;
+      font-weight: 600;
+      white-space: nowrap;
     }
 
     .metas-body {
@@ -503,29 +501,6 @@
       line-height: 1.45;
       margin: 0;
     }
-
-    .metas-footer {
-      background: #f8fafc;
-      border-top: 1px solid #E2E8F0;
-      padding: 1rem 2rem;
-      font-size: 0.72rem;
-      color: #64748B;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-
-    .footer-link {
-      color: var(--se-blue);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .footer-link:hover {
-      text-decoration: underline;
-    }
   </style>
 </head>
 <body>
@@ -533,7 +508,7 @@
   <div class="metas-card">
     
     <header class="metas-header">
-      <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-2">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
         <div class="d-flex align-items-center gap-2">
           <svg class="se-logo" viewBox="0 0 160 30" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12.4 2.2L3.8 7.2C2.7 7.8 2 9 2 10.3v10c0 1.3.7 2.5 1.8 3.1l8.6 5c1.1.6 2.5.6 3.6 0l8.6-5c1.1-.6 1.8-1.8 1.8-3.1v-10c0-1.3-.7-2.5-1.8-3.1l-8.6-5c-1.1-.6-2.5-.6-3.6 0z" fill="#006AE6"/>
@@ -544,10 +519,20 @@
         </div>
 
         <div class="d-flex align-items-center gap-2 flex-wrap">
+          <a href="https://sesuite.softexpert.com/se/generic/gn_linkshare/linkshare.php?key=1HrYuoXSl3D&cdisosystem=73" target="_blank" rel="noopener noreferrer" class="header-btn">
+            <i class="bi bi-file-earmark-text"></i> <span data-i18n="btnRegulamento">Regulamento DE064</span>
+          </a>
+
           <div class="lang-btn-group">
-            <button type="button" class="lang-pill active" id="btnLangPT" onclick="trocarIdioma('pt')">🇧🇷 PT</button>
-            <button type="button" class="lang-pill" id="btnLangEN" onclick="trocarIdioma('en')">🇺🇸 EN</button>
-            <button type="button" class="lang-pill" id="btnLangES" onclick="trocarIdioma('es')">🇪🇸 ES</button>
+            <button type="button" class="lang-pill active" id="btnLangPT" onclick="trocarIdioma('pt')">
+              <img class="flag" src="https://flagcdn.com/w40/br.png" srcset="https://flagcdn.com/w80/br.png 2x" width="18" height="12" alt="Brasil"> PT
+            </button>
+            <button type="button" class="lang-pill" id="btnLangEN" onclick="trocarIdioma('en')">
+              <img class="flag" src="https://flagcdn.com/w40/us.png" srcset="https://flagcdn.com/w80/us.png 2x" width="18" height="12" alt="USA"> EN
+            </button>
+            <button type="button" class="lang-pill" id="btnLangES" onclick="trocarIdioma('es')">
+              <img class="flag" src="https://flagcdn.com/w40/es.png" srcset="https://flagcdn.com/w80/es.png 2x" width="18" height="12" alt="España"> ES
+            </button>
           </div>
 
           <button type="button" class="header-btn" onclick="toggleFullScreen()">
@@ -556,18 +541,18 @@
         </div>
       </div>
 
-      <h1 class="metas-title">
-        <span>🎯</span> <span data-i18n="headerTitle">Metas do PLR 2026</span>
-      </h1>
-      <p class="metas-subtitle" data-i18n="headerSubtitle">
-        Consulte as tabelas oficiais de atingimento, critérios de pontuação e matriz de ponderação dos 3 pilares do Programa de Participação nos Lucros e Resultados (DE064).
-      </p>
-
-      <div class="header-pills-bar">
-        <span class="header-pill"><i class="bi bi-pie-chart-fill"></i> <span data-i18n="pillComuns">Metas Comuns:</span> <strong>30% (30 pts)</strong></span>
-        <span class="header-pill"><i class="bi bi-building"></i> <span data-i18n="pillSetoriais">Metas Setoriais:</span> <strong>30% (30 pts)</strong></span>
-        <span class="header-pill"><i class="bi bi-person-fill"></i> <span data-i18n="pillIndividuais">Metas Individuais:</span> <strong>40% (40 pts)</strong></span>
-        <span class="header-pill status-pill ms-auto"><i class="bi bi-calendar-check-fill"></i> <span data-i18n="pillApuracao">Apuração: 01/01/2026 a 31/12/2026</span></span>
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+        <div>
+          <h1 class="metas-title">
+            <span>🎯</span> <span data-i18n="headerTitle">Metas do PLR 2026</span>
+          </h1>
+          <p class="metas-subtitle" data-i18n="headerSubtitle">
+            Consulte as tabelas oficiais de atingimento, critérios de pontuação e matriz de ponderação dos 3 pilares do Programa de Participação nos Lucros e Resultados (<a href="https://sesuite.softexpert.com/se/generic/gn_linkshare/linkshare.php?key=1HrYuoXSl3D&cdisosystem=73" target="_blank" rel="noopener noreferrer" style="color:#ffffff;text-decoration:underline;font-weight:700;">DE064</a>).
+          </p>
+        </div>
+        <div class="header-status-badge">
+          <i class="bi bi-calendar-check-fill"></i> <span data-i18n="pillApuracao">Apuração: 01/01/2026 a 31/12/2026</span>
+        </div>
       </div>
     </header>
 
@@ -812,7 +797,7 @@
 
       <div class="tab-pane-custom" id="pane-individuais">
         
-        <div class="row g-3 mb-3">
+        <div class="row g-3">
           <div class="col-12 col-lg-6">
             <div class="table-container-card h-100 mb-0">
               <div class="table-header-bar">
@@ -945,7 +930,7 @@
           </div>
         </div>
 
-        <div class="rule-box-callout mb-0" style="background:#FAF5FF; border-color:#E9D5FF; border-left-color:#8B5CF6;">
+        <div class="rule-box-callout mt-3 mb-0" style="background:#FAF5FF; border-color:#E9D5FF; border-left-color:#8B5CF6;">
           <div class="rule-box-title" style="color:#581C87;">
             <i class="bi bi-shield-check"></i> <span data-i18n="titleTotalIndividuais">Composição do Pilar Individual</span>
           </div>
@@ -958,16 +943,6 @@
 
     </main>
 
-    <footer class="metas-footer">
-      <div>
-        <span data-i18n="footerRegulamento">Regulamento Oficial:</span> <strong>DE064 — Programa de Participação nos Lucros e Resultados 2026</strong> · SoftExpert Software S.A.
-      </div>
-      <div>
-        <a href="componente_simulador_Destktop.html" class="footer-link me-3"><i class="bi bi-calculator"></i> <span data-i18n="linkCalculadora">Ir para Calculadora</span></a>
-        <a href="portal_plr_2026.html" class="footer-link"><i class="bi bi-house"></i> <span data-i18n="linkPortal">Voltar ao Portal</span></a>
-      </div>
-    </footer>
-
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -978,11 +953,9 @@
     const dicI18n = {
       pt: {
         headerTitle: "Metas do PLR 2026",
-        headerSubtitle: "Consulte as tabelas oficiais de atingimento, critérios de pontuação e matriz de ponderação dos 3 pilares do Programa de Participação nos Lucros e Resultados (DE064).",
+        headerSubtitle: "Consulte as tabelas oficiais de atingimento, critérios de pontuação e matriz de ponderação dos 3 pilares do Programa de Participação nos Lucros e Resultados (<a href=\"https://sesuite.softexpert.com/se/generic/gn_linkshare/linkshare.php?key=1HrYuoXSl3D&cdisosystem=73\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color:#ffffff;text-decoration:underline;font-weight:700;\">DE064</a>).",
+        btnRegulamento: "Regulamento DE064",
         btnFullscreen: "Abrir em tela cheia",
-        pillComuns: "Metas Comuns:",
-        pillSetoriais: "Metas Setoriais:",
-        pillIndividuais: "Metas Individuais:",
         pillApuracao: "Apuração: 01/01/2026 a 31/12/2026",
         tabOverview: "Visão Geral",
         tabComuns: "Metas Comuns",
@@ -1060,18 +1033,13 @@
         badgeMinimoAceitavel: "Mínimo Aceitável",
         badgeInsuficiente: "Insuficiente",
         titleTotalIndividuais: "Composição do Pilar Individual",
-        textTotalIndividuais: "O pilar individual totaliza 40 pontos (40%) na fórmula final do PLR 2026. A soma de Assiduidade (até 20 pts) e AVD (até 20 pts) é somada diretamente aos pilares Comum (até 30 pts) e Setorial (até 30 pts) para definir o percentual final de elegibilidade sobre o salário base.",
-        footerRegulamento: "Regulamento Oficial:",
-        linkCalculadora: "Ir para Calculadora",
-        linkPortal: "Voltar ao Portal"
+        textTotalIndividuais: "O pilar individual totaliza 40 pontos (40%) na fórmula final do PLR 2026. A soma de Assiduidade (até 20 pts) e AVD (até 20 pts) é somada diretamente aos pilares Comum (até 30 pts) e Setorial (até 30 pts) para definir o percentual final de elegibilidade sobre o salário base."
       },
       en: {
         headerTitle: "PLR 2026 Targets & Goals",
-        headerSubtitle: "Consult the official achievement tables, scoring criteria and weighting matrix for the 3 pillars of the Profit Sharing Program (DE064).",
+        headerSubtitle: "Consult the official achievement tables, scoring criteria and weighting matrix for the 3 pillars of the Profit Sharing Program (<a href=\"https://sesuite.softexpert.com/se/generic/gn_linkshare/linkshare.php?key=1HrYuoXSl3D&cdisosystem=73\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color:#ffffff;text-decoration:underline;font-weight:700;\">DE064</a>).",
+        btnRegulamento: "DE064 Regulation",
         btnFullscreen: "Open Fullscreen",
-        pillComuns: "Corporate Goals:",
-        pillSetoriais: "Sector Goals:",
-        pillIndividuais: "Individual Goals:",
         pillApuracao: "Period: 01/01/2026 to 12/31/2026",
         tabOverview: "Overview",
         tabComuns: "Corporate Goals",
@@ -1149,18 +1117,13 @@
         badgeMinimoAceitavel: "Minimum Acceptable",
         badgeInsuficiente: "Insufficient",
         titleTotalIndividuais: "Individual Pillar Composition",
-        textTotalIndividuais: "The individual pillar accounts for 40 points (40%) in the final PLR 2026 formula. Attendance (up to 20 pts) + AVD (up to 20 pts) are added directly to Corporate (up to 30 pts) and Sector (up to 30 pts) pillars.",
-        footerRegulamento: "Official Regulation:",
-        linkCalculadora: "Go to Calculator",
-        linkPortal: "Back to Portal"
+        textTotalIndividuais: "The individual pillar accounts for 40 points (40%) in the final PLR 2026 formula. Attendance (up to 20 pts) + AVD (up to 20 pts) are added directly to Corporate (up to 30 pts) and Sector (up to 30 pts) pillars."
       },
       es: {
         headerTitle: "Metas del PLR 2026",
-        headerSubtitle: "Consulte las tablas oficiales de cumplimiento, criterios de puntuación y matriz de ponderación de los 3 pilares del Programa de Participación en Utilidades y Resultados (DE064).",
+        headerSubtitle: "Consulte las tablas oficiales de cumplimiento, criterios de puntuación y matriz de ponderación de los 3 pilares del Programa de Participación en Utilidades y Resultados (<a href=\"https://sesuite.softexpert.com/se/generic/gn_linkshare/linkshare.php?key=1HrYuoXSl3D&cdisosystem=73\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color:#ffffff;text-decoration:underline;font-weight:700;\">DE064</a>).",
+        btnRegulamento: "Reglamento DE064",
         btnFullscreen: "Pantalla Completa",
-        pillComuns: "Metas Comunes:",
-        pillSetoriais: "Metas Sectoriales:",
-        pillIndividuais: "Metas Individuales:",
         pillApuracao: "Período: 01/01/2026 a 31/12/2026",
         tabOverview: "Visión General",
         tabComuns: "Metas Comunes",
@@ -1238,10 +1201,7 @@
         badgeMinimoAceitavel: "Mínimo Aceptable",
         badgeInsuficiente: "Insuficiente",
         titleTotalIndividuais: "Composición del Pilar Individual",
-        textTotalIndividuais: "El pilar individual suma 40 puntos (40%) en la fórmula final del PLR 2026. La suma de Asistencia (hasta 20 pts) y AVD (hasta 20 pts) se añade directamente a los pilares Común (hasta 30 pts) y Sectorial (hasta 30 pts).",
-        footerRegulamento: "Reglamento Oficial:",
-        linkCalculadora: "Ir a la Calculadora",
-        linkPortal: "Volver al Portal"
+        textTotalIndividuais: "El pilar individual suma 40 puntos (40%) en la fórmula final del PLR 2026. La suma de Asistencia (hasta 20 pts) y AVD (hasta 20 pts) se añade directamente a los pilares Común (hasta 30 pts) y Sectorial (hasta 30 pts)."
       }
     };
 
