@@ -171,7 +171,7 @@
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
     }
 
-    /* CSS flags (funcionam em qualquer SO, sem depender de emoji) */
+    /* Bandeiras reais por idioma (flagcdn) */
     .lang-btn .flag {
       display: inline-block;
       width: 18px;
@@ -179,39 +179,8 @@
       border-radius: 2px;
       vertical-align: -1px;
       margin-right: 2px;
-      background-size: cover;
-      background-position: center;
+      object-fit: cover;
       box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12) inset;
-    }
-
-    /* Brasil */
-    .flag-br {
-      background:
-        radial-gradient(circle at 50% 50%, #002776 0 3.2px, transparent 3.4px),
-        linear-gradient(135deg, transparent 41%, #ffdf00 41% 59%, transparent 59%),
-        linear-gradient(45deg, transparent 41%, #ffdf00 41% 59%, transparent 59%),
-        #009c3b;
-    }
-
-    /* Estados Unidos */
-    .flag-us {
-      background:
-        linear-gradient(#b22234 0 15.4%, #fff 15.4% 30.8%, #b22234 30.8% 46.2%, #fff 46.2% 61.5%, #b22234 61.5% 76.9%, #fff 76.9% 92.3%, #b22234 92.3% 100%);
-      position: relative;
-    }
-    .flag-us::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 42%;
-      height: 54%;
-      background: #3c3b6e;
-    }
-
-    /* Espanha */
-    .flag-es {
-      background: linear-gradient(#c60b1e 0 25%, #ffc400 25% 75%, #c60b1e 75% 100%);
     }
 
     /* ── Currency Switcher ───────────────────────────────── */
@@ -914,9 +883,9 @@
           <!-- Language Switcher -->
           <div class="lang-switch" role="group" aria-label="Language selector">
             <span class="lang-icon" title="Idioma / Language / Idioma"><i class="bi bi-translate"></i></span>
-            <button type="button" class="lang-btn active" data-lang="pt" onclick="setLang('pt')"><span class="flag flag-br"></span> PT</button>
-            <button type="button" class="lang-btn" data-lang="en" onclick="setLang('en')"><span class="flag flag-us"></span> EN</button>
-            <button type="button" class="lang-btn" data-lang="es" onclick="setLang('es')"><span class="flag flag-es"></span> ES</button>
+            <button type="button" class="lang-btn active" data-lang="pt" onclick="setLang('pt')"><img class="flag" src="https://flagcdn.com/w40/br.png" srcset="https://flagcdn.com/w80/br.png 2x" width="18" height="12" alt="Brasil"> PT</button>
+            <button type="button" class="lang-btn" data-lang="en" onclick="setLang('en')"><img class="flag" src="https://flagcdn.com/w40/us.png" srcset="https://flagcdn.com/w80/us.png 2x" width="18" height="12" alt="USA"> EN</button>
+            <button type="button" class="lang-btn" data-lang="es" onclick="setLang('es')"><img class="flag" src="https://flagcdn.com/w40/es.png" srcset="https://flagcdn.com/w80/es.png 2x" width="18" height="12" alt="España"> ES</button>
           </div>
           <a href="https://alanbenitez22.github.io/componente_simulador.html" target="_blank" rel="noopener" class="sim-header-btn"
             id="btnFullscreen" title="Abrir calculadora em tela cheia">
