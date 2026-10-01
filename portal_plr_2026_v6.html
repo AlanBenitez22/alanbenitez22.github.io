@@ -205,28 +205,32 @@
             border-radius: 1px;
             z-index: 2;
         }
-        .target-pin::after {
-            content: attr(data-label);
+        .target-pin.gatilho {
+            background: #f59e0b;
+        }
+        .target-pin .pin-label {
             position: absolute;
             top: -18px;
             left: 50%;
             transform: translateX(-50%);
             font-size: .62rem;
             font-weight: 700;
-            color: #475569;
             white-space: nowrap;
             line-height: 1;
+            color: #475569;
         }
-        .target-pin.gatilho {
-            background: #f59e0b;
-        }
-        .target-pin.gatilho::after {
-            color: #b45309;
-        }
-        .target-pin[style*="left:100%"]::after {
+        .target-pin[style*="left:100%"] .pin-label {
             left: auto;
             right: 0;
             transform: none;
+        }
+        .txt-gatilho {
+            color: #b45309;
+            font-weight: 700;
+        }
+        .txt-meta {
+            color: #475569;
+            font-weight: 700;
         }
         .prog-labels {
             display: flex;
@@ -440,7 +444,7 @@
             </div>
             <div class="col">
                 <p class="mb-1 text-end text-white-50 fw-bold small" style="letter-spacing:4px;">2026</p>
-                <h1 class="text-white mb-2" data-i18n="header.title">Programa de Participação de Resultados</h1>
+                <h1 class="text-white mb-2" data-i18n="header.title">Programa de Participação nos Lucros e Resultados</h1>
                 <p class="lead mb-0" data-i18n-html="header.lead">Central de acompanhamento do <strong>Gatilho Corporativo</strong> (ROL e EBITDA), elegibilidade, e atingimento dos três pilares de metas: <strong>Comuns (30%)</strong>, <strong>Setoriais (30%)</strong> e <strong>Individuais (40%)</strong>. Consulte o cronograma de pagamentos, confira sua proporcionalidade no exercício e consulte as diretrizes do regulamento <a href="https://sesuite.softexpert.com/se/generic/gn_linkshare/linkshare.php?key=1HrYuoXSl3D&cdisosystem=73" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline;"><strong>DE064.PT</strong></a>.</p>
             </div>
         </div>
@@ -482,8 +486,10 @@
                                     <span data-i18n="metric.realizado">Realizado:</span> <strong>R$ 127 Mi</strong> · <span data-i18n="metric.metaAcum">Meta acumulada:</span> <strong>R$ 143 Mi</strong>
                                 </div>
                                 <div class="prog-track mt-4 mb-1">
-                                    <div class="target-pin gatilho" style="left:60%;" data-i18n-pin="pin.rolGatilho" data-label="Gatilho 15%"></div>
-                                    <div class="target-pin" style="left:100%;" data-i18n-pin="pin.rolMeta" data-label="Meta 25%"></div>
+                                    <div class="target-pin gatilho" style="left:60%;"></div>
+                                    <div class="target-pin" style="left:100%;">
+                                        <span class="pin-label txt-meta" data-i18n="pin.rolMeta">Meta 25%</span>
+                                    </div>
                                     <div class="prog-fill" style="width:52.48%;"></div>
                                 </div>
                                 <div class="prog-labels"><span>0%</span><span>25%</span></div>
@@ -511,7 +517,9 @@
                                     <span data-i18n="metric.realizado">Realizado:</span> <strong>14,54%</strong> · <span data-i18n="metric.metaLabel">Meta:</span> <strong>20,00%</strong>
                                 </div>
                                 <div class="prog-track mt-4 mb-1">
-                                    <div class="target-pin" style="left:100%;" data-i18n-pin="pin.ebitdaMetaGatilho" data-label="Gatilho / Meta 20%"></div>
+                                    <div class="target-pin" style="left:100%;">
+                                        <span class="pin-label txt-meta" data-i18n="pin.ebitdaMeta">Meta 20%</span>
+                                    </div>
                                     <div class="prog-fill" style="width:72.7%;"></div>
                                 </div>
                                 <div class="prog-labels"><span>0%</span><span>20%</span></div>
@@ -657,7 +665,7 @@
             countdown: { past: '🔔 Prazo encerrado', today: '🎉 Hoje é o prazo!', tomorrow: '⏰ Amanhã é o prazo!', days: function(d) { return '⏳ ' + d + ' dias restantes'; } },
             'nav.subtitle': 'Portal de Acompanhamento Corporativo',
             'nav.regulamento': 'Regulamento DE064.PT',
-            'header.title': 'Programa de Participação de Resultados',
+            'header.title': 'Programa de Participação nos Lucros e Resultados',
             'header.lead': 'Central de acompanhamento do <strong>Gatilho Corporativo</strong> (ROL e EBITDA), elegibilidade, e atingimento dos três pilares de metas: <strong>Comuns (30%)</strong>, <strong>Setoriais (30%)</strong> e <strong>Individuais (40%)</strong>. Consulte o cronograma de pagamentos, confira sua proporcionalidade no exercício e consulte as diretrizes do regulamento <a href="https://sesuite.softexpert.com/se/generic/gn_linkshare/linkshare.php?key=1HrYuoXSl3D&cdisosystem=73" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline;"><strong>DE064.PT</strong></a>.',
             'gatilho.label': 'Condição Geral · Exercício 2026',
             'gatilho.title': '⚡ Condição Geral para Distribuição (Gatilho 2026)',
@@ -665,9 +673,8 @@
             'gatilho.intro2': 'Apuração parcial vigente:',
             'legend.meta': 'Meta Plena',
             'legend.gatilho': 'Meta Gatilho (mínimo)',
-            'pin.rolGatilho': 'Gatilho 15%',
             'pin.rolMeta': 'Meta 25%',
-            'pin.ebitdaMetaGatilho': 'Gatilho / Meta 20%',
+            'pin.ebitdaMeta': 'Meta 20%',
             'metric.rolName': 'ROL',
             'metric.meta': 'Meta',
             'metric.gatilho': 'Gatilho',
@@ -709,9 +716,8 @@
             'gatilho.intro2': 'Current partial measurement:',
             'legend.meta': 'Full Target',
             'legend.gatilho': 'Trigger Target (minimum)',
-            'pin.rolGatilho': 'Trigger 15%',
             'pin.rolMeta': 'Target 25%',
-            'pin.ebitdaMetaGatilho': 'Trigger / Target 20%',
+            'pin.ebitdaMeta': 'Target 20%',
             'metric.rolName': 'NOR',
             'metric.meta': 'Target',
             'metric.gatilho': 'Trigger',
@@ -753,9 +759,8 @@
             'gatilho.intro2': 'Medición parcial vigente:',
             'legend.meta': 'Meta Plena',
             'legend.gatilho': 'Meta Disparador (mínimo)',
-            'pin.rolGatilho': 'Disparador 15%',
             'pin.rolMeta': 'Meta 25%',
-            'pin.ebitdaMetaGatilho': 'Disparador / Meta 20%',
+            'pin.ebitdaMeta': 'Meta 20%',
             'metric.rolName': 'ROL',
             'metric.meta': 'Meta',
             'metric.gatilho': 'Disparador',
@@ -871,7 +876,7 @@
         });
         document.querySelectorAll('[data-i18n-pin]').forEach(function(el) {
             var key = el.getAttribute('data-i18n-pin');
-            if (dict[key] != null) el.setAttribute('data-label', dict[key]);
+            if (dict[key] != null) el.innerHTML = dict[key];
         });
 
         var mesAtual = dict.months[currentMonthIndex()];
