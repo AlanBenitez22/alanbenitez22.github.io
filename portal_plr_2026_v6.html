@@ -123,123 +123,151 @@
             color: #0f172a;
         }
 
-        .metric-box {
+        /* ====== NOVA APRESENTAÇÃO: Cards de condição (sem barras/JS de dados) ====== */
+        .cond-card {
             background: #f8fafc;
             border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 1.1rem;
+            border-radius: 16px;
+            padding: 1.25rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
             transition: all 0.2s ease;
         }
-        .metric-box:hover {
+        .cond-card:hover {
             border-color: #cbd5e1;
             background: #ffffff;
-            box-shadow: 0 4px 14px -2px rgba(15, 23, 42, 0.04);
+            box-shadow: 0 6px 18px -4px rgba(15, 23, 42, 0.06);
         }
-        .metric-name {
-            font-size: .82rem;
-            font-weight: 700;
-            color: #334155;
+        .cond-head {
+            display: flex;
+            align-items: center;
+            gap: .65rem;
+            margin-bottom: 1rem;
         }
-        .metric-target-pill {
-            font-size: .65rem;
+        .cond-icon {
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, #006ae6, #002080);
+            color: #fff;
+            box-shadow: 0 4px 10px -2px rgba(0, 106, 230, 0.35);
+        }
+        .cond-name {
+            font-family: var(--font-display);
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.1;
+        }
+        .cond-fullname {
+            font-size: .7rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+        .cond-status {
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+            margin-left: auto;
+            font-size: .66rem;
             font-weight: 700;
-            color: #006ae6;
-            background: #eff4fb;
-            padding: .2rem .6rem;
+            padding: .25rem .6rem;
             border-radius: 20px;
+            background: #eff4fb;
+            color: #006ae6;
             border: 1px solid #bfdbfe;
             white-space: nowrap;
         }
-        .metric-big {
-            font-family: var(--font-display);
-            font-size: 1.75rem;
+        .cond-status .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #006ae6;
+            box-shadow: 0 0 0 3px rgba(0,106,230,.18);
+        }
+
+        /* Linha de condições (meta plena + gatilho) */
+        .cond-thresholds {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .6rem;
+            margin-bottom: 1rem;
+        }
+        .thr-box {
+            border-radius: 12px;
+            padding: .75rem .85rem;
+            border: 1px solid transparent;
+        }
+        .thr-box.meta {
+            background: #eff4fb;
+            border-color: #bfdbfe;
+        }
+        .thr-box.gatilho {
+            background: #fffbeb;
+            border-color: #fde68a;
+        }
+        .thr-label {
+            font-size: .62rem;
             font-weight: 800;
-            color: #002080;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: .3rem;
+        }
+        .thr-box.meta .thr-label { color: #1e40af; }
+        .thr-box.gatilho .thr-label { color: #92400e; }
+        .thr-value {
+            font-family: var(--font-display);
+            font-size: 1.55rem;
+            font-weight: 800;
             line-height: 1.1;
+            margin-top: .15rem;
         }
-        .metric-delta {
-            font-size: .72rem;
-            font-weight: 700;
-            padding: .15rem .5rem;
-            border-radius: 6px;
-            background: #dbeafe;
-            color: #1e40af;
-        }
-        .metric-sub {
-            font-size: .74rem;
+        .thr-box.meta .thr-value { color: #002080; }
+        .thr-box.gatilho .thr-value { color: #b45309; }
+        .thr-caption {
+            font-size: .64rem;
             color: #64748b;
-            line-height: 1.5;
+            font-weight: 600;
+            margin-top: .1rem;
         }
-        .metric-sub strong { color: #1e293b; }
-        .metric-detail {
-            font-size: .73rem;
+
+        .cond-detail {
+            font-size: .74rem;
             color: #475569;
             background: #ffffff;
             border: 1px solid #e2e8f0;
             border-radius: 10px;
-            padding: .45rem .65rem;
-            line-height: 1.5;
+            padding: .6rem .75rem;
+            line-height: 1.55;
+            margin-top: auto;
         }
-        .metric-detail strong { color: #0f172a; }
+        .cond-detail strong { color: #0f172a; }
 
-        .prog-track {
-            height: 10px;
-            background: #e2e8f0;
-            border-radius: 6px;
-            position: relative;
-            overflow: visible;
-            margin-top: 30px !important;
-        }
-        .prog-fill {
-            height: 100%;
-            border-radius: 6px;
-            background: linear-gradient(90deg, #60a5fa, #006ae6);
-            transition: width 1s ease;
-        }
-        .target-pin {
-            position: absolute;
-            top: -5px;
-            width: 2px;
-            height: 20px;
-            background: #0f172a;
-            border-radius: 1px;
-            z-index: 2;
-        }
-        .target-pin.gatilho {
-            background: #f59e0b;
-        }
-        .target-pin .pin-label {
-            position: absolute;
-            top: -18px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: .62rem;
-            font-weight: 700;
-            white-space: nowrap;
-            line-height: 1;
+        .cond-note {
+            font-size: .74rem;
             color: #475569;
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: .7rem .9rem;
+            line-height: 1.55;
         }
-        .target-pin[style*="left:100%"] .pin-label {
-            left: auto;
-            right: 0;
-            transform: none;
-        }
-        .txt-gatilho {
-            color: #b45309;
-            font-weight: 700;
-        }
-        .txt-meta {
+        .cond-note strong { color: #0f172a; }
+
+        .gatekeeper-intro {
+            font-size: .83rem;
             color: #475569;
-            font-weight: 700;
-        }
-        .prog-labels {
-            display: flex;
-            justify-content: space-between;
-            font-size: .62rem;
-            color: #94a3b8;
-            margin-top: 4px;
+            line-height: 1.6;
         }
 
+        /* ====== Cronograma ====== */
         .t-step { display: flex; gap: .75rem; }
         .t-step:not(:last-child) .t-icon-wrap::after {
             content: '';
@@ -343,32 +371,10 @@
             margin-bottom: 0;
         }
 
-        .gatekeeper-intro {
-            font-size: .83rem;
-            color: #475569;
-            line-height: 1.6;
-        }
-
         .portal-footer {
             font-size: .75rem;
             color: #94a3b8;
         }
-
-        .legend-item {
-            display: inline-flex;
-            align-items: center;
-            gap: .35rem;
-            font-size: .68rem;
-            color: #64748b;
-            font-weight: 600;
-        }
-        .legend-dot {
-            width: 10px;
-            height: 3px;
-            border-radius: 2px;
-        }
-        .legend-dot.meta { background: #0f172a; }
-        .legend-dot.gatilho { background: #f59e0b; }
 
         .lang-switch {
             display: inline-flex;
@@ -460,75 +466,74 @@
                     <div class="section-title mb-2" data-i18n="gatilho.title">⚡ Condição Geral para Distribuição (Gatilho 2026)</div>
 
                     <p class="gatekeeper-intro mb-3">
-                        <span data-i18n-html="gatilho.intro">A distribuição do PLR exige que <strong>ROL</strong> e <strong>EBITDA</strong> atinjam simultaneamente o patamar mínimo (gatilho) mostrado abaixo — o valor pleno de cada indicador libera 100% do potencial do prêmio.</span> <span data-i18n="gatilho.intro2">Apuração parcial vigente:</span> <strong><span class="dynamic-period">Jan/2026 até Set/2026</span></strong>.
+                        <span data-i18n-html="gatilho.intro">A distribuição do PLR está condicionada ao atingimento simultâneo de <strong>dois indicadores corporativos</strong>: <strong>ROL</strong> e <strong>EBITDA</strong>. Cada um possui uma <strong>meta plena</strong> e um <strong>gatilho mínimo</strong> que precisam ser alcançados para liberar o prêmio.</span>
                     </p>
 
-                    <div class="d-flex gap-3 mb-3">
-                        <span class="legend-item"><span class="legend-dot meta"></span> <span data-i18n="legend.meta">Meta Plena</span></span>
-                        <span class="legend-item"><span class="legend-dot gatilho"></span> <span data-i18n="legend.gatilho">Meta Gatilho (mínimo)</span></span>
-                    </div>
-
+                    <!-- NOVA APRESENTAÇÃO: cards de condição, sem barras de progresso nem JS de dados -->
                     <div class="row g-3">
                         <div class="col-12 col-md-6">
-                            <div class="metric-box h-100 d-flex flex-column">
-                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-1 mb-2">
-                                    <span class="metric-name" data-i18n="metric.rolName">ROL</span>
-                                    <div class="d-flex gap-1 flex-wrap">
-                                        <span class="metric-target-pill"><span data-i18n="metric.meta">Meta</span> ≥ 25%</span>
-                                        <span class="metric-target-pill" style="background:#fef3c7;color:#92400e;border-color:#fde68a;"><span data-i18n="metric.gatilho">Gatilho</span> ≥ 15%</span>
+                            <div class="cond-card">
+                                <div class="cond-head">
+                                    <div class="cond-icon"><i class="bi bi-graph-up-arrow"></i></div>
+                                    <div>
+                                        <div class="cond-name" data-i18n="metric.rolName">ROL</div>
+                                        <div class="cond-fullname" data-i18n="rol.fullname">Receita Operacional Líquida</div>
                                     </div>
+                                    <span class="cond-status"><span class="dot"></span><span data-i18n="status.apuracao">Em apuração</span></span>
                                 </div>
-                                <div class="d-flex align-items-baseline gap-2 flex-wrap mb-1">
-                                    <span class="metric-big">13,12%</span>
-                                    <span class="metric-delta" data-i18n="rol.delta">Cresc. vs Ano Anterior</span>
-                                </div>
-                                <div class="metric-sub mb-2">
-                                    <span data-i18n="metric.realizado">Realizado:</span> <strong>R$ 127 Mi</strong> · <span data-i18n="metric.metaAcum">Meta acumulada:</span> <strong>R$ 143 Mi</strong>
-                                </div>
-                                <div class="prog-track mt-4 mb-1">
-                                    <div class="target-pin gatilho" style="left:60%;"></div>
-                                    <div class="target-pin" style="left:100%;">
-                                        <span class="pin-label txt-meta" data-i18n="pin.rolMeta">Meta 25%</span>
-                                    </div>
-                                    <div class="prog-fill" style="width:52.48%;"></div>
-                                </div>
-                                <div class="prog-labels"><span>0%</span><span>25%</span></div>
 
-                                <div class="metric-detail mt-2" data-i18n-html="rol.detail">
+                                <div class="cond-thresholds">
+                                    <div class="thr-box meta">
+                                        <div class="thr-label"><i class="bi bi-bullseye"></i> <span data-i18n="metric.meta">Meta</span></div>
+                                        <div class="thr-value">≥ 25%</div>
+                                        <div class="thr-caption" data-i18n="thr.rolMetaCaption">Crescimento pleno vs 2025</div>
+                                    </div>
+                                    <div class="thr-box gatilho">
+                                        <div class="thr-label"><i class="bi bi-lightning-charge-fill"></i> <span data-i18n="metric.gatilho">Gatilho</span></div>
+                                        <div class="thr-value">≥ 15%</div>
+                                        <div class="thr-caption" data-i18n="thr.rolGatilhoCaption">Mínimo para liberar</div>
+                                    </div>
+                                </div>
+
+                                <div class="cond-detail" data-i18n-html="rol.detail">
                                     💡 <strong>O que é:</strong> Receita Operacional Líquida — receita bruta menos vendas canceladas, descontos e impostos, apurada mensalmente.
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-12 col-md-6">
-                            <div class="metric-box h-100 d-flex flex-column">
-                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-1 mb-2">
-                                    <span class="metric-name">EBITDA</span>
-                                    <div class="d-flex gap-1 flex-wrap">
-                                        <span class="metric-target-pill"><span data-i18n="metric.meta">Meta</span> ≥ 20%</span>
-                                        <span class="metric-target-pill" style="background:#fef3c7;color:#92400e;border-color:#fde68a;"><span data-i18n="metric.gatilho">Gatilho</span> ≥ 20%</span>
+                            <div class="cond-card">
+                                <div class="cond-head">
+                                    <div class="cond-icon"><i class="bi bi-cash-coin"></i></div>
+                                    <div>
+                                        <div class="cond-name">EBITDA</div>
+                                        <div class="cond-fullname" data-i18n="ebitda.fullname">Resultado operacional</div>
                                     </div>
+                                    <span class="cond-status"><span class="dot"></span><span data-i18n="status.apuracao">Em apuração</span></span>
                                 </div>
-                                <div class="d-flex align-items-baseline gap-2 flex-wrap mb-1">
-                                    <span class="metric-big">14,54%</span>
-                                    <span class="metric-delta">−5,46 pp</span>
-                                </div>
-                                <div class="metric-sub mb-2">
-                                    <span data-i18n="metric.realizado">Realizado:</span> <strong>14,54%</strong> · <span data-i18n="metric.metaLabel">Meta:</span> <strong>20,00%</strong>
-                                </div>
-                                <div class="prog-track mt-4 mb-1">
-                                    <div class="target-pin" style="left:100%;">
-                                        <span class="pin-label txt-meta" data-i18n="pin.ebitdaMeta">Meta 20%</span>
-                                    </div>
-                                    <div class="prog-fill" style="width:72.7%;"></div>
-                                </div>
-                                <div class="prog-labels"><span>0%</span><span>20%</span></div>
 
-                                <div class="metric-detail mt-2" data-i18n-html="ebitda.detail">
+                                <div class="cond-thresholds">
+                                    <div class="thr-box meta">
+                                        <div class="thr-label"><i class="bi bi-bullseye"></i> <span data-i18n="metric.meta">Meta</span></div>
+                                        <div class="thr-value">≥ 20%</div>
+                                        <div class="thr-caption" data-i18n="thr.ebitdaMetaCaption">Margem plena do exercício</div>
+                                    </div>
+                                    <div class="thr-box gatilho">
+                                        <div class="thr-label"><i class="bi bi-lightning-charge-fill"></i> <span data-i18n="metric.gatilho">Gatilho</span></div>
+                                        <div class="thr-value">≥ 20%</div>
+                                        <div class="thr-caption" data-i18n="thr.ebitdaGatilhoCaption">Mínimo para liberar</div>
+                                    </div>
+                                </div>
+
+                                <div class="cond-detail" data-i18n-html="ebitda.detail">
                                     💡 <strong>O que é:</strong> lucro operacional antes de juros, impostos, depreciação e amortização — mede o desempenho do negócio isolado de efeitos financeiros e contábeis.
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="cond-note mt-3" data-i18n-html="gatilho.note">
+                        <i class="bi bi-info-circle-fill text-primary me-1"></i> <strong>Como funciona:</strong> ambos os indicadores precisam ser atingidos <strong>simultaneamente</strong>. O valor realizado de ROL e EBITDA é apurado pela área financeira e divulgado no fechamento do exercício. Até lá, as condições permanecem <strong>em apuração</strong>.
                     </div>
 
                 </div>
@@ -661,7 +666,6 @@
         pt: {
             htmlLang: 'pt-BR',
             months: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-            period: function(m) { return 'Jan/2026 até ' + m + '/2026'; },
             countdown: { past: '🔔 Prazo encerrado', today: '🎉 Hoje é o prazo!', tomorrow: '⏰ Amanhã é o prazo!', days: function(d) { return '⏳ ' + d + ' dias restantes'; } },
             'nav.subtitle': 'Portal de Acompanhamento Corporativo',
             'nav.regulamento': 'Regulamento DE064.PT',
@@ -669,19 +673,18 @@
             'header.lead': 'Central de acompanhamento do <strong>Gatilho Corporativo</strong> (ROL e EBITDA), elegibilidade, e atingimento dos três pilares de metas: <strong>Comuns (30%)</strong>, <strong>Setoriais (30%)</strong> e <strong>Individuais (40%)</strong>. Consulte o cronograma de pagamentos, confira sua proporcionalidade no exercício e consulte as diretrizes do regulamento <a href="https://sesuite.softexpert.com/se/generic/gn_linkshare/linkshare.php?key=1HrYuoXSl3D&cdisosystem=73" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline;"><strong>DE064.PT</strong></a>.',
             'gatilho.label': 'Condição Geral · Exercício 2026',
             'gatilho.title': '⚡ Condição Geral para Distribuição (Gatilho 2026)',
-            'gatilho.intro': 'A distribuição do PLR exige que <strong>ROL</strong> e <strong>EBITDA</strong> atinjam simultaneamente o patamar mínimo (gatilho) mostrado abaixo — o valor pleno de cada indicador libera 100% do potencial do prêmio.',
-            'gatilho.intro2': 'Apuração parcial vigente:',
-            'legend.meta': 'Meta Plena',
-            'legend.gatilho': 'Meta Gatilho (mínimo)',
-            'pin.rolMeta': 'Meta 25%',
-            'pin.ebitdaMeta': 'Meta 20%',
+            'gatilho.intro': 'A distribuição do PLR está condicionada ao atingimento simultâneo de <strong>dois indicadores corporativos</strong>: <strong>ROL</strong> e <strong>EBITDA</strong>. Cada um possui uma <strong>meta plena</strong> e um <strong>gatilho mínimo</strong> que precisam ser alcançados para liberar o prêmio.',
+            'gatilho.note': '<i class="bi bi-info-circle-fill text-primary me-1"></i> <strong>Como funciona:</strong> ambos os indicadores precisam ser atingidos <strong>simultaneamente</strong>. O valor realizado de ROL e EBITDA é apurado pela área financeira e divulgado no fechamento do exercício. Até lá, as condições permanecem <strong>em apuração</strong>.',
+            'status.apuracao': 'Em apuração',
             'metric.rolName': 'ROL',
             'metric.meta': 'Meta',
             'metric.gatilho': 'Gatilho',
-            'metric.realizado': 'Realizado:',
-            'metric.metaAcum': 'Meta acumulada:',
-            'metric.metaLabel': 'Meta:',
-            'rol.delta': 'Cresc. vs Ano Anterior',
+            'rol.fullname': 'Receita Operacional Líquida',
+            'ebitda.fullname': 'Resultado operacional',
+            'thr.rolMetaCaption': 'Crescimento pleno vs 2025',
+            'thr.rolGatilhoCaption': 'Mínimo para liberar',
+            'thr.ebitdaMetaCaption': 'Margem plena do exercício',
+            'thr.ebitdaGatilhoCaption': 'Mínimo para liberar',
             'rol.detail': '💡 <strong>O que é:</strong> Receita Operacional Líquida — receita bruta menos vendas canceladas, descontos e impostos, apurada mensalmente.',
             'ebitda.detail': '💡 <strong>O que é:</strong> lucro operacional antes de juros, impostos, depreciação e amortização — mede o desempenho do negócio isolado de efeitos financeiros e contábeis.',
             'crono.label': 'Datas do Programa',
@@ -704,7 +707,6 @@
         en: {
             htmlLang: 'en',
             months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            period: function(m) { return 'Jan/2026 to ' + m + '/2026'; },
             countdown: { past: '🔔 Deadline passed', today: '🎉 Deadline is today!', tomorrow: '⏰ Deadline is tomorrow!', days: function(d) { return '⏳ ' + d + ' days left'; } },
             'nav.subtitle': 'Corporate Tracking Portal',
             'nav.regulamento': 'DE064.PT Policy',
@@ -712,19 +714,18 @@
             'header.lead': 'A hub to track the <strong>Corporate Trigger</strong> (NOR and EBITDA), eligibility, and achievement across the three goal pillars: <strong>Common (30%)</strong>, <strong>Sector (30%)</strong> and <strong>Individual (40%)</strong>. Review the payment schedule, check your pro-rata for the year and consult the guidelines of policy <a href="https://sesuite.softexpert.com/se/generic/gn_linkshare/linkshare.php?key=1HrYuoXSl3D&cdisosystem=73" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline;"><strong>DE064.PT</strong></a>.',
             'gatilho.label': 'General Condition · 2026 Cycle',
             'gatilho.title': '⚡ General Condition for Distribution (2026 Trigger)',
-            'gatilho.intro': 'PLR distribution requires that <strong>NOR</strong> and <strong>EBITDA</strong> simultaneously reach the minimum threshold (trigger) shown below — the full value of each indicator unlocks 100% of the award potential.',
-            'gatilho.intro2': 'Current partial measurement:',
-            'legend.meta': 'Full Target',
-            'legend.gatilho': 'Trigger Target (minimum)',
-            'pin.rolMeta': 'Target 25%',
-            'pin.ebitdaMeta': 'Target 20%',
+            'gatilho.intro': 'PLR distribution is conditioned on simultaneously meeting <strong>two corporate indicators</strong>: <strong>NOR</strong> and <strong>EBITDA</strong>. Each one has a <strong>full target</strong> and a <strong>minimum trigger</strong> that must be reached to unlock the award.',
+            'gatilho.note': '<i class="bi bi-info-circle-fill text-primary me-1"></i> <strong>How it works:</strong> both indicators must be met <strong>simultaneously</strong>. The actual NOR and EBITDA values are measured by Finance and disclosed at year-end close. Until then, the conditions remain <strong>under measurement</strong>.',
+            'status.apuracao': 'Under measurement',
             'metric.rolName': 'NOR',
             'metric.meta': 'Target',
             'metric.gatilho': 'Trigger',
-            'metric.realizado': 'Actual:',
-            'metric.metaAcum': 'Cumulative target:',
-            'metric.metaLabel': 'Target:',
-            'rol.delta': 'Growth vs Prior Year',
+            'rol.fullname': 'Net Operating Revenue',
+            'ebitda.fullname': 'Operating result',
+            'thr.rolMetaCaption': 'Full growth vs 2025',
+            'thr.rolGatilhoCaption': 'Minimum to unlock',
+            'thr.ebitdaMetaCaption': 'Full margin for the year',
+            'thr.ebitdaGatilhoCaption': 'Minimum to unlock',
             'rol.detail': '💡 <strong>What it is:</strong> Net Operating Revenue — gross revenue minus cancelled sales, discounts and taxes, measured monthly.',
             'ebitda.detail': '💡 <strong>What it is:</strong> operating profit before interest, taxes, depreciation and amortization — measures business performance isolated from financial and accounting effects.',
             'crono.label': 'Program Dates',
@@ -747,7 +748,6 @@
         es: {
             htmlLang: 'es',
             months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-            period: function(m) { return 'Ene/2026 hasta ' + m + '/2026'; },
             countdown: { past: '🔔 Plazo vencido', today: '🎉 ¡Hoy es el plazo!', tomorrow: '⏰ ¡Mañana es el plazo!', days: function(d) { return '⏳ ' + d + ' días restantes'; } },
             'nav.subtitle': 'Portal de Seguimiento Corporativo',
             'nav.regulamento': 'Reglamento DE064.PT',
@@ -755,19 +755,18 @@
             'header.lead': 'Central de seguimiento del <strong>Disparador Corporativo</strong> (ROL y EBITDA), elegibilidad y logro de los tres pilares de metas: <strong>Comunes (30%)</strong>, <strong>Sectoriales (30%)</strong> e <strong>Individuales (40%)</strong>. Consulte el cronograma de pagos, verifique su proporcionalidad en el ejercicio y consulte las directrices del reglamento <a href="https://sesuite.softexpert.com/se/generic/gn_linkshare/linkshare.php?key=1HrYuoXSl3D&cdisosystem=73" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline;"><strong>DE064.PT</strong></a>.',
             'gatilho.label': 'Condición General · Ejercicio 2026',
             'gatilho.title': '⚡ Condición General para Distribución (Disparador 2026)',
-            'gatilho.intro': 'La distribución del PLR exige que <strong>ROL</strong> y <strong>EBITDA</strong> alcancen simultáneamente el nivel mínimo (disparador) mostrado abajo — el valor pleno de cada indicador libera el 100% del potencial del premio.',
-            'gatilho.intro2': 'Medición parcial vigente:',
-            'legend.meta': 'Meta Plena',
-            'legend.gatilho': 'Meta Disparador (mínimo)',
-            'pin.rolMeta': 'Meta 25%',
-            'pin.ebitdaMeta': 'Meta 20%',
+            'gatilho.intro': 'La distribución del PLR está condicionada al logro simultáneo de <strong>dos indicadores corporativos</strong>: <strong>ROL</strong> y <strong>EBITDA</strong>. Cada uno tiene una <strong>meta plena</strong> y un <strong>disparador mínimo</strong> que deben alcanzarse para liberar el premio.',
+            'gatilho.note': '<i class="bi bi-info-circle-fill text-primary me-1"></i> <strong>Cómo funciona:</strong> ambos indicadores deben alcanzarse <strong>simultáneamente</strong>. El valor realizado de ROL y EBITDA es medido por el área financiera y divulgado en el cierre del ejercicio. Hasta entonces, las condiciones permanecen <strong>en medición</strong>.',
+            'status.apuracao': 'En medición',
             'metric.rolName': 'ROL',
             'metric.meta': 'Meta',
             'metric.gatilho': 'Disparador',
-            'metric.realizado': 'Realizado:',
-            'metric.metaAcum': 'Meta acumulada:',
-            'metric.metaLabel': 'Meta:',
-            'rol.delta': 'Crec. vs Año Anterior',
+            'rol.fullname': 'Ingreso Operativo Neto',
+            'ebitda.fullname': 'Resultado operativo',
+            'thr.rolMetaCaption': 'Crecimiento pleno vs 2025',
+            'thr.rolGatilhoCaption': 'Mínimo para liberar',
+            'thr.ebitdaMetaCaption': 'Margen pleno del ejercicio',
+            'thr.ebitdaGatilhoCaption': 'Mínimo para liberar',
             'rol.detail': '💡 <strong>Qué es:</strong> Ingreso Operativo Neto — ingreso bruto menos ventas canceladas, descuentos e impuestos, medido mensualmente.',
             'ebitda.detail': '💡 <strong>Qué es:</strong> beneficio operativo antes de intereses, impuestos, depreciación y amortización — mide el desempeño del negocio aislado de efectos financieros y contables.',
             'crono.label': 'Fechas del Programa',
@@ -777,7 +776,7 @@
             'crono.d3.date': '31 · dic · 2026', 'crono.d3.title': 'Cierre del Ejercicio', 'crono.d3.desc': 'Fin de la medición de todos los indicadores de Metas Comunes y Sectoriales (las Metas Individuales del 40% se calculan en marzo/2027).',
             'crono.d4.date': 'Último día hábil · abr · 2027', 'crono.d4.title': 'Pago del Saldo Final', 'crono.d4.desc': 'Medición final auditada con cierre contable, deducido el anticipo.',
             'modal.title': '📋 Reglamento PLR 2026 — SoftExpert',
-            'modal.subtitle': 'Resumen de Condiciones y Regras Generales (DE064.PT) · Ejercicio 01/01/2026 al 31/12/2026',
+            'modal.subtitle': 'Resumen de Condiciones y Reglas Generales (DE064.PT) · Ejercicio 01/01/2026 al 31/12/2026',
             'modal.r1.title': 'Objetivo y Alcance', 'modal.r1.body': 'Reconocer a colaboradores CLT, pasantes y socios (CNPJ 00.449.824/0001-43). Excluidos: profesionales con comisión/bono y unidades fuera de Brasil.',
             'modal.r2.title': 'Disparador de Distribución', 'modal.r2.body': 'Crecimiento mínimo del <strong>15% del ROL</strong> vs 2025 <em>y</em> <strong>20% de EBITDA</strong>. Meta plena: <strong>ROL ≥ 25%</strong>. Ambos deben alcanzarse simultáneamente.',
             'modal.r3.title': 'Composición del Premio', 'modal.r3.body': '<strong>30%</strong> Metas Comunes (Presupuesto/Realizado + ISO 27001 + SGI) · <strong>30%</strong> Metas Sectoriales · <strong>40%</strong> Metas Individuales (20% Asistencia + 20% Evaluación de Desempeño).',
@@ -788,15 +787,6 @@
             'modal.understood': '✓ Entendido'
         }
     };
-
-    function currentMonthIndex() {
-        var now = new Date();
-        var year = now.getFullYear();
-        var mIdx = now.getMonth() - 1;
-        if (year < 2026) return 0;
-        if (year > 2026) return 11;
-        return Math.max(0, Math.min(11, mIdx));
-    }
 
     function getDayDiff(targetDate, nowDate) {
         var startTarget = new Date(targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate());
@@ -873,18 +863,6 @@
         document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
             var key = el.getAttribute('data-i18n-html');
             if (dict[key] != null) el.innerHTML = dict[key];
-        });
-        document.querySelectorAll('[data-i18n-pin]').forEach(function(el) {
-            var key = el.getAttribute('data-i18n-pin');
-            if (dict[key] != null) el.innerHTML = dict[key];
-        });
-
-        var mesAtual = dict.months[currentMonthIndex()];
-        document.querySelectorAll('.dynamic-period').forEach(function(el) {
-            el.textContent = dict.period(mesAtual);
-        });
-        document.querySelectorAll('.dynamic-period-short').forEach(function(el) {
-            el.textContent = dict.months[0] + '–' + mesAtual + '/2026';
         });
 
         updateTimeline(dict);
