@@ -770,6 +770,113 @@
       color: var(--se-navy);
       text-decoration: underline;
     }
+
+    /* ── Redutor / Business Units Clause Card ─────────────── */
+    .redutor-card {
+      background: #F8FAFC;
+      border: 1.5px solid var(--se-border);
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .redutor-card.active {
+      background: #FFFBEB;
+      border-color: #FCD34D;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.1);
+    }
+
+    .redutor-card .form-check-input {
+      cursor: pointer;
+      width: 2.3rem;
+      height: 1.25rem;
+      margin-top: 0.15rem;
+    }
+
+    .redutor-card .form-check-input:checked {
+      background-color: #D97706;
+      border-color: #D97706;
+    }
+
+    .redutor-card .form-check-input:focus {
+      box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.2);
+    }
+
+    .btn-info-clause {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--se-blue);
+      background: #ffffff;
+      border: 1px solid #B3D0F5;
+      border-radius: 6px;
+      padding: 0.25rem 0.55rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .btn-info-clause:hover {
+      background: var(--se-light-blue);
+      border-color: var(--se-blue);
+      color: var(--se-navy);
+    }
+
+    .redutor-active-badge {
+      font-size: 0.72rem;
+      color: #92400E;
+      background: #FEF3C7;
+      border: 1px solid #FDE68A;
+      border-radius: 8px;
+      padding: 0.4rem 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+    }
+
+    /* Modal Styling */
+    .modal-clause-header {
+      background: linear-gradient(135deg, var(--se-dark-navy) 0%, var(--se-navy) 60%, var(--se-blue) 100%);
+      color: #ffffff;
+      border-bottom: none;
+      border-radius: 12px 12px 0 0;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .modal-clause-header .btn-close {
+      filter: brightness(0) invert(1);
+    }
+
+    .modal-bu-table {
+      font-size: 0.78rem;
+      margin-bottom: 0;
+    }
+
+    .modal-bu-table th {
+      background: #F1F5F9;
+      color: var(--se-navy);
+      font-weight: 700;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 0.6rem 0.75rem;
+    }
+
+    .modal-bu-table td {
+      padding: 0.55rem 0.75rem;
+      vertical-align: middle;
+    }
+
+    .bu-highlight-row {
+      background-color: #EFF6FF !important;
+      font-weight: 700;
+      color: var(--se-navy);
+    }
   </style>
 </head>
 
@@ -803,10 +910,6 @@
             <button type="button" class="lang-btn" data-lang="en" onclick="setLang('en')"><img class="flag" src="https://flagcdn.com/w40/us.png" srcset="https://flagcdn.com/w80/us.png 2x" width="18" height="12" alt="USA"> EN</button>
             <button type="button" class="lang-btn" data-lang="es" onclick="setLang('es')"><img class="flag" src="https://flagcdn.com/w40/es.png" srcset="https://flagcdn.com/w80/es.png 2x" width="18" height="12" alt="España"> ES</button>
           </div>
-          <a href="https://alanbenitez22.github.io/componente_simulador.html" target="_blank" rel="noopener" class="sim-header-btn"
-            id="btnFullscreen" title="Abrir calculadora em tela cheia">
-            <i class="bi bi-box-arrow-up-right"></i> <span data-i18n="fullscreen">Abrir em tela cheia</span>
-          </a>
         </div>
       </div>
       <div>
@@ -904,6 +1007,30 @@
                 <p class="field-helper" data-i18n="antecHelper">
                   Informe o valor bruto pago em setembro/2026. Este montante é abatido do prêmio total no fechamento em abril/2027.
                 </p>
+              </div>
+
+              <!-- Cláusula de Redutor (Business Units) -->
+              <div class="col-12">
+                <div class="redutor-card" id="redutorCard">
+                  <div class="d-flex align-items-start justify-content-between gap-2">
+                    <div class="form-check form-switch mb-0">
+                      <input class="form-check-input" type="checkbox" role="switch" id="chkRedutor" onchange="onRedutorChange()">
+                      <label class="form-check-label fw-bold text-dark" for="chkRedutor" data-i18n="redutorLabel">
+                        Aplicar Redutor de 20% (Cláusula Business Units)
+                      </label>
+                      <div class="field-helper mt-1 text-muted" data-i18n="redutorHelper">
+                        Para colaboradores alocados em unidades fora do Brasil (vínculo CNPJ 00.449.824/0001-43) com metas não atingidas pela unidade.
+                      </div>
+                    </div>
+                    <button type="button" class="btn-info-clause" data-bs-toggle="modal" data-bs-target="#modalClausula" data-i18n-title="verClausulaTitle" title="Consultar detalhes da cláusula e metas das Business Units">
+                      <i class="bi bi-info-circle-fill"></i> <span data-i18n="verClausulaBtn">Ver Cláusula</span>
+                    </button>
+                  </div>
+                  <div id="redutorBadgeActive" class="redutor-active-badge mt-2" style="display:none;">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                    <span data-i18n="redutorActiveText">Redutor de 20% aplicado sobre o potencial de salários antes da apuração das metas (Item 6.1).</span>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -1027,6 +1154,125 @@
     </div>
   </div>
 
+  <!-- Modal Cláusula Business Units -->
+  <div class="modal fade" id="modalClausula" tabindex="-1" aria-labelledby="modalClausulaTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-0 shadow-lg" style="border-radius: 16px; overflow: hidden;">
+        <div class="modal-clause-header d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-globe2 fs-5"></i>
+            <h5 class="modal-title fs-6 fw-bold mb-0 text-white" id="modalClausulaTitle" data-i18n="modalClausulaTitle">
+              Cláusula de Business Units — Redutor de Metas
+            </h5>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-3 p-sm-4">
+          <!-- Quote box -->
+          <div class="p-3 mb-3 rounded-3" style="background:#FFFBEB; border:1.5px solid #FCD34D; color:#92400E; font-size:0.82rem; line-height:1.55;">
+            <div class="d-flex align-items-start gap-2">
+              <i class="bi bi-exclamation-triangle-fill fs-5 mt-1 text-warning flex-shrink-0"></i>
+              <div>
+                <strong class="d-block mb-1" data-i18n="modalRegraTitle">Regra de Redutor de 20% (Regulamento PLR 2026 — Item 6.1):</strong>
+                <span data-i18n="modalClausulaText">
+                  "Para os colaboradores alocados nas unidades fora do Brasil mas que o vínculo empregatício pertence ao CNPJ 00.449.824/0001-43, em caso de não atingimento das metas acima, haverá um redutor de 20% do valor apurado (número de salários distribuído antes das apurações das metas do item 6.2)."
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tabela de Business Units -->
+          <h6 class="fw-bold mb-2" style="font-size:0.84rem; color:var(--se-navy);">
+            <i class="bi bi-buildings me-1 text-primary"></i> <span data-i18n="modalTabelaTitle">Metas por Unidade de Negócio (Business Units)</span>
+          </h6>
+          <div class="table-responsive rounded-3 border mb-3">
+            <table class="table table-hover modal-bu-table align-middle mb-0">
+              <thead>
+                <tr>
+                  <th data-i18n="thSubsidiaria">Subsidiária</th>
+                  <th data-i18n="thBU">Business Units</th>
+                  <th class="text-center" data-i18n="thROL">ROL</th>
+                  <th class="text-center" data-i18n="thEBITDA">EBITDA</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="bu-highlight-row">
+                  <td><img class="flag me-1" src="https://flagcdn.com/w40/br.png" srcset="https://flagcdn.com/w80/br.png 2x" width="18" height="12" alt="Brasil"> <strong>BRASIL</strong></td>
+                  <td><code>CNPJ 00.449.824/0001-43</code></td>
+                  <td class="text-center fw-bold text-primary">25%</td>
+                  <td class="text-center fw-bold text-success">20%</td>
+                </tr>
+                <tr>
+                  <td><img class="flag me-1" src="https://flagcdn.com/w40/de.png" srcset="https://flagcdn.com/w80/de.png 2x" width="18" height="12" alt="Alemanha"> <span data-i18n="buAlemanha">Alemanha</span></td>
+                  <td>HRB: 41051</td>
+                  <td class="text-center">75%</td>
+                  <td class="text-center text-muted">—</td>
+                </tr>
+                <tr>
+                  <td><img class="flag me-1" src="https://flagcdn.com/w40/au.png" srcset="https://flagcdn.com/w80/au.png 2x" width="18" height="12" alt="Austrália"> <span data-i18n="buAustralia">Austrália</span></td>
+                  <td>ABN: 39 645 445 601</td>
+                  <td class="text-center">50%</td>
+                  <td class="text-center text-muted">—</td>
+                </tr>
+                <tr>
+                  <td><img class="flag me-1" src="https://flagcdn.com/w40/co.png" srcset="https://flagcdn.com/w80/co.png 2x" width="18" height="12" alt="Colômbia"> <span data-i18n="buColombia">Colombia</span></td>
+                  <td>NIT: 901804850</td>
+                  <td class="text-center">170%</td>
+                  <td class="text-center text-muted">—</td>
+                </tr>
+                <tr>
+                  <td><img class="flag me-1" src="https://flagcdn.com/w40/fr.png" srcset="https://flagcdn.com/w80/fr.png 2x" width="18" height="12" alt="França"> <span data-i18n="buFranca">França</span></td>
+                  <td>SIREN: 878975028</td>
+                  <td class="text-center">40%</td>
+                  <td class="text-center text-muted">—</td>
+                </tr>
+                <tr>
+                  <td><img class="flag me-1" src="https://flagcdn.com/w40/it.png" srcset="https://flagcdn.com/w80/it.png 2x" width="18" height="12" alt="Itália"> <span data-i18n="buItalia">Itália</span></td>
+                  <td>C.F: 26666240995</td>
+                  <td class="text-center">125%</td>
+                  <td class="text-center text-muted">—</td>
+                </tr>
+                <tr>
+                  <td><img class="flag me-1" src="https://flagcdn.com/w40/gb.png" srcset="https://flagcdn.com/w80/gb.png 2x" width="18" height="12" alt="Reino Unido"> <span data-i18n="buUK">Reino Unido</span></td>
+                  <td>Register Code: 11742343</td>
+                  <td class="text-center">130%</td>
+                  <td class="text-center text-muted">—</td>
+                </tr>
+                <tr>
+                  <td><img class="flag me-1" src="https://flagcdn.com/w40/tr.png" srcset="https://flagcdn.com/w80/tr.png 2x" width="18" height="12" alt="Turquia"> <span data-i18n="buTurquia">Turquia</span></td>
+                  <td>VKN: 7721536481</td>
+                  <td class="text-center">100%</td>
+                  <td class="text-center">40%</td>
+                </tr>
+                <tr>
+                  <td><img class="flag me-1" src="https://flagcdn.com/w40/us.png" srcset="https://flagcdn.com/w80/us.png 2x" width="18" height="12" alt="USA"> USA</td>
+                  <td>EIN: 37-1835188</td>
+                  <td class="text-center">60%</td>
+                  <td class="text-center">18%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Distribuição 6.2 -->
+          <div class="p-3 bg-light rounded-3 border" style="font-size:0.78rem;">
+            <div class="fw-bold mb-1 text-secondary" data-i18n="modalClausulaDist">
+              6.2 Uma vez atingida as condições mencionadas no item 6, serão apurados os resultados de acordo com o cumprimento das metas conforme distribuição abaixo:
+            </div>
+            <ul class="mb-0 ps-3 text-muted">
+              <li><strong class="text-dark">30%</strong> <span data-i18n="modalDist1">metas comuns estabelecidas pela empresa;</span></li>
+              <li><strong class="text-dark">30%</strong> <span data-i18n="modalDist2">metas setoriais específicas estabelecidas pela empresa;</span></li>
+              <li><strong class="text-dark">40%</strong> <span data-i18n="modalDist3">metas individuais que visa o comprometimento individual dos colaboradores.</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="modal-footer bg-light py-2 px-3">
+          <button type="button" class="btn btn-secondary btn-sm px-3 fw-bold" data-bs-dismiss="modal" data-i18n="modalClose">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Bootstrap 5.3 JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -1054,6 +1300,32 @@
         suggestBtn: 'Sugerir 0,4 salários',
         suggestTitle: 'Sugerir 0,4 salários proporcional como estimativa padrão',
         antecHelper: 'Informe o valor bruto pago em setembro/2026. Este montante é abatido do prêmio total no fechamento em abril/2027.',
+        redutorLabel: 'Aplicar Redutor de 20% (Cláusula Business Units)',
+        redutorHelper: 'Para colaboradores alocados em unidades fora do Brasil (vínculo CNPJ 00.449.824/0001-43) com metas não atingidas pela unidade.',
+        verClausulaBtn: 'Ver Cláusula',
+        verClausulaTitle: 'Consultar detalhes da cláusula e metas das Business Units',
+        redutorActiveText: 'Redutor de 20% aplicado sobre o potencial de salários antes da apuração das metas (Item 6.1).',
+        redutorBadge: '−20% Redutor BU',
+        modalClausulaTitle: 'Cláusula de Business Units — Redutor de Metas',
+        modalRegraTitle: 'Regra de Redutor de 20% (Regulamento PLR 2026 — Item 6.1):',
+        modalClausulaText: '"Para os colaboradores alocados nas unidades fora do Brasil mas que o vínculo empregatício pertence ao CNPJ 00.449.824/0001-43, em caso de não atingimento das metas acima, haverá um redutor de 20% do valor apurado (número de salários distribuído antes das apurações das metas do item 6.2)."',
+        modalTabelaTitle: 'Metas por Unidade de Negócio (Business Units)',
+        thSubsidiaria: 'Subsidiária',
+        thBU: 'Business Units',
+        thROL: 'ROL',
+        thEBITDA: 'EBITDA',
+        buAlemanha: 'Alemanha',
+        buAustralia: 'Austrália',
+        buColombia: 'Colombia',
+        buFranca: 'França',
+        buItalia: 'Itália',
+        buUK: 'Reino Unido',
+        buTurquia: 'Turquia',
+        modalClausulaDist: '6.2 Uma vez atingida as condições mencionadas no item 6, serão apurados os resultados de acordo com o cumprimento das metas conforme distribuição abaixo:',
+        modalDist1: '30% metas comuns estabelecidas pela empresa (ROL, EBITDA, ISO27001, SGI);',
+        modalDist2: '30% metas setoriais específicas estabelecidas pela empresa;',
+        modalDist3: '40% metas individuais que visa o comprometimento individual dos colaboradores.',
+        modalClose: 'Fechar',
         scoreLabel: '% Atingimento de Metas',
         scoreSubtext: 'Comuns (30%) + Setoriais (30%) + Individuais (40%)',
         shortcuts: 'Atalhos rápidos:',
@@ -1078,6 +1350,7 @@
         curNote: 'Entradas em Reais (R$). Conversão de moeda apenas ilustrativa, com taxas aproximadas.',
         footerLink: 'Consultar Regulamento DE064.PT — SoftExpert Software S.A. · Exercício 2026',
         formula: '📐 <strong>Cálculo:</strong> {sal} × {mult} sal. × <strong>{meses}</strong> × {score}% atingimento = <strong>{premio}</strong> (Saldo a pagar: <strong>{saldo}</strong>)',
+        formulaRedutor: '📐 <strong>Cálculo:</strong> {sal} × {mult} sal. × <strong>80% (redutor −20% BU)</strong> × <strong>{meses}</strong> × {score}% ating. = <strong>{premio}</strong> (Saldo a pagar: <strong>{saldo}</strong>)',
         salText: 'sal.'
       },
       en: {
@@ -1101,6 +1374,32 @@
         suggestBtn: 'Suggest 0.4 salaries',
         suggestTitle: 'Suggest 0.4 proportional salaries as the default estimate',
         antecHelper: 'Enter the gross amount paid in September/2026. This amount is deducted from the total award at the April/2027 closing.',
+        redutorLabel: 'Apply 20% Reduction (Business Units Clause)',
+        redutorHelper: 'For employees allocated to units outside Brazil (Brazil CNPJ contract) when unit targets are not reached.',
+        verClausulaBtn: 'View Clause',
+        verClausulaTitle: 'View clause details and Business Units targets',
+        redutorActiveText: '20% reduction applied to base salary multiple before goal scoring (Item 6.1).',
+        redutorBadge: '−20% BU Reduction',
+        modalClausulaTitle: 'Business Units Clause — Goal Reduction',
+        modalRegraTitle: '20% Reduction Rule (PLR 2026 Regulation — Item 6.1):',
+        modalClausulaText: '"For employees allocated to units outside Brazil but whose employment contract belongs to CNPJ 00.449.824/0001-43, in case of non-achievement of the above targets, there will be a 20% reduction in the calculated amount (number of salaries distributed before calculation of item 6.2 goals)."',
+        modalTabelaTitle: 'Targets by Business Unit',
+        thSubsidiaria: 'Subsidiary',
+        thBU: 'Business Units',
+        thROL: 'Net Revenue (ROL)',
+        thEBITDA: 'EBITDA',
+        buAlemanha: 'Germany',
+        buAustralia: 'Australia',
+        buColombia: 'Colombia',
+        buFranca: 'France',
+        buItalia: 'Italy',
+        buUK: 'United Kingdom',
+        buTurquia: 'Turkey',
+        modalClausulaDist: '6.2 Once the conditions mentioned in item 6 are reached, results will be calculated according to the achievement of goals as distributed below:',
+        modalDist1: '30% common company goals (ROL, EBITDA, ISO27001, IMS);',
+        modalDist2: '30% sector-specific goals established by the company;',
+        modalDist3: '40% individual goals for individual engagement (Attendance and Performance).',
+        modalClose: 'Close',
         scoreLabel: '% Goal Achievement',
         scoreSubtext: 'Common (30%) + Sector (30%) + Individual (40%)',
         shortcuts: 'Quick shortcuts:',
@@ -1125,6 +1424,7 @@
         curNote: 'Inputs are in Brazilian Reais (R$). Currency conversion is illustrative only, using approximate rates.',
         footerLink: 'View Regulation DE064.PT — SoftExpert Software S.A. · Fiscal Year 2026',
         formula: '📐 <strong>Calculation:</strong> {sal} × {mult} sal. × <strong>{meses}</strong> × {score}% achievement = <strong>{premio}</strong> (Balance due: <strong>{saldo}</strong>)',
+        formulaRedutor: '📐 <strong>Calculation:</strong> {sal} × {mult} sal. × <strong>80% (BU −20% reduction)</strong> × <strong>{meses}</strong> × {score}% achiev. = <strong>{premio}</strong> (Balance due: <strong>{saldo}</strong>)',
         salText: 'sal.'
       },
       es: {
@@ -1148,6 +1448,32 @@
         suggestBtn: 'Sugerir 0,4 salarios',
         suggestTitle: 'Sugerir 0,4 salarios proporcional como estimación predeterminada',
         antecHelper: 'Ingrese el valor bruto pagado en septiembre/2026. Este monto se descuenta del premio total en el cierre de abril/2027.',
+        redutorLabel: 'Aplicar Reductor del 20% (Cláusula Business Units)',
+        redutorHelper: 'Para colaboradores asignados a unidades fuera de Brasil (vínculo CNPJ matriz) con metas no alcanzadas por la unidad.',
+        verClausulaBtn: 'Ver Cláusula',
+        verClausulaTitle: 'Consultar detalles de la cláusula y metas de las Business Units',
+        redutorActiveText: 'Reductor del 20% aplicado sobre el potencial de salarios antes de la liquidación de metas (Ítem 6.1).',
+        redutorBadge: '−20% Reductor BU',
+        modalClausulaTitle: 'Cláusula de Business Units — Reductor de Metas',
+        modalRegraTitle: 'Regla de Reductor del 20% (Reglamento PLR 2026 — Ítem 6.1):',
+        modalClausulaText: '"Para los colaboradores asignados a las unidades fuera de Brasil cuyo vínculo contractual pertenezca al CNPJ 00.449.824/0001-43, en caso de no alcanzar las metas anteriores, se aplicará un reductor del 20% sobre el valor liquidado (número de salarios distribuido antes de la liquidación de metas del ítem 6.2)."',
+        modalTabelaTitle: 'Metas por Unidad de Negocio (Business Units)',
+        thSubsidiaria: 'Subsidiaria',
+        thBU: 'Business Units',
+        thROL: 'ROL',
+        thEBITDA: 'EBITDA',
+        buAlemanha: 'Alemania',
+        buAustralia: 'Australia',
+        buColombia: 'Colombia',
+        buFranca: 'Francia',
+        buItalia: 'Italia',
+        buUK: 'Reino Unido',
+        buTurquia: 'Turquía',
+        modalClausulaDist: '6.2 Una vez cumplidas las condiciones del ítem 6, los resultados se liquidarán según el cumplimiento de metas con la siguiente distribución:',
+        modalDist1: '30% metas comunes corporativas (ROL, EBITDA, ISO27001, SGI);',
+        modalDist2: '30% metas sectoriales específicas de la dirección/área;',
+        modalDist3: '40% metas individuales que evalúan el compromiso del colaborador (Asistencia y Desempeño).',
+        modalClose: 'Cerrar',
         scoreLabel: '% Logro de Metas',
         scoreSubtext: 'Comunes (30%) + Sectoriales (30%) + Individuales (40%)',
         shortcuts: 'Atajos rápidos:',
@@ -1172,6 +1498,7 @@
         curNote: 'Las entradas están en Reales (R$). La conversión de moneda es solo ilustrativa, con tasas aproximadas.',
         footerLink: 'Consultar Reglamento DE064.PT — SoftExpert Software S.A. · Ejercicio 2026',
         formula: '📐 <strong>Cálculo:</strong> {sal} × {mult} sal. × <strong>{meses}</strong> × {score}% logro = <strong>{premio}</strong> (Saldo a pagar: <strong>{saldo}</strong>)',
+        formulaRedutor: '📐 <strong>Cálculo:</strong> {sal} × {mult} sal. × <strong>80% (reductor −20% BU)</strong> × <strong>{meses}</strong> × {score}% logro = <strong>{premio}</strong> (Saldo a pagar: <strong>{saldo}</strong>)',
         salText: 'sal.'
       }
     };
@@ -1305,6 +1632,17 @@
     /* ── Track se o usuário editou manualmente a antecipação ── */
     let antecManual = false;
 
+    /* ── Quando o switch de redutor mudar ────────────────── */
+    function onRedutorChange() {
+      const chk = document.getElementById('chkRedutor');
+      const isRedutor = chk ? chk.checked : false;
+      const card = document.getElementById('redutorCard');
+      const badge = document.getElementById('redutorBadgeActive');
+      if (card) card.classList.toggle('active', isRedutor);
+      if (badge) badge.style.display = isRedutor ? 'flex' : 'none';
+      calc();
+    }
+
     /* ── Apply the selected language to the DOM ─────────── */
     function setLang(lang) {
       if (!I18N[lang]) lang = 'pt';
@@ -1320,9 +1658,6 @@
       document.querySelectorAll('[data-i18n-title]').forEach(el => {
         el.setAttribute('title', t(el.getAttribute('data-i18n-title')));
       });
-      // Fullscreen link title
-      const fs = document.getElementById('btnFullscreen');
-      if (fs) fs.setAttribute('title', t('fullscreenTitle'));
 
       // Active button state
       document.querySelectorAll('.lang-btn').forEach(b => {
@@ -1405,6 +1740,10 @@
 
     /* ── Main calculator ────────────────────────────────── */
     function calc() {
+      const chk = document.getElementById('chkRedutor');
+      const isRedutor = chk ? chk.checked : false;
+      const redutorFactor = isRedutor ? 0.8 : 1.0;
+
       const salary = getRaw('inSalary');
       const mult = parseFloat(document.getElementById('inMult').value) || 1;
       const meses = parseInt(document.getElementById('inMeses').value, 10) || 12;
@@ -1412,7 +1751,7 @@
       const scorePct = parseFloat(document.getElementById('inScore').value) || 0;
 
       const propRatio = meses / 12;
-      const tetoIntegral = salary * mult;
+      const tetoIntegral = salary * mult * redutorFactor;
       const tetoProp = tetoIntegral * propRatio;
       const premio = tetoProp * (scorePct / 100);
       const saldo = Math.max(0, premio - antecVal);
@@ -1422,11 +1761,20 @@
       const tetoSub = document.getElementById('resTetoSub');
       if (meses === 12) {
         lblTeto.textContent = t('tetoMax');
-        tetoSub.style.display = 'none';
+        if (isRedutor) {
+          tetoSub.style.display = 'block';
+          tetoSub.innerHTML = `<span class="badge text-bg-warning text-dark fw-bold" style="font-size:0.65rem;">${t('redutorBadge')}</span>`;
+        } else {
+          tetoSub.style.display = 'none';
+        }
       } else {
         lblTeto.textContent = `${t('tetoProp')} (${meses}/12)`;
         tetoSub.style.display = 'block';
-        tetoSub.textContent = `${t('tetoIntegral')}: ${brl(tetoIntegral)}`;
+        let subHtml = `${t('tetoIntegral')}: ${brl(tetoIntegral)}`;
+        if (isRedutor) {
+          subHtml += ` · <span class="badge text-bg-warning text-dark fw-bold" style="font-size:0.65rem;">${t('redutorBadge')}</span>`;
+        }
+        tetoSub.innerHTML = subHtml;
       }
 
       // Static labels (kept in sync with the language)
@@ -1466,7 +1814,8 @@
       const formulaEl = document.getElementById('simFormula');
       if (formulaEl) {
         const mesesText = meses === 12 ? '12/12m (100%)' : `${meses}/12m (${numFmt(propPct, 1)}%)`;
-        formulaEl.innerHTML = t('formula')
+        const template = isRedutor ? t('formulaRedutor') : t('formula');
+        formulaEl.innerHTML = template
           .replace('{sal}', brl(salary))
           .replace('{mult}', numFmt(mult, 1))
           .replace('{meses}', mesesText)
