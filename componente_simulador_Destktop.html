@@ -1274,8 +1274,8 @@
         <div class="modal-body p-3 p-md-4">
           <div class="row g-4">
 
-            <!-- Coluna esquerda: regra + distribuição -->
-            <div class="col-12 col-lg-5">
+            <!-- Coluna esquerda: regra -->
+            <div class="col-12 col-lg-4">
               <!-- Regra do redutor -->
               <div class="clause-rule mb-3">
                 <div class="clause-rule-head">
@@ -1286,38 +1286,10 @@
                   "Para os colaboradores alocados nas unidades fora do Brasil mas que o vínculo empregatício pertence ao CNPJ 00.449.824/0001-43, em caso de não atingimento das metas acima, haverá um redutor de 20% do valor apurado (número de salários distribuído antes das apurações das metas do item 6.2)."
                 </p>
               </div>
-
-              <!-- Distribuição 6.2 -->
-              <div class="clause-section-title">
-                <i class="bi bi-diagram-3-fill"></i> <span data-i18n="modalDistTitle">Distribuição das metas (item 6.2)</span>
-              </div>
-              <div class="clause-dist">
-                <div class="clause-dist-item">
-                  <div class="clause-dist-pct">30%</div>
-                  <div class="clause-dist-body">
-                    <div class="clause-dist-name" data-i18n="modalDist1Name">Metas comuns</div>
-                    <div class="clause-dist-desc" data-i18n="modalDist1">estabelecidas pela empresa (ROL, EBITDA, ISO27001, SGI)</div>
-                  </div>
-                </div>
-                <div class="clause-dist-item">
-                  <div class="clause-dist-pct">30%</div>
-                  <div class="clause-dist-body">
-                    <div class="clause-dist-name" data-i18n="modalDist2Name">Metas setoriais</div>
-                    <div class="clause-dist-desc" data-i18n="modalDist2">específicas estabelecidas pela empresa</div>
-                  </div>
-                </div>
-                <div class="clause-dist-item">
-                  <div class="clause-dist-pct">40%</div>
-                  <div class="clause-dist-body">
-                    <div class="clause-dist-name" data-i18n="modalDist3Name">Metas individuais</div>
-                    <div class="clause-dist-desc" data-i18n="modalDist3">comprometimento individual dos colaboradores</div>
-                  </div>
-                </div>
-              </div>
             </div>
 
             <!-- Coluna direita: tabela de Business Units -->
-            <div class="col-12 col-lg-7">
+            <div class="col-12 col-lg-8">
               <div class="clause-section-title">
                 <i class="bi bi-buildings-fill"></i> <span data-i18n="modalTabelaTitle">Metas por Unidade de Negócio (Business Units)</span>
               </div>
@@ -1757,6 +1729,11 @@
       const pA = document.getElementById('prefixAntec');
       if (pS) pS.textContent = sym;
       if (pA) pA.textContent = sym;
+      // Ajusta o recuo dos campos à largura do prefixo (evita sobrepor valor em US$, C$ etc.)
+      [['prefixSalary', 'inSalary'], ['prefixAntec', 'inAntec']].forEach(([pid, iid]) => {
+        const p = document.getElementById(pid), inp = document.getElementById(iid);
+        if (p && inp) inp.style.paddingLeft = (p.offsetWidth + 24) + 'px';
+      });
       // Reexibe os campos convertidos para a nova moeda
       renderMoney('inSalary');
       renderMoney('inAntec');
