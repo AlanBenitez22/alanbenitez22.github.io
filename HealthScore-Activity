@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customer Health 360 · Quest Board</title>
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --txt:#f2ecff;
+    --txt-dim:#c9b8ef;
+    --muted:#9a86c8;
+    --violet:#b14bff;
+    --purple:#8b2fff;
+    --pink:#ff5ce1;
+    --cyan:#4df0ff;
+    --green:#5affc0;
+    --amber:#ffd34d;
+    --panel:rgba(32,20,58,0.55);
+    --panel-br:rgba(177,75,255,0.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;min-height:100%;}
+  body{
+    font-family:'Lato',Segoe UI,Arial,sans-serif;
+    color:var(--txt);
+    background:#1a1226;
+    overflow-x:hidden;
+  }
+
+  /* ============ PURPLE HAZE BACKGROUND (sutil) ============ */
+  .haze{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    overflow:hidden;
+    background:
+      radial-gradient(1200px 700px at 10% -10%, rgba(90,30,160,0.22), transparent 60%),
+      radial-gradient(1000px 800px at 110% 20%, rgba(255,92,225,0.08), transparent 55%),
+      linear-gradient(160deg,#160f22,#110a1c 60%,#0b0514);
+  }
+  /* véu que suaviza a fumaça atrás do conteúdo */
+  .haze::after{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(1200px 900px at 50% 40%, rgba(13,6,20,0.55), rgba(13,6,20,0.8));
+  }
+  .haze .c{
+    border:2px solid rgba(255,255,255,.05);
+    border-radius:400px;
+    position:absolute;
+    right:30%;
+    bottom:20%;
+    margin:auto;
+    opacity:.45;
+    will-change:transform;
+  }
+  @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+  /* glow blobs generated inline below via JS for the 60 smoke rings */
+
+  /* ============ LAYOUT ============ */
+  .wrap{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:30px 20px 70px;}
+
+  .hero{
+    text-align:center;
+    padding:26px 20px 10px;
+  }
+  .hero .kicker{
+    font-size:12px;letter-spacing:6px;text-transform:uppercase;color:var(--pink);
+    text-shadow:0 0 14px rgba(255,92,225,0.9);
+  }
+  .hero h1{
+    margin:10px 0 4px;font-size:40px;font-weight:700;letter-spacing:10px;text-transform:uppercase;
+    color:#fff;text-shadow:0 0 26px rgba(177,75,255,0.9),0 0 60px rgba(255,92,225,0.5);
+  }
+  .hero p{margin:6px auto 0;max-width:640px;color:var(--txt-dim);font-size:14px;line-height:1.6;letter-spacing:1px;}
+
+  /* HUD progress */
+  .hud{
+    display:flex;flex-wrap:wrap;gap:16px;justify-content:center;align-items:center;
+    margin:26px auto 10px;max-width:900px;
+  }
+  .xpbar-wrap{flex:1;min-width:260px;}
+  .xplabel{display:flex;justify-content:space-between;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+  .xplabel b{color:var(--cyan);text-shadow:0 0 10px rgba(77,240,255,0.7);}
+  .xpbar{height:16px;border-radius:999px;background:rgba(255,255,255,0.06);border:1px solid var(--panel-br);overflow:hidden;position:relative;}
+  .xpbar>i{display:block;height:100%;width:0;border-radius:999px;transition:width .6s cubic-bezier(.2,.8,.2,1);
+    background:linear-gradient(90deg,var(--purple),var(--violet),var(--pink));
+    box-shadow:0 0 20px rgba(255,92,225,0.8);}
+  .hud .badge{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    min-width:92px;padding:10px 14px;border-radius:14px;
+    background:var(--panel);border:1px solid var(--panel-br);
+    backdrop-filter:blur(6px);box-shadow:0 0 20px rgba(139,47,255,0.25);
+  }
+  .hud .badge b{font-size:22px;}
+  .hud .badge span{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:2px;}
+  .badge.done b{color:var(--green);text-shadow:0 0 12px rgba(90,255,192,0.7);}
+  .badge.left b{color:var(--cyan);text-shadow:0 0 12px rgba(77,240,255,0.7);}
+  .badge.lvl b{color:var(--amber);text-shadow:0 0 12px rgba(255,211,77,0.7);}
+
+  /* Filters */
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:22px 0 8px;}
+  .chip{cursor:pointer;user-select:none;font-size:12px;letter-spacing:1px;text-transform:uppercase;
+    padding:8px 16px;border-radius:999px;color:var(--txt-dim);
+    background:var(--panel);border:1px solid var(--panel-br);backdrop-filter:blur(6px);transition:all .2s;}
+  .chip:hover{color:#fff;border-color:var(--violet);box-shadow:0 0 14px rgba(177,75,255,0.6);}
+  .chip.active{color:#fff;border-color:var(--pink);
+    background:linear-gradient(135deg,rgba(139,47,255,0.55),rgba(255,92,225,0.45));
+    box-shadow:0 0 18px rgba(255,92,225,0.7);}
+
+  /* ============ CHARTS OVERVIEW ============ */
+  .charts{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px;
+  }
+  @media(max-width:860px){.charts{grid-template-columns:1fr;}}
+  .chart-card{
+    border-radius:16px;padding:16px 18px 10px;
+    background:linear-gradient(180deg,rgba(28,17,52,0.82),rgba(18,10,34,0.86));
+    border:1px solid var(--panel-br);backdrop-filter:blur(8px);
+    box-shadow:0 10px 34px rgba(0,0,0,0.4);
+  }
+  .chart-card h4{margin:0;font-size:14px;font-weight:700;letter-spacing:.5px;text-align:center;}
+  .chart-card .csub{text-align:center;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin:3px 0 10px;}
+  .chart-card canvas{display:block;margin:0 auto;}
+  .legend{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:8px;font-size:11px;color:var(--txt-dim);}
+  .legend span{display:inline-flex;align-items:center;gap:5px;}
+  .legend i{width:10px;height:10px;border-radius:3px;display:inline-block;}
+
+  /* ============ MODAL (resolução) ============ */
+  .overlay{
+    position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;
+    background:rgba(8,4,16,0.72);backdrop-filter:blur(4px);padding:20px;
+  }
+  .overlay.open{display:flex;}
+  .modal{
+    width:100%;max-width:520px;border-radius:18px;padding:2px;
+    background:linear-gradient(145deg,rgba(177,75,255,0.7),rgba(255,92,225,0.4),rgba(77,240,255,0.3));
+    box-shadow:0 20px 70px rgba(0,0,0,0.6);
+    animation:pop .22s ease;
+  }
+  @keyframes pop{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
+  .modal-inner{
+    border-radius:16px;background:linear-gradient(180deg,#1b1033,#120a24);
+    padding:22px 22px 20px;
+  }
+  .modal .mtag{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--pink);text-shadow:0 0 10px rgba(255,92,225,0.7);}
+  .modal h3{margin:6px 0 2px;font-size:17px;font-weight:700;line-height:1.3;}
+  .modal .mobj{font-size:13px;color:var(--txt-dim);line-height:1.5;margin-bottom:14px;}
+  .modal label{display:block;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin:12px 0 6px;}
+  .modal textarea,.modal input[type=text]{
+    width:100%;border-radius:10px;border:1px solid var(--panel-br);background:rgba(255,255,255,0.05);
+    color:var(--txt);font-family:inherit;font-size:14px;padding:11px 12px;resize:vertical;outline:none;transition:all .2s;
+  }
+  .modal textarea{min-height:120px;}
+  .modal textarea:focus,.modal input[type=text]:focus{border-color:var(--pink);box-shadow:0 0 14px rgba(255,92,225,0.4);}
+  .modal .row{display:flex;gap:12px;flex-wrap:wrap;}
+  .modal .row>div{flex:1;min-width:140px;}
+  .modal .actions{display:flex;gap:10px;justify-content:space-between;align-items:center;margin-top:20px;flex-wrap:wrap;}
+  .modal .actions .left{display:flex;gap:10px;flex-wrap:wrap;}
+  .mbtn{cursor:pointer;font-size:12px;padding:10px 18px;border-radius:10px;letter-spacing:1px;text-transform:uppercase;font-weight:700;border:1px solid var(--panel-br);transition:all .2s;}
+  .mbtn.primary{color:#fff;border-color:var(--pink);background:linear-gradient(135deg,var(--purple),var(--pink));box-shadow:0 0 16px rgba(255,92,225,0.5);}
+  .mbtn.primary:hover{box-shadow:0 0 24px rgba(255,92,225,0.8);}
+  .mbtn.ghost{color:var(--txt-dim);background:rgba(255,255,255,0.04);}
+  .mbtn.ghost:hover{color:#fff;border-color:var(--cyan);}
+  .mbtn.danger{color:var(--pink);background:transparent;border-color:transparent;}
+  .mbtn.danger:hover{text-decoration:underline;}
+
+  /* indicador de resolução preenchida no objetivo */
+  .obj .memo{flex-shrink:0;align-self:center;font-size:13px;color:var(--cyan);opacity:.9;}
+
+  /* ============ QUEST GRID ============ */
+  .grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;margin-top:22px;
+  }
+  .quest{
+    position:relative;border-radius:18px;padding:2px;
+    background:linear-gradient(145deg,rgba(177,75,255,0.6),rgba(255,92,225,0.25),rgba(77,240,255,0.25));
+    box-shadow:0 10px 40px rgba(0,0,0,0.45);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .quest:hover{transform:translateY(-4px);box-shadow:0 16px 50px rgba(177,75,255,0.4);}
+  .quest.complete{background:linear-gradient(145deg,rgba(90,255,192,0.7),rgba(77,240,255,0.4));}
+  .quest-inner{
+    border-radius:16px;height:100%;
+    background:linear-gradient(180deg,rgba(28,17,52,0.92),rgba(18,10,34,0.95));
+    backdrop-filter:blur(8px);padding:18px 18px 16px;display:flex;flex-direction:column;
+  }
+  .quest-top{display:flex;align-items:center;gap:10px;margin-bottom:4px;}
+  .qicon{
+    width:40px;height:40px;flex-shrink:0;border-radius:11px;display:flex;align-items:center;justify-content:center;
+    font-size:20px;background:linear-gradient(135deg,var(--purple),var(--pink));
+    box-shadow:0 0 16px rgba(255,92,225,0.6);
+  }
+  .quest.complete .qicon{background:linear-gradient(135deg,var(--green),var(--cyan));box-shadow:0 0 16px rgba(90,255,192,0.7);}
+  .qtitle{flex:1;}
+  .qtitle h3{margin:0;font-size:15px;font-weight:700;line-height:1.25;letter-spacing:.5px;}
+  .qtitle .sub{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+  .tag{font-size:9px;font-weight:700;letter-spacing:1px;padding:3px 8px;border-radius:999px;text-transform:uppercase;align-self:flex-start;}
+  .tag.v1{color:#eafaff;background:rgba(77,240,255,0.16);border:1px solid rgba(77,240,255,0.55);}
+  .tag.v2{color:#fff6df;background:rgba(255,211,77,0.16);border:1px solid rgba(255,211,77,0.55);}
+
+  .qprog{display:flex;align-items:center;gap:10px;margin:12px 0 6px;}
+  .qprog .mini{flex:1;height:8px;border-radius:999px;background:rgba(255,255,255,0.07);overflow:hidden;}
+  .qprog .mini>i{display:block;height:100%;width:0;border-radius:999px;transition:width .5s;
+    background:linear-gradient(90deg,var(--violet),var(--pink));box-shadow:0 0 10px rgba(255,92,225,0.7);}
+  .quest.complete .qprog .mini>i{background:linear-gradient(90deg,var(--green),var(--cyan));box-shadow:0 0 10px rgba(90,255,192,0.7);}
+  .qprog .count{font-size:12px;color:var(--txt-dim);white-space:nowrap;font-weight:700;}
+
+  .note{
+    font-size:11.5px;color:#ffe0bd;line-height:1.5;margin:4px 0 8px;
+    background:rgba(255,160,60,0.08);border-left:3px solid var(--amber);padding:7px 10px;border-radius:6px;
+  }
+
+  .objs{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:2px;}
+  .obj{display:flex;align-items:flex-start;gap:11px;padding:9px 8px;border-radius:10px;cursor:pointer;transition:background .18s;}
+  .obj:hover{background:rgba(177,75,255,0.1);}
+  .box{
+    flex-shrink:0;width:22px;height:22px;margin-top:1px;border-radius:6px;position:relative;
+    border:2px solid var(--violet);background:transparent;transition:all .2s;
+  }
+  .obj:hover .box{box-shadow:0 0 12px rgba(177,75,255,0.7);}
+  .box.on{background:linear-gradient(135deg,var(--violet),var(--pink));border-color:var(--pink);box-shadow:0 0 14px rgba(255,92,225,0.8);}
+  .box.on::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg);}
+  .obj .txt{flex:1;font-size:13px;line-height:1.45;color:var(--txt);}
+  .obj.done .txt{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(201,139,255,0.5);}
+  .obj .w{font-size:11px;color:var(--pink);white-space:nowrap;font-weight:700;align-self:center;}
+
+  .reward{
+    margin-top:12px;padding-top:10px;border-top:1px dashed rgba(177,75,255,0.3);
+    font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .reward .status{font-weight:700;}
+  .quest.complete .reward .status{color:var(--green);text-shadow:0 0 10px rgba(90,255,192,0.7);}
+
+  .footer{text-align:center;color:var(--muted);font-size:12px;margin-top:36px;line-height:1.7;}
+  .reset{color:var(--pink);cursor:pointer;text-decoration:underline;}
+  .btn{cursor:pointer;font-size:12px;padding:8px 16px;border-radius:10px;letter-spacing:1px;text-transform:uppercase;
+    background:var(--panel);border:1px solid var(--panel-br);color:var(--txt-dim);transition:all .2s;}
+  .btn:hover{color:#fff;border-color:var(--cyan);box-shadow:0 0 12px rgba(77,240,255,0.5);}
+</style>
+</head>
+<body>
+
+<!-- ====== Purple Haze animated background ====== -->
+<div class="haze" id="haze"></div>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="kicker">Quest Board · Portal Interno</div>
+    <h1>Customer Health 360</h1>
+    <p>Cada painel é uma missão para construir o Health Score corporativo. Complete os objetivos e evolua o projeto de Health + Trend + Risk + Priority.</p>
+
+    <div class="hud">
+      <div class="badge lvl"><b id="hLevel">0</b><span>Missões</span></div>
+      <div class="xpbar-wrap">
+        <div class="xplabel"><span>Progresso total</span><b id="hPct">0%</b></div>
+        <div class="xpbar"><i id="hBar"></i></div>
+      </div>
+      <div class="badge done"><b id="hDone">0</b><span>Feitas</span></div>
+      <div class="badge left"><b id="hLeft">0</b><span>Restam</span></div>
+    </div>
+
+  </div>
+
+  <!-- ====== Painel de gráficos (visão geral) ====== -->
+  <div class="charts">
+    <div class="chart-card">
+      <h4>Progresso por Missão</h4>
+      <div class="csub">% concluído de cada painel</div>
+      <canvas id="chartBars" width="320" height="210"></canvas>
+    </div>
+    <div class="chart-card">
+      <h4>Status das Atividades</h4>
+      <div class="csub">Feitas × Pendentes</div>
+      <canvas id="chartDonut" width="320" height="190"></canvas>
+      <div class="legend">
+        <span><i style="background:#5affc0"></i>Concluídas</span>
+        <span><i style="background:#b14bff"></i>Pendentes</span>
+      </div>
+    </div>
+    <div class="chart-card">
+      <h4>Esforço V1 × V2</h4>
+      <div class="csub">Distribuição das atividades</div>
+      <canvas id="chartV" width="320" height="190"></canvas>
+      <div class="legend">
+        <span><i style="background:#4df0ff"></i>V1 feitas</span>
+        <span><i style="background:#2a2050"></i>V1 restantes</span>
+        <span><i style="background:#ffd34d"></i>V2 feitas</span>
+        <span><i style="background:#3a2a10"></i>V2 restantes</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="chip active" data-filter="all">Todas</div>
+    <div class="chip" data-filter="active">Em andamento</div>
+    <div class="chip" data-filter="complete">Concluídas</div>
+    <div class="chip" data-filter="v1">V1</div>
+    <div class="chip" data-filter="v2">V2</div>
+    <div class="btn" id="resetBtn">Reset</div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="footer">
+    Gerado a partir da proposta “Customer Health 360” (thread RE: Health Score).<br>
+    Progresso salvo neste navegador.
+  </div>
+</div>
+
+<!-- ====== Modal de resolução ====== -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="modal-inner">
+      <div class="mtag" id="mTag">Atividade</div>
+      <h3 id="mTitle">—</h3>
+      <div class="mobj" id="mObj">—</div>
+
+      <label for="mStatus">Status</label>
+      <div class="row">
+        <div>
+          <select id="mStatus" style="width:100%;border-radius:10px;border:1px solid var(--panel-br);background:rgba(255,255,255,0.05);color:var(--txt);font-family:inherit;font-size:14px;padding:11px 12px;outline:none;">
+            <option value="todo">A fazer</option>
+            <option value="doing">Em andamento</option>
+            <option value="done">Concluída</option>
+          </select>
+        </div>
+        <div>
+          <label for="mOwner" style="margin-top:0">Responsável</label>
+          <input type="text" id="mOwner" placeholder="Nome / time">
+        </div>
+      </div>
+
+      <label for="mResolution">Descrição da resolução</label>
+      <textarea id="mResolution" placeholder="Descreva como a atividade foi (ou será) resolvida: fonte de dados, regra aplicada, decisões, links..."></textarea>
+
+      <div class="actions">
+        <div class="left">
+          <button class="mbtn primary" id="mSave">Salvar</button>
+          <button class="mbtn ghost" id="mClose">Fechar</button>
+        </div>
+        <button class="mbtn danger" id="mClear">Limpar resolução</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============ Purple Haze: 60 smoke rings ============ */
+(function(){
+  const haze = document.getElementById("haze");
+  for(let i=1;i<=60;i++){
+    const c=document.createElement("div");
+    c.className="c";
+    const w=i*6, h=i*1, right=i*10, bottom=i*10, blur=i/3+10;
+    const r=Math.min(255,90+i*3), g=33+i, b=205, a=(1-(i/80))*0.5;
+    c.style.cssText=
+      "box-shadow:3px 0 rgba(255,255,255,"+(-(i/40))+"),6px -5px rgba(10,0,0,"+(-(i/40))+");"+
+      "width:"+w+"px;height:"+h+"px;right:"+right+"px;bottom:"+bottom+"px;"+
+      "filter:blur("+blur+"px);"+
+      "transform-origin:"+(i*4)+"px "+(i*2)+"px;"+
+      "animation:spin 3s "+(i/10)+"s linear infinite;"+
+      "background:rgba("+r+","+g+","+b+","+a+");";
+    haze.appendChild(c);
+  }
+})();
+
+/* ============ Quest data ============ */
+const DATA = [
+  { id:"estrutura", icon:"🧩", title:"Estrutura & Cálculo", sub:"Fundações do score", ver:"v1", items:[
+    {id:"e1", t:"Fórmula: Adoção×35% + Suporte×25% + Relacionamento×20% + VoC×20%."},
+    {id:"e2", t:"Cada pilar com pontuação própria de 0 a 100."},
+    {id:"e3", t:"Faixas: 80+ Healthy, 65–79 Attention, 50–64 At Risk, 0–49 Critical."},
+    {id:"e4", t:"Tirar do score (virar flag/segmentação): On-Premise×Cloud, Inadimplência, EOL."}
+  ]},
+  { id:"adocao", icon:"📈", title:"Adoção & Uso", sub:"Pilar · peso 35%", ver:"v1", items:[
+    {id:"a1", t:"Usuários ativos vs. licenças esperadas.", w:"30%"},
+    {id:"a2", t:"Frequência de uso (acessos no período).", w:"20%"},
+    {id:"a3", t:"Componentes contratados usados vs. contratados.", w:"25%"},
+    {id:"a4", t:"Evolução do uso (30/60/90 dias).", w:"15%"},
+    {id:"a5", t:"Profundidade de uso de funcionalidades-chave.", w:"10%"}
+  ]},
+  { id:"suporte", icon:"🛟", title:"Experiência & Suporte", sub:"Pilar · peso 25%", ver:"v1", items:[
+    {id:"s1", t:"Tickets críticos (quantidade e severidade).", w:"30%"},
+    {id:"s2", t:"Tickets em atraso (fora do SLA).", w:"20%"},
+    {id:"s3", t:"Backlog aberto (volume e idade).", w:"15%"},
+    {id:"s4", t:"Reincidência (problemas recorrentes).", w:"15%"},
+    {id:"s5", t:"SLA / tempo de resolução.", w:"20%"}
+  ]},
+  { id:"relacionamento", icon:"🤝", title:"Relacionamento & Engagement", sub:"Pilar · peso 20%", ver:"v1",
+    note:"Não tratar apenas “atividade no Bitrix” como evidência suficiente de relacionamento.", items:[
+    {id:"r1", t:"Eventos leves: e-mail sem resposta, cliente respondeu, reunião operacional."},
+    {id:"r2", t:"Alto impacto: reunião de sucesso, QBR/EBR, sponsor, plano de sucesso."},
+    {id:"r3", t:"Negativos: sem interação no período / perda de sponsor (risk flag)."}
+  ]},
+  { id:"voc", icon:"💬", title:"Voice of Customer", sub:"Pilar · peso 20%", ver:"v1", items:[
+    {id:"v1a", t:"Integrar NPS (validar nova ferramenta; hoje nulo).", w:"60%"},
+    {id:"v2a", t:"CSAT / pesquisa de atendimento.", w:"20%"},
+    {id:"v3a", t:"Feedback qualitativo estruturado.", w:"20%"}
+  ]},
+  { id:"risk", icon:"🚩", title:"Risk Flags", sub:"Camada independente", ver:"v1", items:[
+    {id:"rf1", t:"Critical: cancelamento, downgrade."},
+    {id:"rf2", t:"High: queda de uso, NPS detrator, ticket crítico, projeto atrasado, perda de sponsor, renewal + Health baixo."},
+    {id:"rf3", t:"EOL (Med/High), inadimplência (Financial), ausência de relacionamento (Med)."}
+  ]},
+  { id:"trend", icon:"📊", title:"Tendência (Trend)", sub:"Variação temporal", ver:"v1", items:[
+    {id:"t1", t:"Guardar histórico de score (snapshot) p/ 30/60/90 dias."},
+    {id:"t2", t:"Indicador visual: ↑ Improving · → Stable · ↓ Deteriorating."}
+  ]},
+  { id:"prior", icon:"🎯", title:"Priorização", sub:"Fila de ação", ver:"v1", items:[
+    {id:"p1", t:"Regra P0/P1/P2/P3 combinando Health + Trend + Renewal + Risk."}
+  ]},
+  { id:"gerencial", icon:"🗂️", title:"Visão Gerencial", sub:"Dashboard inicial", ver:"v1", items:[
+    {id:"g1", t:"KPIs: Health médio, % por faixa, deteriorando/melhorando."},
+    {id:"g2", t:"Risco: ARR em risco, renewals próximos, P0, P1, críticos sem plano."},
+    {id:"g3", t:"Filtros por BU, país, executivo."}
+  ]},
+  { id:"individual", icon:"👤", title:"Visão Individual", sub:"Página do cliente", ver:"v1", items:[
+    {id:"i1", t:"Health + status + Trend + score por pilar."},
+    {id:"i2", t:"Lista de Risk Flags ativos."},
+    {id:"i3", t:"Link para o Customer (ARR, produtos, contratos)."}
+  ]},
+  { id:"actions", icon:"⚔️", title:"Action & Playbooks", sub:"Fase 2", ver:"v2", items:[
+    {id:"ac1", t:"Action Management: problema, flag, owner, plano, prazo, status, próximo passo, resultado."},
+    {id:"ac2", t:"Nenhum P0/P1 sem owner, ação e prazo."},
+    {id:"ac3", t:"Playbooks por condição (Recovery, NPS, Adoption, Renewal, Escalation, Migration, Engagement)."}
+  ]}
+];
+
+const STORE_KEY="ch360_quests_v2";
+let state=JSON.parse(localStorage.getItem(STORE_KEY)||"{}");
+let filter="all";
+const grid=document.getElementById("grid");
+
+/* state[id] = { done:bool, status:'todo|doing|done', owner:str, resolution:str } */
+function save(){localStorage.setItem(STORE_KEY,JSON.stringify(state));}
+function getEntry(id){return state[id] || {};}
+function isDone(id){return !!getEntry(id).done;}
+function allItems(){return DATA.flatMap(s=>s.items);}
+function itemMeta(id){ // resolve texto/objetivo a partir do id
+  for(const s of DATA){const it=s.items.find(x=>x.id===id); if(it) return {sec:s,it};}
+  return null;
+}
+
+function render(){
+  grid.innerHTML="";
+  DATA.forEach(sec=>{
+    const total=sec.items.length;
+    const done=sec.items.filter(it=>isDone(it.id)).length;
+    const complete=done===total;
+    const pct=total?Math.round(done/total*100):0;
+
+    if(filter==="complete" && !complete) return;
+    if(filter==="active" && complete) return;
+    if(filter==="v1" && sec.ver!=="v1") return;
+    if(filter==="v2" && sec.ver!=="v2") return;
+
+    const card=document.createElement("div");
+    card.className="quest"+(complete?" complete":"");
+
+    let objsHtml="";
+    sec.items.forEach(it=>{
+      const e=getEntry(it.id);
+      const on=!!e.done;
+      const hasMemo=e.resolution && e.resolution.trim().length>0;
+      objsHtml+=
+        `<li class="obj${on?' done':''}" data-id="${it.id}" title="Clique para descrever a resolução">
+           <span class="box${on?' on':''}"></span>
+           <span class="txt">${it.t}</span>
+           ${hasMemo?`<span class="memo" title="Resolução registrada">📝</span>`:""}
+           ${it.w?`<span class="w">${it.w}</span>`:""}
+         </li>`;
+    });
+
+    card.innerHTML=
+      `<div class="quest-inner">
+         <div class="quest-top">
+           <div class="qicon">${complete?"✔":sec.icon}</div>
+           <div class="qtitle"><h3>${sec.title}</h3><div class="sub">${sec.sub}</div></div>
+           <span class="tag ${sec.ver}">${sec.ver.toUpperCase()}</span>
+         </div>
+         <div class="qprog">
+           <div class="mini"><i style="width:${pct}%"></i></div>
+           <span class="count">${done}/${total}</span>
+         </div>
+         ${sec.note?`<div class="note">⚠ ${sec.note}</div>`:""}
+         <ul class="objs">${objsHtml}</ul>
+         <div class="reward">
+           <span>Missão ${sec.ver.toUpperCase()}</span>
+           <span class="status">${complete?"✦ COMPLETA":pct+"%"}</span>
+         </div>
+       </div>`;
+
+    card.querySelectorAll(".obj").forEach(li=>{
+      li.addEventListener("click",()=>openModal(li.dataset.id));
+    });
+
+    grid.appendChild(card);
+  });
+}
+
+function refreshHud(){
+  const items=allItems();
+  const total=items.length;
+  const done=items.filter(it=>isDone(it.id)).length;
+  const pct=total?Math.round(done/total*100):0;
+  const questsDone=DATA.filter(s=>s.items.every(it=>isDone(it.id))).length;
+
+  document.getElementById("hDone").textContent=done;
+  document.getElementById("hLeft").textContent=total-done;
+  document.getElementById("hPct").textContent=pct+"%";
+  document.getElementById("hBar").style.width=pct+"%";
+  document.getElementById("hLevel").textContent=questsDone+"/"+DATA.length;
+}
+
+/* ============ Modal de resolução ============ */
+const overlay=document.getElementById("overlay");
+let currentId=null;
+
+function openModal(id){
+  currentId=id;
+  const meta=itemMeta(id);
+  const e=getEntry(id);
+  document.getElementById("mTag").textContent=meta.sec.title+" · "+meta.sec.ver.toUpperCase();
+  document.getElementById("mTitle").textContent=meta.it.t;
+  document.getElementById("mObj").textContent=meta.sec.sub+(meta.it.w?(" · peso "+meta.it.w):"");
+  document.getElementById("mStatus").value=e.status || (e.done?"done":"todo");
+  document.getElementById("mOwner").value=e.owner || "";
+  document.getElementById("mResolution").value=e.resolution || "";
+  overlay.classList.add("open");
+  setTimeout(()=>document.getElementById("mResolution").focus(),60);
+}
+function closeModal(){overlay.classList.remove("open");currentId=null;}
+
+document.getElementById("mSave").addEventListener("click",()=>{
+  if(!currentId) return;
+  const status=document.getElementById("mStatus").value;
+  state[currentId]={
+    status:status,
+    done:status==="done",
+    owner:document.getElementById("mOwner").value.trim(),
+    resolution:document.getElementById("mResolution").value.trim()
+  };
+  save();closeModal();render();refreshHud();drawCharts();
+});
+document.getElementById("mClose").addEventListener("click",closeModal);
+document.getElementById("mClear").addEventListener("click",()=>{
+  document.getElementById("mResolution").value="";
+});
+overlay.addEventListener("click",e=>{if(e.target===overlay)closeModal();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&overlay.classList.contains("open"))closeModal();});
+
+/* ============ Gráficos (canvas puro) ============ */
+function drawCharts(){
+  drawBars();
+  drawDonut();
+  drawVStack();
+}
+
+function fitCanvas(cv){
+  const dpr=window.devicePixelRatio||1;
+  const w=cv.width, h=cv.height;
+  if(cv.dataset.scaled!=="1"){
+    cv.style.width=w+"px";cv.style.height=h+"px";
+    cv.width=w*dpr;cv.height=h*dpr;
+    cv.getContext("2d").scale(dpr,dpr);
+    cv.dataset.scaled="1";cv.dataset.w=w;cv.dataset.h=h;
+  }
+  return {ctx:cv.getContext("2d"),w:+cv.dataset.w,h:+cv.dataset.h};
+}
+
+function drawBars(){
+  const cv=document.getElementById("chartBars");
+  const {ctx,w,h}=fitCanvas(cv);
+  ctx.clearRect(0,0,w,h);
+  const padL=70, padR=16, padT=6, padB=6;
+  const n=DATA.length;
+  const gap=4;
+  const rowH=(h-padT-padB-(n-1)*gap)/n;
+  DATA.forEach((sec,i)=>{
+    const total=sec.items.length;
+    const done=sec.items.filter(it=>isDone(it.id)).length;
+    const pct=total?done/total:0;
+    const y=padT+i*(rowH+gap);
+    // label
+    ctx.fillStyle="#c9b8ef";ctx.font="10px Lato, Arial";ctx.textAlign="right";ctx.textBaseline="middle";
+    const label=sec.title.length>12?sec.title.slice(0,11)+"…":sec.title;
+    ctx.fillText(label,padL-8,y+rowH/2);
+    // track
+    const barW=w-padL-padR;
+    ctx.fillStyle="rgba(255,255,255,0.06)";
+    roundRect(ctx,padL,y,barW,rowH,rowH/2);ctx.fill();
+    // fill
+    const g=ctx.createLinearGradient(padL,0,padL+barW,0);
+    if(pct>=1){g.addColorStop(0,"#5affc0");g.addColorStop(1,"#4df0ff");}
+    else{g.addColorStop(0,"#8b2fff");g.addColorStop(1,"#ff5ce1");}
+    ctx.fillStyle=g;
+    const fw=Math.max(pct>0?rowH:0,barW*pct);
+    roundRect(ctx,padL,y,fw,rowH,rowH/2);ctx.fill();
+    // pct text
+    ctx.fillStyle="#f2ecff";ctx.font="9px Lato, Arial";ctx.textAlign="left";
+    ctx.fillText(Math.round(pct*100)+"%",padL+barW-24,y+rowH/2);
+  });
+}
+
+function drawDonut(){
+  const cv=document.getElementById("chartDonut");
+  const {ctx,w,h}=fitCanvas(cv);
+  ctx.clearRect(0,0,w,h);
+  const items=allItems();
+  const total=items.length;
+  const done=items.filter(it=>isDone(it.id)).length;
+  const cx=w/2, cy=h/2, R=Math.min(w,h)/2-14, r=R*0.6;
+  const segs=[{v:done,c1:"#5affc0",c2:"#4df0ff"},{v:total-done,c1:"#b14bff",c2:"#6a2fb0"}];
+  let a=-Math.PI/2;
+  const sum=total||1;
+  segs.forEach(s=>{
+    if(s.v<=0) return;
+    const ang=s.v/sum*Math.PI*2;
+    const g=ctx.createLinearGradient(cx-R,cy-R,cx+R,cy+R);
+    g.addColorStop(0,s.c1);g.addColorStop(1,s.c2);
+    ctx.beginPath();ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,R,a,a+ang);ctx.closePath();
+    ctx.fillStyle=g;ctx.fill();
+    a+=ang;
+  });
+  // hole
+  ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle="#120a24";ctx.fill();
+  // center text
+  ctx.fillStyle="#fff";ctx.font="700 22px Lato, Arial";ctx.textAlign="center";ctx.textBaseline="middle";
+  ctx.fillText(Math.round((done/sum)*100)+"%",cx,cy-4);
+  ctx.fillStyle="#9a86c8";ctx.font="9px Lato, Arial";
+  ctx.fillText(done+"/"+total+" feitas",cx,cy+14);
+}
+
+function drawVStack(){
+  const cv=document.getElementById("chartV");
+  const {ctx,w,h}=fitCanvas(cv);
+  ctx.clearRect(0,0,w,h);
+  const groups=["v1","v2"];
+  const colors={
+    v1done:"#4df0ff", v1rest:"#2a2050",
+    v2done:"#ffd34d", v2rest:"#3a2a10"
+  };
+  const padT=14,padB=24,padX=40;
+  const bw=60, gap=70;
+  const maxH=h-padT-padB;
+  const totalByVer=g=>DATA.filter(s=>s.ver===g).flatMap(s=>s.items).length;
+  const doneByVer=g=>DATA.filter(s=>s.ver===g).flatMap(s=>s.items).filter(it=>isDone(it.id)).length;
+  const maxCount=Math.max(totalByVer("v1"),totalByVer("v2"),1);
+  const startX=(w-(bw*2+gap))/2;
+  groups.forEach((g,idx)=>{
+    const total=totalByVer(g), done=doneByVer(g);
+    const x=startX+idx*(bw+gap);
+    const colH=maxH*(total/maxCount);
+    const doneH=total?colH*(done/total):0;
+    const yBase=padT+maxH;
+    // restante
+    ctx.fillStyle=g==="v1"?colors.v1rest:colors.v2rest;
+    roundRect(ctx,x,yBase-colH,bw,colH,6);ctx.fill();
+    // feitas
+    const grd=ctx.createLinearGradient(0,yBase-doneH,0,yBase);
+    const dc=g==="v1"?colors.v1done:colors.v2done;
+    grd.addColorStop(0,dc);grd.addColorStop(1,dc);
+    ctx.fillStyle=dc;
+    roundRect(ctx,x,yBase-doneH,bw,doneH,6);ctx.fill();
+    // labels
+    ctx.fillStyle="#c9b8ef";ctx.font="700 11px Lato, Arial";ctx.textAlign="center";ctx.textBaseline="top";
+    ctx.fillText(g.toUpperCase(),x+bw/2,yBase+6);
+    ctx.fillStyle="#fff";ctx.font="10px Lato, Arial";ctx.textBaseline="bottom";
+    ctx.fillText(done+"/"+total,x+bw/2,yBase-colH-4);
+  });
+}
+
+function roundRect(ctx,x,y,w,h,r){
+  r=Math.min(r,w/2,h/2);
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r);
+  ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);
+  ctx.arcTo(x,y,x+w,y,r);
+  ctx.closePath();
+}
+
+document.querySelectorAll(".chip").forEach(c=>{
+  c.addEventListener("click",()=>{
+    document.querySelectorAll(".chip").forEach(x=>x.classList.remove("active"));
+    c.classList.add("active");
+    filter=c.dataset.filter;
+    render();
+  });
+});
+document.getElementById("resetBtn").addEventListener("click",()=>{
+  if(confirm("Limpar todo o progresso?")){state={};save();render();refreshHud();drawCharts();}
+});
+
+render();
+refreshHud();
+drawCharts();
+window.addEventListener("resize",drawCharts);
+</script>
+</body>
+</html>
