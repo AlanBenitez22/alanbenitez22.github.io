@@ -153,6 +153,16 @@
   }
   .modal textarea{min-height:120px;}
   .modal textarea:focus,.modal input[type=text]:focus{border-color:var(--pink);box-shadow:0 0 14px rgba(255,92,225,0.4);}
+  .mselect{
+    width:100%;border-radius:10px;border:1px solid var(--panel-br);
+    background:#1b1033;color:var(--txt);font-family:inherit;font-size:14px;
+    padding:11px 36px 11px 12px;outline:none;cursor:pointer;transition:all .2s;
+    -webkit-appearance:none;-moz-appearance:none;appearance:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%23c98bff' stroke-width='2' fill='none' stroke-linecap='round'/></svg>");
+    background-repeat:no-repeat;background-position:right 12px center;
+  }
+  .mselect:focus{border-color:var(--pink);box-shadow:0 0 14px rgba(255,92,225,0.4);}
+  .mselect option{background:#1b1033;color:var(--txt);}
   .modal .row{display:flex;gap:12px;flex-wrap:wrap;}
   .modal .row>div{flex:1;min-width:140px;}
   .modal .actions{display:flex;gap:10px;justify-content:space-between;align-items:center;margin-top:20px;flex-wrap:wrap;}
@@ -320,7 +330,7 @@
       <label for="mStatus">Status</label>
       <div class="row">
         <div>
-          <select id="mStatus" style="width:100%;border-radius:10px;border:1px solid var(--panel-br);background:rgba(255,255,255,0.05);color:var(--txt);font-family:inherit;font-size:14px;padding:11px 12px;outline:none;">
+          <select id="mStatus" class="mselect">
             <option value="todo">A fazer</option>
             <option value="doing">Em andamento</option>
             <option value="done">Concluída</option>
