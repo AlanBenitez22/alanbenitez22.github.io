@@ -1,0 +1,264 @@
+:root {
+
+  --bg-image: url("../imagem/fundo.avif");
+
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  user-select: none;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  color: var(--text);
+  
+  /* 1. Use background-color em vez de 'background' para não resetar a imagem */
+  background-color: var(--bg); 
+  
+  /* 2. Aplique a imagem */
+  background-image: var(--bg-image);
+  
+  /* 3. Propriedades para deixar proporcional à tela */
+  background-size: cover;        /* Faz a imagem cobrir toda a tela sem distorcer */
+  background-position: center;   /* Centraliza a imagem */
+  background-repeat: no-repeat;  /* Evita que a imagem se repita como um mosaico */
+  background-attachment: fixed;  /* FIXA a imagem para não bugar quando rolar a página para baixo */
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+
+a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+
+
+/* ===== Navbar ===== */
+
+.navbar {
+  /* Fundo branco com 85% de opacidade (semi-transparente) */
+  background: rgba(255, 255, 255, 0.85); 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: 2px solid var(--accent);
+}
+
+
+
+.navbar .logo {
+
+  color: var(--accent);
+
+  font-weight: 700;
+
+  text-decoration: none;
+
+  font-size: 1.1rem;
+
+}
+
+
+
+.navbar ul { list-style: none; display: flex; gap: 1.5rem; }
+
+
+
+.navbar ul a {
+
+  color: var(--accent);
+
+  text-decoration: none;
+
+  font-weight: 600;
+
+  padding-bottom: 2px;
+
+  border-bottom: 2px solid transparent;
+
+}
+
+
+
+.navbar ul a:hover,
+
+.navbar ul a.ativo { border-bottom-color: var(--accent); }
+
+
+
+main { flex: 1; }
+
+
+
+/* ===== Home ===== */
+
+.hero {
+  /* Fundo branco com 80% de opacidade (semi-transparente) */
+  background: rgba(255, 255, 255, 0.80); 
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  margin: 1.5rem;
+  min-height: 65vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  gap: 1.5rem;
+}
+
+
+
+.hero h1 { font-size: clamp(2.5rem, 8vw, 5rem); }
+
+.hero p  { font-size: clamp(1.1rem, 3vw, 1.6rem); max-width: 28ch; }
+
+
+
+/* ===== Projetos ===== */
+
+.projetos {
+
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 1.5rem;
+
+  padding: 3rem 2rem;
+
+  max-width: 1000px;
+
+  margin: 0 auto;
+
+}
+
+
+
+.card {
+  /* Fundo branco com 85% de opacidade para cada cartão de projeto */
+  background: rgba(255, 255, 255, 0.85); 
+  
+  /* Mantive o resto das suas configurações */
+  border: 1px solid var(--card-border); /* Pode trocar por rgba(0,0,0,0.1) se não tiver uma variável definida */
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+
+
+
+.card h2 { font-size: 1.25rem; }
+
+.card p  { font-size: 1rem; flex: 1; }
+
+
+
+.card a {
+
+  color: var(--text);
+
+  font-size: .9rem;
+
+  font-weight: 600;
+
+}
+
+
+
+.card a:hover { color: #b20000; }
+
+
+
+/* ===== Sobre ===== */
+
+.sobre {
+  /* Fundo branco com 85% de opacidade */
+  background: rgba(255, 255, 255, 0.85);
+  
+  /* Arredondar os cantos para combinar com os outros cartões */
+  border-radius: 12px;
+  
+  /* Mantemos as suas configurações originais */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  padding: 4rem 2rem;
+  max-width: 900px;
+  
+  /* O margin foi ajustado para manter o bloco centrado e dar espaço no topo/fundo */
+  margin: 2rem auto;
+}
+
+
+.foto {
+
+  width: 220px;
+
+  height: 220px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  border: 2px solid var(--card-border);
+
+  background: var(--card-bg);
+
+  object-fit: cover;
+
+}
+
+
+
+.sobre-texto { max-width: 45ch; line-height: 1.6; }
+
+.sobre-texto h1 { margin-bottom: .75rem; }
+
+.sobre-texto a { color: #b25e00; }
+
+
+
+/* ===== Rodapé ===== */
+
+footer {
+
+  text-align: center;
+
+  padding: 1rem;
+
+  font-size: .85rem;
+
+  color: #666;
+
+}
+
+
+
+/* ===== Responsivo ===== */
+
+@media (max-width: 800px) {
+
+  .projetos { grid-template-columns: repeat(2, 1fr); }
+
+}
+
+
+
+@media (max-width: 540px) {
+
+  .navbar { padding: 1rem; }
+
+  .projetos { grid-template-columns: 1fr; padding: 2rem 1rem; }
+
+  .sobre { flex-direction: column; text-align: center; gap: 1.5rem; }
+
+} 
+
