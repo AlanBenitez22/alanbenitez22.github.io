@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora PLR 2026 — SoftExpert</title>
-  <meta name="description" content="Calculadora Interativa do Programa de Participação nos Lucros e Resultados 2026 — SoftExpert Software S.A.">
+  <title>Calculadora PLR 2026</title>
+  <meta name="description" content="Calculadora interativa do Programa de Participação nos Lucros e Resultados 2026.">
 
   <!-- Bootstrap 5.3 & Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -17,15 +17,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-    /* ── SoftExpert Brand & Design Tokens ────────────────── */
+    /* ── Design tokens ──────────────────────────────────── */
     :root {
-      --se-blue: #006AE6;
-      --se-navy: #002080;
-      --se-dark-navy: #001A66;
-      --se-light-blue: #EFF4FB;
-      --se-mid-blue: #193FAF;
-      --se-border: #E2E8F0;
-      --se-border-focus: #006AE6;
+      --calc-blue: #006AE6;
+      --calc-navy: #002080;
+      --calc-dark-navy: #001A66;
+      --calc-light-blue: #EFF4FB;
+      --calc-mid-blue: #193FAF;
+      --calc-border: #E2E8F0;
+      --calc-border-focus: #006AE6;
       --font-display: 'Plus Jakarta Sans', sans-serif;
       --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
@@ -57,7 +57,7 @@
     /* ── Main Simulator Card Container ───────────────────── */
     .sim-card {
       background: #ffffff;
-      border: 1px solid var(--se-border);
+      border: 1px solid var(--calc-border);
       border-radius: 20px;
       box-shadow: 0 10px 32px -6px rgba(0, 32, 128, 0.08), 0 2px 8px -2px rgba(0, 0, 0, 0.04);
       width: 100%;
@@ -66,9 +66,9 @@
       margin: 0 auto;
     }
 
-    /* ── Header Gradient (Navy → SE Blue) ────────────────── */
+    /* ── Header gradient ────────────────────────────────── */
     .sim-header {
-      background: linear-gradient(135deg, var(--se-dark-navy) 0%, var(--se-navy) 45%, var(--se-blue) 100%);
+      background: linear-gradient(135deg, var(--calc-dark-navy) 0%, var(--calc-navy) 45%, var(--calc-blue) 100%);
       padding: 1.5rem 2rem;
       color: #ffffff;
       position: relative;
@@ -78,13 +78,6 @@
       .sim-header {
         padding: 1.25rem 1.25rem;
       }
-    }
-
-    .sim-logo {
-      height: 28px;
-      width: auto;
-      display: block;
-      filter: brightness(0) invert(1);
     }
 
     .sim-header-badge {
@@ -166,7 +159,7 @@
     }
 
     .lang-btn.active {
-      color: var(--se-navy);
+      color: var(--calc-navy);
       background: #ffffff;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
     }
@@ -207,7 +200,7 @@
       font-size: 0.7rem;
       font-weight: 700;
       letter-spacing: 0.3px;
-      color: var(--se-navy);
+      color: var(--calc-navy);
       background: #ffffff;
       border: none;
       border-radius: 16px;
@@ -280,10 +273,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--se-light-blue);
+      background: var(--calc-light-blue);
       border: 1px solid #D6E4F8;
       border-radius: 8px;
-      color: var(--se-blue);
+      color: var(--calc-blue);
       flex-shrink: 0;
     }
 
@@ -291,7 +284,7 @@
       font-family: var(--font-display);
       font-size: 0.95rem;
       font-weight: 800;
-      color: var(--se-navy);
+      color: var(--calc-navy);
       letter-spacing: -0.2px;
       line-height: 1.2;
     }
@@ -327,8 +320,8 @@
       font-family: var(--font-body);
       font-size: 0.68rem;
       font-weight: 700;
-      color: var(--se-blue);
-      background: var(--se-light-blue);
+      color: var(--calc-blue);
+      background: var(--calc-light-blue);
       border: 1px solid #B3D0F5;
       border-radius: 6px;
       padding: 0.2rem 0.6rem;
@@ -340,9 +333,9 @@
     }
 
     .btn-suggest:hover {
-      background: var(--se-blue);
+      background: var(--calc-blue);
       color: #ffffff;
-      border-color: var(--se-blue);
+      border-color: var(--calc-blue);
     }
 
     .sim-input-group {
@@ -368,7 +361,7 @@
     .sim-input-group input[type="text"] {
       width: 100%;
       padding: 0.65rem 0.85rem 0.65rem 2.2rem;
-      border: 1.5px solid var(--se-border);
+      border: 1.5px solid var(--calc-border);
       border-radius: 10px;
       font-size: 0.95rem;
       font-weight: 600;
@@ -387,7 +380,7 @@
     .sim-input-group input[type="number"]:focus,
     .sim-input-group input[type="text"]:focus {
       outline: none;
-      border-color: var(--se-blue);
+      border-color: var(--calc-blue);
       box-shadow: 0 0 0 3px rgba(0, 106, 230, 0.15);
       background: #ffffff;
     }
@@ -395,7 +388,7 @@
     .sim-select {
       width: 100%;
       padding: 0.65rem 0.85rem;
-      border: 1.5px solid var(--se-border);
+      border: 1.5px solid var(--calc-border);
       border-radius: 10px;
       font-size: 0.88rem;
       font-weight: 600;
@@ -408,7 +401,7 @@
 
     .sim-select:focus {
       outline: none;
-      border-color: var(--se-blue);
+      border-color: var(--calc-blue);
       box-shadow: 0 0 0 3px rgba(0, 106, 230, 0.15);
       background: #ffffff;
     }
@@ -423,7 +416,7 @@
     /* ── Slider Section (% Atingimento) ──────────────────── */
     .slider-section {
       background: #F8FAFC;
-      border: 1.5px solid var(--se-border);
+      border: 1.5px solid var(--calc-border);
       border-radius: 14px;
       padding: 1.15rem 1.25rem;
     }
@@ -484,7 +477,7 @@
       height: 24px;
       border-radius: 50%;
       background: #ffffff;
-      border: 3.5px solid var(--se-blue);
+      border: 3.5px solid var(--calc-blue);
       box-shadow: 0 2px 8px rgba(0, 106, 230, 0.4);
       cursor: pointer;
       transition: transform 0.15s, box-shadow 0.15s;
@@ -500,7 +493,7 @@
       height: 24px;
       border-radius: 50%;
       background: #ffffff;
-      border: 3.5px solid var(--se-blue);
+      border: 3.5px solid var(--calc-blue);
       box-shadow: 0 2px 8px rgba(0, 106, 230, 0.4);
       cursor: pointer;
     }
@@ -520,7 +513,7 @@
       gap: 0.45rem;
       margin-top: 0.85rem;
       padding-top: 0.75rem;
-      border-top: 1px dashed var(--se-border);
+      border-top: 1px dashed var(--calc-border);
       flex-wrap: wrap;
     }
 
@@ -545,9 +538,9 @@
     }
 
     .btn-preset:hover {
-      background: var(--se-light-blue);
-      border-color: var(--se-blue);
-      color: var(--se-blue);
+      background: var(--calc-light-blue);
+      border-color: var(--calc-blue);
+      color: var(--calc-blue);
     }
 
     /* ── Right Column: Results & Projections ─────────────── */
@@ -557,12 +550,12 @@
       border-radius: 12px;
       padding: 0.85rem 1.15rem;
       font-size: 0.78rem;
-      color: var(--se-navy);
+      color: var(--calc-navy);
       line-height: 1.55;
     }
 
     .sim-breakdown-card strong {
-      color: var(--se-blue);
+      color: var(--calc-blue);
       font-weight: 700;
     }
 
@@ -570,7 +563,7 @@
     .res-card {
       border-radius: 12px;
       padding: 0.85rem 0.95rem;
-      border: 1.5px solid var(--se-border);
+      border: 1.5px solid var(--calc-border);
       background: #ffffff;
       display: flex;
       flex-direction: column;
@@ -631,10 +624,10 @@
       border-color: #B3D0F5;
     }
     .res-antec .res-label {
-      color: var(--se-blue);
+      color: var(--calc-blue);
     }
     .res-antec .res-value {
-      color: var(--se-mid-blue);
+      color: var(--calc-mid-blue);
     }
 
     /* Prêmio Card */
@@ -643,17 +636,17 @@
       border-color: #C7D6F7;
     }
     .res-premio .res-label {
-      color: var(--se-mid-blue);
+      color: var(--calc-mid-blue);
     }
     .res-premio .res-value {
-      color: var(--se-navy);
+      color: var(--calc-navy);
     }
 
     /* Hero Saldo Final Card */
     .res-saldo {
       padding: 1.35rem 1.5rem;
       border-radius: 14px;
-      background: linear-gradient(135deg, var(--se-dark-navy) 0%, var(--se-navy) 40%, var(--se-blue) 100%);
+      background: linear-gradient(135deg, var(--calc-dark-navy) 0%, var(--calc-navy) 40%, var(--calc-blue) 100%);
       border: none;
       box-shadow: 0 8px 24px -4px rgba(0, 106, 230, 0.35);
       color: #ffffff;
@@ -755,26 +748,10 @@
       margin-bottom: 0;
     }
 
-    .sim-note-link {
-      color: var(--se-blue);
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      margin-top: 0.3rem;
-      transition: color 0.15s;
-    }
-
-    .sim-note-link:hover {
-      color: var(--se-navy);
-      text-decoration: underline;
-    }
-
     /* ── Redutor / Business Units Clause Card ─────────────── */
     .redutor-card {
       background: #F8FAFC;
-      border: 1.5px solid var(--se-border);
+      border: 1.5px solid var(--calc-border);
       border-radius: 12px;
       padding: 0.85rem 1rem;
       transition: all 0.2s ease;
@@ -802,30 +779,6 @@
       box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.2);
     }
 
-    .btn-info-clause {
-      font-family: var(--font-body);
-      font-size: 0.68rem;
-      font-weight: 700;
-      color: var(--se-blue);
-      background: #ffffff;
-      border: 1px solid #B3D0F5;
-      border-radius: 6px;
-      padding: 0.25rem 0.55rem;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      white-space: nowrap;
-      text-decoration: none;
-    }
-
-    .btn-info-clause:hover {
-      background: var(--se-light-blue);
-      border-color: var(--se-blue);
-      color: var(--se-navy);
-    }
-
     .redutor-active-badge {
       font-size: 0.72rem;
       color: #92400E;
@@ -837,45 +790,6 @@
       align-items: center;
       gap: 6px;
       font-weight: 600;
-    }
-
-    /* Modal Styling */
-    .modal-clause-header {
-      background: linear-gradient(135deg, var(--se-dark-navy) 0%, var(--se-navy) 60%, var(--se-blue) 100%);
-      color: #ffffff;
-      border-bottom: none;
-      border-radius: 12px 12px 0 0;
-      padding: 1.25rem 1.5rem;
-    }
-
-    .modal-clause-header .btn-close {
-      filter: brightness(0) invert(1);
-    }
-
-    .modal-bu-table {
-      font-size: 0.78rem;
-      margin-bottom: 0;
-    }
-
-    .modal-bu-table th {
-      background: #F1F5F9;
-      color: var(--se-navy);
-      font-weight: 700;
-      font-size: 0.74rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      padding: 0.6rem 0.75rem;
-    }
-
-    .modal-bu-table td {
-      padding: 0.55rem 0.75rem;
-      vertical-align: middle;
-    }
-
-    .bu-highlight-row {
-      background-color: #EFF6FF !important;
-      font-weight: 700;
-      color: var(--se-navy);
     }
 
     /* ── Opção 2: barra compacta do redutor ───────────────── */
@@ -915,81 +829,6 @@
       border-radius: 20px;
       padding: 0.1rem 0.5rem;
     }
-
-    /* ── Modal da cláusula (opção 2) ───────────────────────── */
-    .clause-section-title {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-family: var(--font-display);
-      font-size: 0.82rem;
-      font-weight: 800;
-      color: var(--se-navy);
-      margin-bottom: 0.65rem;
-    }
-    .clause-section-title i { color: var(--se-blue); }
-
-    .clause-rule {
-      background: #FFFBEB;
-      border: 1px solid #FDE68A;
-      border-left: 4px solid #F59E0B;
-      border-radius: 10px;
-      padding: 0.85rem 1rem;
-    }
-    .clause-rule-head {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.78rem;
-      font-weight: 800;
-      color: #92400E;
-      margin-bottom: 0.5rem;
-    }
-    .clause-rule-badge {
-      font-size: 0.7rem;
-      font-weight: 800;
-      color: #ffffff;
-      background: #D97706;
-      border-radius: 20px;
-      padding: 0.15rem 0.55rem;
-      flex-shrink: 0;
-    }
-    .clause-rule-text {
-      font-size: 0.78rem;
-      line-height: 1.55;
-      color: #78350F;
-      font-style: italic;
-    }
-
-    .clause-dist { display: flex; flex-direction: column; gap: 0.5rem; }
-    .clause-dist-item {
-      display: flex;
-      align-items: center;
-      gap: 0.85rem;
-      background: #F8FAFC;
-      border: 1px solid var(--se-border);
-      border-radius: 10px;
-      padding: 0.6rem 0.85rem;
-    }
-    .clause-dist-pct {
-      font-family: var(--font-display);
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: var(--se-blue);
-      background: var(--se-light-blue);
-      border: 1px solid #D6E4F8;
-      border-radius: 8px;
-      min-width: 58px;
-      text-align: center;
-      padding: 0.3rem 0;
-    }
-    .clause-dist-name { font-size: 0.8rem; font-weight: 700; color: var(--se-navy); line-height: 1.2; }
-    .clause-dist-desc { font-size: 0.72rem; color: #64748B; line-height: 1.35; }
-
-    .modal-bu-table td { padding: 0.45rem 0.75rem; }
-    .modal-bu-table .bu-id { font-size: 0.74rem; color: #64748B; font-variant-numeric: tabular-nums; }
-    .modal-bu-table .bu-highlight-row .bu-id { color: var(--se-navy); font-weight: 700; }
-    .modal-bu-table tbody tr:not(.bu-highlight-row):hover { background: #F8FAFC; }
   </style>
 </head>
 
@@ -1001,11 +840,6 @@
     <div class="sim-header">
       <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 pb-3 mb-3 border-bottom border-white border-opacity-25">
         <div class="d-flex align-items-center gap-2">
-          <img src="https://assets.softexpert.com/Neutrals_100_698131079d.png" alt="SoftExpert" class="sim-logo"
-            onerror="this.style.display='none';document.getElementById('seLogo').style.display='block'">
-          <span id="seLogo" style="display:none;font-size:1.1rem;font-weight:800;letter-spacing:-.3px;color:#fff;">
-            SoftExpert
-          </span>
           <span class="sim-header-badge">
             <i class="bi bi-award-fill"></i> PLR 2026
           </span>
@@ -1072,7 +906,7 @@
               <div class="col-12 col-sm-6">
                 <label for="inMult" class="sim-label">
                   <span data-i18n="multLabel">Nº de Salários</span>
-                  <span class="hint" data-i18n="multHint">(Pol. SE)</span>
+                  <span class="hint" data-i18n="multHint">(Política PLR)</span>
                 </label>
                 <div class="sim-input-group">
                   <span class="input-prefix">×</span>
@@ -1228,9 +1062,6 @@
                   <span class="redutor-pill">−20%</span>
                 </label>
               </div>
-              <button type="button" class="btn-info-clause" data-bs-toggle="modal" data-bs-target="#modalClausula" data-i18n-title="redutorHelper" title="">
-                <i class="bi bi-info-circle-fill"></i> <span data-i18n="verClausulaBtn">Ver Cláusula</span>
-              </button>
             </div>
 
             <!-- Aviso de saldo menor que antecipação -->
@@ -1239,135 +1070,17 @@
               <span id="saldoWarnText">O prêmio estimado é menor que a antecipação já recebida. Nenhum saldo adicional será pago em abril/2027.</span>
             </div>
 
-            <!-- Rodapé e Regulamento -->
+            <!-- Rodapé da calculadora -->
             <div class="sim-footer-box">
               <p class="sim-note">
                 <span data-i18n="footerNote">Valores estimados em termos brutos · Sujeito à apuração final auditada e fechamento contábil.</span><br>
                 <span id="curNote" style="display:none;color:#94A3B8;"></span>
-                <a href="https://sesuite.softexpert.com/se/generic/gn_linkshare/linkshare.php?key=1HrYuoXSl3D&cdisosystem=73"
-                  target="_blank" rel="noopener" class="sim-note-link">
-                  <i class="bi bi-file-earmark-text"></i> <span data-i18n="footerLink">Consultar Regulamento DE064.PT — SoftExpert Software S.A. · Exercício 2026</span>
-                </a>
               </p>
             </div>
 
           </div>
         </div>
 
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal Cláusula Business Units -->
-  <div class="modal fade" id="modalClausula" tabindex="-1" aria-labelledby="modalClausulaTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
-      <div class="modal-content border-0 shadow-lg" style="border-radius: 16px; overflow: hidden;">
-        <div class="modal-clause-header d-flex align-items-center justify-content-between">
-          <div class="d-flex align-items-center gap-2">
-            <i class="bi bi-globe2 fs-5"></i>
-            <h5 class="modal-title fs-6 fw-bold mb-0 text-white" id="modalClausulaTitle" data-i18n="modalClausulaTitle">
-              Cláusula de Business Units — Redutor de Metas
-            </h5>
-          </div>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body p-3 p-md-4">
-          <div class="row g-4">
-
-            <!-- Coluna esquerda: regra -->
-            <div class="col-12 col-lg-4">
-              <!-- Regra do redutor -->
-              <div class="clause-rule mb-3">
-                <div class="clause-rule-head">
-                  <span class="clause-rule-badge">−20%</span>
-                  <span data-i18n="modalRegraTitle">Regra de Redutor de 20% (Regulamento PLR 2026 — Item 6.1):</span>
-                </div>
-                <p class="clause-rule-text mb-0" data-i18n="modalClausulaText">
-                  "Para os colaboradores alocados nas unidades fora do Brasil mas que o vínculo empregatício pertence ao CNPJ 00.449.824/0001-43, em caso de não atingimento das metas acima, haverá um redutor de 20% do valor apurado (número de salários distribuído antes das apurações das metas do item 6.2)."
-                </p>
-              </div>
-            </div>
-
-            <!-- Coluna direita: tabela de Business Units -->
-            <div class="col-12 col-lg-8">
-              <div class="clause-section-title">
-                <i class="bi bi-buildings-fill"></i> <span data-i18n="modalTabelaTitle">Metas por Unidade de Negócio (Business Units)</span>
-              </div>
-              <div class="table-responsive rounded-3 border">
-                <table class="table modal-bu-table align-middle mb-0">
-                  <thead>
-                    <tr>
-                      <th data-i18n="thSubsidiaria">Subsidiária</th>
-                      <th data-i18n="thBU">Business Units</th>
-                      <th class="text-center" data-i18n="thROL">ROL</th>
-                      <th class="text-center" data-i18n="thEBITDA">EBITDA</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="bu-highlight-row">
-                      <td><img class="flag me-1" src="https://flagcdn.com/w40/br.png" width="18" height="12" alt="Brasil"> <strong>BRASIL</strong></td>
-                      <td class="bu-id">CNPJ 00.449.824/0001-43</td>
-                      <td class="text-center fw-bold text-primary">25%</td>
-                      <td class="text-center fw-bold text-success">20%</td>
-                    </tr>
-                    <tr>
-                      <td><img class="flag me-1" src="https://flagcdn.com/w40/de.png" width="18" height="12" alt="Alemanha"> <span data-i18n="buAlemanha">Alemanha</span></td>
-                      <td class="bu-id">HRB: 41051</td>
-                      <td class="text-center">75%</td>
-                      <td class="text-center text-muted">—</td>
-                    </tr>
-                    <tr>
-                      <td><img class="flag me-1" src="https://flagcdn.com/w40/au.png" width="18" height="12" alt="Austrália"> <span data-i18n="buAustralia">Austrália</span></td>
-                      <td class="bu-id">ABN: 39 645 445 601</td>
-                      <td class="text-center">50%</td>
-                      <td class="text-center text-muted">—</td>
-                    </tr>
-                    <tr>
-                      <td><img class="flag me-1" src="https://flagcdn.com/w40/co.png" width="18" height="12" alt="Colômbia"> <span data-i18n="buColombia">Colombia</span></td>
-                      <td class="bu-id">NIT: 901804850</td>
-                      <td class="text-center">170%</td>
-                      <td class="text-center text-muted">—</td>
-                    </tr>
-                    <tr>
-                      <td><img class="flag me-1" src="https://flagcdn.com/w40/fr.png" width="18" height="12" alt="França"> <span data-i18n="buFranca">França</span></td>
-                      <td class="bu-id">SIREN: 878975028</td>
-                      <td class="text-center">40%</td>
-                      <td class="text-center text-muted">—</td>
-                    </tr>
-                    <tr>
-                      <td><img class="flag me-1" src="https://flagcdn.com/w40/it.png" width="18" height="12" alt="Itália"> <span data-i18n="buItalia">Itália</span></td>
-                      <td class="bu-id">C.F: 26666240995</td>
-                      <td class="text-center">125%</td>
-                      <td class="text-center text-muted">—</td>
-                    </tr>
-                    <tr>
-                      <td><img class="flag me-1" src="https://flagcdn.com/w40/gb.png" width="18" height="12" alt="Reino Unido"> <span data-i18n="buUK">Reino Unido</span></td>
-                      <td class="bu-id">Register Code: 11742343</td>
-                      <td class="text-center">130%</td>
-                      <td class="text-center text-muted">—</td>
-                    </tr>
-                    <tr>
-                      <td><img class="flag me-1" src="https://flagcdn.com/w40/tr.png" width="18" height="12" alt="Turquia"> <span data-i18n="buTurquia">Turquia</span></td>
-                      <td class="bu-id">VKN: 7721536481</td>
-                      <td class="text-center">100%</td>
-                      <td class="text-center">40%</td>
-                    </tr>
-                    <tr>
-                      <td><img class="flag me-1" src="https://flagcdn.com/w40/us.png" width="18" height="12" alt="USA"> USA</td>
-                      <td class="bu-id">EIN: 37-1835188</td>
-                      <td class="text-center">60%</td>
-                      <td class="text-center">18%</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-          </div>
-        </div>
-        <div class="modal-footer bg-light py-2 px-3">
-          <button type="button" class="btn btn-secondary btn-sm px-3 fw-bold" data-bs-dismiss="modal" data-i18n="modalClose">Fechar</button>
-        </div>
       </div>
     </div>
   </div>
@@ -1380,7 +1093,7 @@
     const I18N = {
       pt: {
         htmlLang: 'pt-BR',
-        docTitle: 'Calculadora PLR 2026 — SoftExpert',
+        docTitle: 'Calculadora PLR 2026',
         fullscreen: 'Abrir em tela cheia',
         fullscreenTitle: 'Abrir calculadora em tela cheia',
         title: '🏆 Calculadora de PLR 2026',
@@ -1390,7 +1103,7 @@
         salaryLabel: 'Salário Base',
         salaryHint: '(vigente 2026)',
         multLabel: 'Nº de Salários',
-        multHint: '(Pol. SE)',
+        multHint: '(Política PLR)',
         mesesLabel: 'Meses de Direito em 2026',
         mesesHint: '(Proporcionalidade)',
         mesesUnit: 'meses',
@@ -1401,8 +1114,6 @@
         antecHelper: 'Informe o valor bruto pago em setembro/2026. Este montante é abatido do prêmio total no fechamento em abril/2027.',
         redutorLabel: 'Colaborador de Business Unit',
         redutorHelper: 'Aplica redutor de 20% para colaboradores alocados fora do Brasil (CNPJ 00.449.824/0001-43) com metas da unidade não atingidas.',
-        verClausulaBtn: 'Ver Cláusula',
-        verClausulaTitle: 'Consultar detalhes da cláusula e metas das Business Units',
         redutorActiveText: 'Redutor de 20% aplicado sobre o potencial de salários antes da apuração das metas (Item 6.1).',
         redutorBadge: '−20% Redutor BU',
         modalClausulaTitle: 'Cláusula de Business Units — Redutor de Metas',
@@ -1451,14 +1162,13 @@
         saldoWarn: 'O prêmio estimado é menor que a antecipação já recebida. Nenhum saldo adicional será pago em abril/2027.',
         footerNote: 'Valores estimados em termos brutos · Sujeito à apuração final auditada e fechamento contábil.',
         curNote: 'Entradas em Reais (R$). Conversão de moeda apenas ilustrativa, com taxas aproximadas.',
-        footerLink: 'Consultar Regulamento DE064.PT — SoftExpert Software S.A. · Exercício 2026',
         formula: '📐 <strong>Cálculo:</strong> {sal} × {mult} sal. × <strong>{meses}</strong> × {score}% atingimento = <strong>{premio}</strong> (Saldo a pagar: <strong>{saldo}</strong>)',
         formulaRedutor: '📐 <strong>Cálculo:</strong> {sal} × {mult} sal. × <strong>80% (redutor −20% BU)</strong> × <strong>{meses}</strong> × {score}% ating. = <strong>{premio}</strong> (Saldo a pagar: <strong>{saldo}</strong>)',
         salText: 'sal.'
       },
       en: {
         htmlLang: 'en',
-        docTitle: 'PLR 2026 Calculator — SoftExpert',
+        docTitle: 'PLR 2026 Calculator',
         fullscreen: 'Open fullscreen',
         fullscreenTitle: 'Open calculator in fullscreen',
         title: '🏆 PLR 2026 Calculator',
@@ -1468,7 +1178,7 @@
         salaryLabel: 'Base Salary',
         salaryHint: '(2026 in effect)',
         multLabel: 'No. of Salaries',
-        multHint: '(SE Policy)',
+        multHint: '(PLR policy)',
         mesesLabel: 'Eligible Months in 2026',
         mesesHint: '(Proportionality)',
         mesesUnit: 'months',
@@ -1479,8 +1189,6 @@
         antecHelper: 'Enter the gross amount paid in September/2026. This amount is deducted from the total award at the April/2027 closing.',
         redutorLabel: 'Business Unit employee',
         redutorHelper: 'Applies a 20% reduction to employees allocated outside Brazil (CNPJ 00.449.824/0001-43) when unit targets are not reached.',
-        verClausulaBtn: 'View Clause',
-        verClausulaTitle: 'View clause details and Business Units targets',
         redutorActiveText: '20% reduction applied to base salary multiple before goal scoring (Item 6.1).',
         redutorBadge: '−20% BU Reduction',
         modalClausulaTitle: 'Business Units Clause — Goal Reduction',
@@ -1529,14 +1237,13 @@
         saldoWarn: 'The estimated award is lower than the advance already received. No additional balance will be paid in April/2027.',
         footerNote: 'Values estimated in gross terms · Subject to final audited calculation and accounting closing.',
         curNote: 'Inputs are in Brazilian Reais (R$). Currency conversion is illustrative only, using approximate rates.',
-        footerLink: 'View Regulation DE064.PT — SoftExpert Software S.A. · Fiscal Year 2026',
         formula: '📐 <strong>Calculation:</strong> {sal} × {mult} sal. × <strong>{meses}</strong> × {score}% achievement = <strong>{premio}</strong> (Balance due: <strong>{saldo}</strong>)',
         formulaRedutor: '📐 <strong>Calculation:</strong> {sal} × {mult} sal. × <strong>80% (BU −20% reduction)</strong> × <strong>{meses}</strong> × {score}% achiev. = <strong>{premio}</strong> (Balance due: <strong>{saldo}</strong>)',
         salText: 'sal.'
       },
       es: {
         htmlLang: 'es',
-        docTitle: 'Calculadora PLR 2026 — SoftExpert',
+        docTitle: 'Calculadora PLR 2026',
         fullscreen: 'Abrir en pantalla completa',
         fullscreenTitle: 'Abrir la calculadora en pantalla completa',
         title: '🏆 Calculadora de PLR 2026',
@@ -1546,7 +1253,7 @@
         salaryLabel: 'Salario Base',
         salaryHint: '(vigente 2026)',
         multLabel: 'N.º de Salarios',
-        multHint: '(Pol. SE)',
+        multHint: '(Política PLR)',
         mesesLabel: 'Meses con Derecho en 2026',
         mesesHint: '(Proporcionalidad)',
         mesesUnit: 'meses',
@@ -1557,8 +1264,6 @@
         antecHelper: 'Ingrese el valor bruto pagado en septiembre/2026. Este monto se descuenta del premio total en el cierre de abril/2027.',
         redutorLabel: 'Colaborador de Business Unit',
         redutorHelper: 'Aplica reductor del 20% a colaboradores asignados fuera de Brasil (CNPJ 00.449.824/0001-43) con metas de la unidad no alcanzadas.',
-        verClausulaBtn: 'Ver Cláusula',
-        verClausulaTitle: 'Consultar detalles de la cláusula y metas de las Business Units',
         redutorActiveText: 'Reductor del 20% aplicado sobre el potencial de salarios antes de la liquidación de metas (Ítem 6.1).',
         redutorBadge: '−20% Reductor BU',
         modalClausulaTitle: 'Cláusula de Business Units — Reductor de Metas',
@@ -1607,7 +1312,6 @@
         saldoWarn: 'El premio estimado es menor que el anticipo ya recibido. No se pagará ningún saldo adicional en abril/2027.',
         footerNote: 'Valores estimados en términos brutos · Sujeto a la liquidación final auditada y cierre contable.',
         curNote: 'Las entradas están en Reales (R$). La conversión de moneda es solo ilustrativa, con tasas aproximadas.',
-        footerLink: 'Consultar Reglamento DE064.PT — SoftExpert Software S.A. · Ejercicio 2026',
         formula: '📐 <strong>Cálculo:</strong> {sal} × {mult} sal. × <strong>{meses}</strong> × {score}% logro = <strong>{premio}</strong> (Saldo a pagar: <strong>{saldo}</strong>)',
         formulaRedutor: '📐 <strong>Cálculo:</strong> {sal} × {mult} sal. × <strong>80% (reductor −20% BU)</strong> × <strong>{meses}</strong> × {score}% logro = <strong>{premio}</strong> (Saldo a pagar: <strong>{saldo}</strong>)',
         salText: 'sal.'
